@@ -52,12 +52,12 @@ function Form() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "/api/api/v1/db/data/v1/crack_sheets/auxiliar_teachers_follow_up",
+        "http://sheets.devcrackthecode.net/api/v1/db/data/v1/crack_sheets/auxiliar_teachers_follow_up",
         formData,
         {
           headers: {
             "Content-Type": "application/json",
-            "xc-auth": import.meta.env.VITE_NOCODB_KEY,
+            "xc-token": import.meta.env.VITE_NOCODB_KEY,
           },
         }
       );
