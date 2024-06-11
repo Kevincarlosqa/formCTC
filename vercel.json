@@ -1,4 +1,10 @@
 {
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "http://sheets.devcrackthecode.net/api/$1"
+    }
+  ],
   "headers": [
     {
       "source": "/(.*)",
@@ -11,4 +17,3 @@
     }
   ]
 }
-
