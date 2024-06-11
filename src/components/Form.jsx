@@ -52,7 +52,7 @@ function Form() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "/api/v1/db/data/v1/crack_sheets/auxiliar_teachers_follow_up",
+        "//sheets.devcrackthecode.net//api/v1/db/data/v1/crack_sheets/auxiliar_teachers_follow_up",
         formData,
         {
           headers: {
