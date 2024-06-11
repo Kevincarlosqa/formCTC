@@ -10,12 +10,12 @@ function App() {
         alt="Background"
         className="absolute inset-0 w-full h-full object-cover z-0"
       />
-      <div className="absolute inset-0 bg-black opacity-75 z-0 backdrop-filter"></div>
+      <div className="absolute inset-0 bg-black opacity-60 z-0 backdrop-filter"></div>
       <div className="relative z-10 p-4 sm:p-8 md:p-10 lg:p-12">
         <img
           src={logoCTC}
           alt="Logo"
-          className="mx-auto mb-4 sm:mb-6 md:mb-10 z-50 w-[100px] sm:w-[120px] md:w-[150px]"
+          className="mx-auto mb-4 sm:mb-6 md:mb-10 z-50 sm:w-[120px] md:w-[150px] xl:w-[200px]"
         />
         <div className="mx-auto ">
           <p className="text-white text-xl sm:text-2xl md:text-3xl font-bold text-center mb-4 sm:mb-6 md:mb-10">
