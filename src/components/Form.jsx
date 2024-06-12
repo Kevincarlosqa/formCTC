@@ -1,9 +1,12 @@
 import axios from "axios";
 import { useState } from "react";
+import RatingSelector from "./RatingSelector";
+import CheckboxGroup from "./CheckboxGroup";
+import RadioGroup from "./RadioGroup";
 
 // eslint-disable-next-line react/prop-types
 const InputField = ({ label, name, value, onChange, placeholder, example }) => (
-  <div className="mb-5 text-white">
+  <div className="mb-1 text-white">
     <label htmlFor={name} className="block mb-2 text-sm font-medium">
       {label}
     </label>
@@ -13,16 +16,33 @@ const InputField = ({ label, name, value, onChange, placeholder, example }) => (
       value={value}
       onChange={onChange}
       placeholder={placeholder}
-      className="shadow-sm bg-gray-900 border border-gray-600 text-sm rounded-lg block w-full p-2.5"
+      className="shadow-sm bg-black/40 border border-gray-600 text-sm rounded-lg block w-full p-2.5"
     />
     {example && <p className="text-[11px] px-2 pt-1">{example}</p>}
   </div>
 );
 
 function Form() {
+  // const [formData, setFormData] = useState({
+  //   auxiliar_teacher_name: "",
+  //   institution: "",
+  //   grade: "",
+  //   ctc_teacher_name: "",
+  //   instrucciones_ctc: "",
+  //   comodidad_estudiantes: "",
+  //   creatividad_ctc: "",
+  //   colaboracion: "",
+  //   problemas_tecnicos: "",
+  //   problemas_tecnicos_otro: "",
+  //   solucion_problemas_tecnicos: "",
+  //   mayor_gusto_ultimas_dos_semanas: "",
+  //   aspectos_mejora: "",
+  //   csat: "",
+  //   nps: "",
+  // });
   const [formData, setFormData] = useState({
-    auxiliar_teacher_name: "",
-    institution: "",
+    nombre_completo: "",
+    institucion_educativa: "",
     grade: "",
     ctc_teacher_name: "",
     instrucciones_ctc: "",
@@ -37,7 +57,6 @@ function Form() {
     csat: "",
     nps: "",
   });
-
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -71,6 +90,28 @@ function Form() {
       setErrorMessage("Error al enviar los datos. Inténtelo de nuevo.");
     }
   };
+  const checkboxOptions = [
+    { label: "Default state", value: "checkbox-1" },
+    { label: "Checked state", value: "checkbox-2", checked: true },
+  ];
+  const radioOptions = [
+    { label: "Option 1", value: "option1" },
+    { label: "Option 2", value: "option2" },
+    { label: "Option 3", value: "option3" },
+    { label: "Option 4", value: "option4" },
+    { label: "Option 5", value: "option5" },
+  ];
+  const genderOptions = [
+    { label: "Masculino", value: "Masculino" },
+    { label: "Femenino", value: "Femenino" },
+    { label: "Otro", value: "Otro" },
+    { label: "Prefiero no responder", value: "Prefiero no responder" },
+  ];
+  const gradeOptions = [
+    { label: "9", value: "9" },
+    { label: "10", value: "10" },
+    { label: "11", value: "11" },
+  ];
 
   return (
     <div
@@ -85,7 +126,7 @@ function Form() {
         </div>
       ) : (
         <form onSubmit={handleSubmit} className="flex flex-col gap-3">
-          <InputField
+          {/* <InputField
             label="Nombre y Apellido"
             name="auxiliar_teacher_name"
             value={formData.auxiliar_teacher_name}
@@ -192,8 +233,57 @@ function Form() {
             value={formData.nps}
             onChange={handleChange}
             placeholder="NPS"
+          /> */}
+          <InputField
+            label="¿Cuál es tu nombre completo?"
+            name="nombre_completo"
+            value={formData.auxiliar_teacher_name}
+            onChange={handleChange}
+            placeholder="Ejemplo. María Camila Pérez Luján"
           />
+          <RadioGroup
+            label="Indica tu género:"
+            options={genderOptions}
+            name="gender"
+          />
+          <InputField
+            label="Nombre de tu Institución Educativa"
+            name="institucion_educativa"
+            value={formData.auxiliar_teacher_name}
+            onChange={handleChange}
+            placeholder=""
+          />
+          <RadioGroup
+            label="¿Qué grado estás cursando en este momento?"
+            options={gradeOptions}
+            name="grade"
+          />
+          <div>
+            <label
+              htmlFor="countries"
+              className="block text-sm font-medium text-gray-900 dark:text-white mb-2"
+            >
+              Select an option
+            </label>
+            <select
+              id="countries"
+              className="border border-white  text-sm rounded-lg block w-full p-2.5 bg-[#1E2E3F] placeholder-blue-800 text-white"
+            >
+              <option value="" selected disabled hidden>
+                Elige un Pais
+              </option>
+              <option value="US">United States</option>
+              <option value="CA">Canada</option>
+              <option value="FR">France</option>
+              <option value="DE">Germany</option>
+            </select>
+          </div>
 
+          <RatingSelector count={10} label="Una pregunta Random" />
+          <CheckboxGroup
+            label="Select your options:"
+            options={checkboxOptions}
+          />
           <button
             type="submit"
             className="rounded-lg border-2 w-full sm:w-[100px] mx-auto mt-5 text-xl text-white p-2 hover:bg-gray-700 transition duration-300 ease-in-out"

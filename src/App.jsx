@@ -1,6 +1,6 @@
 import Form from "./components/Form";
 import logoCTC from "./images/logo_ctc.png";
-import background from "./images/fondoCTC.png";
+import background from "./images/ctc.png";
 
 function App() {
   return (
@@ -8,9 +8,9 @@ function App() {
       <img
         src={background}
         alt="Background"
-        className="absolute inset-0 w-full h-full object-cover z-0"
+        className="absolute inset-0 h-full w-full object-cover object-left z-0"
       />
-      <div className="absolute inset-0 bg-black opacity-60 z-0 backdrop-filter"></div>
+      <div className="absolute inset-0 bg-black opacity-50 z-0 backdrop-filter"></div>
       <div className="relative z-10 p-4 sm:p-8 md:p-10 lg:p-12">
         <img
           src={logoCTC}
@@ -19,10 +19,10 @@ function App() {
         />
         <div className="mx-auto ">
           <p className="text-white text-xl sm:text-2xl md:text-3xl font-bold text-center mb-4 sm:mb-6 md:mb-10">
-            Seguimiento Quincenal
+            Ingreso de Estudiates
           </p>
           <p className="text-white text-lg sm:text-xl md:text-2xl text-center mb-4 sm:mb-6 md:mb-10">
-            Encuesta de Seguimiento Quincenal
+            Encuesta de Ingreso de Estudiates
           </p>
           <Form />
           <img
