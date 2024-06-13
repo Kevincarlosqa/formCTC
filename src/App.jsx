@@ -16,7 +16,7 @@ function App() {
         <img
           src={logoCTC}
           alt="Logo"
-          className="mx-auto mb-4 mt-[-130px] sm:mb-10 md:mb-10 md:mt-[-100px] sm:mt-[-100px] z-50 sm:w-[400px] md:w-[400px] xl:w-[500px] overflow-hidden"
+          className="mx-auto mb-16 mt-[-100px] sm:mb-10 md:mb-10 md:mt-[-100px] sm:mt-[-100px] z-50 sm:w-[400px] md:w-[400px] xl:w-[500px] overflow-hidden"
           // style={{ marginTop: "-130px" }}
         />
         <div className="mx-auto relative  mt-[-150px] ">
