@@ -1,13 +1,10 @@
-import { useState } from "react";
 import PropTypes from "prop-types";
 import "./RadioGroup.css";
 
-const RadioGroup = ({ label, options, name }) => {
-  const [selectedItem, setSelectedItem] = useState(null);
-
+const RadioGroup = ({ label, options, name, selectedValue, onChange }) => {
   const handleRadioChange = (event) => {
     const { value } = event.target;
-    setSelectedItem(value);
+    onChange(name, value); // Utiliza el nombre completo para identificar el grupo
   };
 
   return (
@@ -19,21 +16,21 @@ const RadioGroup = ({ label, options, name }) => {
         <div
           key={option.value}
           className={`flex items-center ps-4 border border-white rounded-3xl mb-2 ${
-            selectedItem === option.value ? "bg-black/40" : "bg-transparent"
+            selectedValue === option.value ? "bg-black/40" : "bg-transparent"
           }`}
         >
           <input
-            id={option.value}
+            id={`${name}-${option.value}`} // Usa un identificador único para cada opción
             type="radio"
             name={name}
             value={option.value}
-            checked={selectedItem === option.value}
+            checked={selectedValue === option.value}
             onChange={handleRadioChange}
             className="custom-radio w-4 h-4 text-blue-600 bg-transparent border-white rounded focus:ring-blue-500"
           />
           <label
-            htmlFor={option.value}
-            className="w-full py-2 ms-2 text-sm font-medium"
+            htmlFor={`${name}-${option.value}`}
+            className="w-full py-2 ms-2 text-sm font-medium cursor-pointer"
           >
             {option.label}
           </label>
@@ -52,6 +49,8 @@ RadioGroup.propTypes = {
     })
   ).isRequired,
   name: PropTypes.string.isRequired,
+  selectedValue: PropTypes.string,
+  onChange: PropTypes.func.isRequired,
 };
 
 export default RadioGroup;
