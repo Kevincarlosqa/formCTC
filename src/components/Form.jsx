@@ -135,11 +135,12 @@ function Form() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://sheets.devcrackthecode.net/api/v2/tables/EstudiantesIngresoBarranquilla/records",
+        "http://sheets.devcrackthecode.net/api/v1/db/data/v1/crack_sheets/EstudiantesIngresoBarranquilla",
         formData,
         {
           headers: {
-            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            Accepts: "application/json",
             "xc-token": import.meta.env.VITE_NOCODB_KEY,
           },
         }
