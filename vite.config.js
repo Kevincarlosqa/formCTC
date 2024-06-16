@@ -15,13 +15,13 @@ export default defineConfig({
     },
   }),
 ],
-  server: {
-    proxy: {
-      "/api": {
-        target: 'http://sheets.devcrackthecode.net',
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, '/')
-      }
-    }
-  }
+  // server: {
+  //   proxy: {
+  //     "/api": {
+  //       target: 'http://sheets.devcrackthecode.net',
+  //       changeOrigin: true,
+  //       rewrite: (path) => path.replace(/^\/api/, '/')
+  //     }
+  //   }
+  // }
 })
