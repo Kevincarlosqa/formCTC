@@ -135,7 +135,7 @@ function Form() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "//sheets.devcrackthecode.net/api/v1/db/data/v1/crack_sheets/EstudiantesIngresoBarranquilla",
+        "http://sheets.devcrackthecode.net/api/v1/db/data/v1/crack_sheets/EstudiantesIngresoBarranquilla",
         formData,
         {
           headers: {
