@@ -4,24 +4,24 @@ import { createHtmlPlugin } from 'vite-plugin-html';
 
 export default defineConfig({
   plugins: [react()
-    , 
-    createHtmlPlugin({
-    inject: {
-      injectData: {
-        head: `
-          <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
-        `,
-      },
-    },
-  }),
+  //   , 
+  //   createHtmlPlugin({
+  //   inject: {
+  //     injectData: {
+  //       head: `
+  //         <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  //       `,
+  //     },
+  //   },
+  // }),
 ],
-  // server: {
-  //   proxy: {
-  //     "/api": {
-  //       target: 'http://sheets.devcrackthecode.net',
-  //       changeOrigin: true,
-  //       rewrite: (path) => path.replace(/^\/api/, '/')
-  //     }
-  //   }
-  // }
+  server: {
+    proxy: {
+      "/api": {
+        target: 'http://sheets.devcrackthecode.net',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, '/')
+      }
+    }
+  }
 })
