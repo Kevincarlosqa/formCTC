@@ -16,16 +16,16 @@ function App() {
         <img
           src={logoCTC}
           alt="Logo"
-          className="mx-auto mb-16 mt-[-100px] sm:mb-10 md:mb-10 md:mt-[-100px] sm:mt-[-100px] z-50 sm:w-[400px] md:w-[400px] xl:w-[500px] overflow-hidden"
+          className="mx-auto mb-16 mt-[-100px] sm:mb-10 md:mb-10 md:mt-[-100px] sm:mt-[-100px] z-50 sm:w-[400px] md:w-[400px] xl:w-[450px] xl:mt-[-150px] overflow-hidden"
           // style={{ marginTop: "-130px" }}
         />
         <div className="mx-auto relative  mt-[-150px] ">
           <p className="text-white text-xl sm:text-2xl md:text-3xl font-bold text-center mb-4 sm:mb-6 md:mb-10">
             Ingreso de Estudiantes
           </p>
-          <p className="text-white text-lg sm:text-xl md:text-2xl text-center mb-4 sm:mb-6 md:mb-10">
+          {/* <p className="text-white text-lg sm:text-xl md:text-2xl text-center mb-4 sm:mb-6 md:mb-10">
             Encuesta de Ingreso de Estudiantes
-          </p>
+          </p> */}
           <Form />
           <img
             src={logo}

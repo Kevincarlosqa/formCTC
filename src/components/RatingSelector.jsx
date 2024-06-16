@@ -14,7 +14,7 @@ const RatingSelector = ({ start, end, label, colorType }) => {
     const colors = [];
     if (type === "default") {
       for (let i = 0; i < num; i++) {
-        colors.push("rgba(255, 255, 255, 0.8)"); // Color blanco pastel
+        colors.push("rgba(255, 255, 255, 0.4)"); // Color blanco pastel
       }
     } else if (type === "gradient") {
       for (let i = 0; i < num; i++) {
@@ -27,13 +27,13 @@ const RatingSelector = ({ start, end, label, colorType }) => {
       const yellowCount = Math.round(num * 0.2);
       const redCount = num - greenCount - yellowCount;
       for (let i = 0; i < greenCount; i++) {
-        colors.push("rgba(144, 238, 144, 0.6)"); // Pastel green
+        colors.push("rgba(255, 99, 71, 0.9)"); // rojo pastel más vivo
       }
       for (let i = 0; i < yellowCount; i++) {
-        colors.push("rgba(255, 255, 102, 0.6)"); // Pastel yellow
+        colors.push("rgba(255, 255, 102, 0.9)"); // amarillo pastel más vivo
       }
       for (let i = 0; i < redCount; i++) {
-        colors.push("rgba(255, 99, 71, 0.6)"); // Pastel red
+        colors.push("rgba(144, 238, 144, 0.9)"); // verde pastel más vivo
       }
     }
     return colors;
