@@ -23,9 +23,14 @@ function App() {
           <p className="text-white text-xl sm:text-2xl md:text-3xl font-bold text-center mb-4 sm:mb-6 md:mb-10">
             Ingreso de Estudiantes Barranquilla 📝
           </p>
-          {/* <p className="text-white text-lg sm:text-xl md:text-2xl text-center mb-4 sm:mb-6 md:mb-10">
-            Encuesta de Ingreso de Estudiantes
-          </p> */}
+          <p className="text-white text-lg sm:text-xl md:text-sm text-center mb-4 sm:mb-6 md:mb-10 w-[600px] mx-auto">
+            ¡Hola! Este cuestionario nos permitirá obtener información para
+            conocerte un poco más, entender mejor tus intereses, preparación y
+            metas para el futuro, ya sea continuar con tu educación o ingresar
+            al mercado laboral. Tus respuestas son importantes y confidenciales;
+            por eso, te invitamos a leer con calma, contestar de manera honesta
+            y a consultarle a tu profesor o profesora si tienes alguna pregunta.
+          </p>
           <Form />
           <img
             src={logo}

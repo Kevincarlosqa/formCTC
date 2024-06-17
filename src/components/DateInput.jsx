@@ -87,11 +87,6 @@ const DateInput = ({
       />
       <input type="hidden" name={name} value={value} />
       {example && <p className="text-[11px] px-2 pt-1">{example}</p>}
-      {!isOptional && !value && (
-        <p className="text-red-500 text-[11px] px-2 pt-1">
-          Este campo es requerido
-        </p>
-      )}
       {error && <p className="text-red-500 text-[11px] px-2 pt-1">{error}</p>}
     </div>
   );

@@ -102,6 +102,7 @@ function Form() {
     influencia_familiar_trabajo: "",
     motivacion_profesores_metas_vida: "",
     motivacion_profesores_emprender: "",
+    projectId: 15,
   });
   const [currentPage, setCurrentPage] = useState(0);
   const [successMessage, setSuccessMessage] = useState("");
@@ -156,7 +157,7 @@ function Form() {
       );
       console.log(response.data);
       setSuccessMessage(
-        `Gracias ${formData.nombre_completo} por completar la encuesta de ingreso de estudiantes.`
+        `¡Gracias ${formData.nombre_completo} por tus respuestas, nos ayudarán a entender cómo podemos ser de mejor ayuda en este proceso de aprendizaje!`
       );
       setErrorMessage("");
     } catch (error) {
@@ -172,6 +173,21 @@ function Form() {
     { label: "Tio o Tia", value: "Tio o Tia" },
     { label: "Otro Familiar", value: "Otro Familiar" },
     { label: "Prefiero no Responder", value: "Prefiero no Responder" },
+  ];
+  const institucionOptions = [
+    { label: "Villas de San Pablo", value: "Villas de San Pablo" },
+    {
+      label: "Escuela Normal Superior del Distrito",
+      value: "Escuela Normal Superior del Distrito",
+    },
+    { label: "Juan José Rondón", value: "Juan José Rondón" },
+    {
+      label: "Escuela Normal Superior La Hacienda",
+      value: "Escuela Normal Superior La Hacienda",
+    },
+    { label: "Marie Poussepin", value: "Marie Poussepin" },
+    { label: "Fundación Pies Descalzos", value: "Fundación Pies Descalzos" },
+    { label: "Comunitaria Metropolitana", value: "Comunitaria Metropolitana" },
   ];
   const genderOptions = [
     { label: "Masculino", value: "Masculino" },
@@ -221,7 +237,7 @@ function Form() {
     { value: "Mestizo", label: "Mestizo" },
     { value: "Raizal", label: "Raizal" },
     { value: "Blanco", label: "Blanco" },
-    { value: "Ninguno", label: "Ninguno" },
+    { value: "Otro", label: "Otro" },
   ];
   const dificultadesOptions = [
     {
@@ -586,22 +602,22 @@ function Form() {
     { value: "Otros no listados", label: "Otros no listados" },
   ];
   const fuentes_informacion_educativa_laboralOptions = [
-    { value: "Profesores y/o docentes.", label: "Profesores y/o docentes." },
+    { value: "Profesores y/o docentes", label: "Profesores y/o docentes" },
     {
-      value: "Orientadores, trabajadores sociales y/o psicólogos.",
-      label: "Orientadores, trabajadores sociales y/o psicólogos.",
+      value: "Orientadores u trabajadores sociales y/o psicólogos",
+      label: "Orientadores, trabajadores sociales y/o psicólogos",
     },
-    { value: "Internet.", label: "Internet." },
-    { value: "Redes sociales.", label: "Redes sociales." },
-    { value: "Amistades.", label: "Amistades." },
-    { value: "Familiares.", label: "Familiares." },
-    { value: "Televisión.", label: "Televisión." },
-    { value: "Radio.", label: "Radio." },
+    { value: "Internet", label: "Internet" },
+    { value: "Redes sociales", label: "Redes sociales" },
+    { value: "Amistades", label: "Amistades" },
+    { value: "Familiares", label: "Familiares" },
+    { value: "Televisión", label: "Televisión" },
+    { value: "Radio", label: "Radio" },
     {
-      value: "Periódicos o revistas impresas.",
-      label: "Periódicos o revistas impresas.",
+      value: "Periódicos o revistas impresas",
+      label: "Periódicos o revistas impresas",
     },
-    { value: "Otros.", label: "Otros." },
+    { value: "Otros", label: "Otros" },
   ];
   const estrategia_de_aprendizajeOptions = [
     {
@@ -732,7 +748,7 @@ function Form() {
     },
     {
       value:
-        "Responder una prueba de intereses (profesionales, vocacionales u ocupacionales).",
+        "Responder una prueba de intereses (profesionales y vocacionales u ocupacionales).",
       label:
         "3. Responder una prueba de intereses (profesionales, vocacionales u ocupacionales).",
     },
@@ -778,7 +794,7 @@ function Form() {
       label: "Planeo estudiar y/o trabajar fuera del país.",
     },
     {
-      value: "Planeo tomar un año de no trabajar, ni estudiar.",
+      value: "Planeo tomar un año de no trabajar ni estudiar.",
       label: "Planeo tomar un año de no trabajar, ni estudiar.",
     },
     {
@@ -809,14 +825,16 @@ function Form() {
         onChange={handleChange}
         error={errors.genero}
       />,
-      <InputField
+      <Select
         key="institucion_educativa"
         label="Nombre de tu Institución Educativa"
         name="institucion_educativa"
+        options={institucionOptions}
         value={formData.institucion_educativa}
         onChange={handleChange}
         placeholder="Ingrese el Nombre de su Institución Educativa"
         error={errors.institucion_educativa}
+        isOptional={false}
       />,
       <RadioGroup
         key="grade"
@@ -889,7 +907,7 @@ function Form() {
         value={formData.numero_documento}
         onChange={handleChange}
         placeholder="Ingrese su Número de documento de identidad"
-        type="number"
+        error={errors.numero_documento}
       />,
       <DateInput
         key="fecha_nacimiento"
@@ -907,6 +925,7 @@ function Form() {
         name="identidad_cultural"
         selectedValue={formData.identidad_cultural}
         onChange={handleChange}
+        error={errors.identidad_cultural}
       />,
       <RadioGroup
         label="Indica si presentas alguna de las siguientes dificultades:"
@@ -914,6 +933,7 @@ function Form() {
         name="dificultades"
         selectedValue={formData.dificultades}
         onChange={handleChange}
+        error={errors.dificultades}
       />,
       <RadioGroup
         label="¿Sabes cuál es el nivel educativo más alto entre las personas que viven contigo?"
@@ -921,6 +941,7 @@ function Form() {
         name="nivel_educativo_hogar"
         selectedValue={formData.nivel_educativo_hogar}
         onChange={handleChange}
+        error={errors.nivel_educativo_hogar}
       />,
     ],
     [
@@ -930,6 +951,7 @@ function Form() {
         name="celular_inteligente"
         selectedValue={formData.celular_inteligente}
         onChange={handleChange}
+        error={errors.celular_inteligente}
       />,
       <RadioGroup
         label="La línea telefónica de este celular es..."
@@ -937,6 +959,7 @@ function Form() {
         name="linea_celular"
         selectedValue={formData.linea_celular}
         onChange={handleChange}
+        error={errors.linea_celular}
       />,
       <RadioGroup
         label="¿En tu hogar hay un computador para tu uso?"
@@ -944,6 +967,7 @@ function Form() {
         name="computador_hogar"
         selectedValue={formData.computador_hogar}
         onChange={handleChange}
+        error={errors.computador_hogar}
       />,
       <RadioGroup
         label="¿De qué forma te conectas a internet desde tu hogar?"
@@ -951,6 +975,7 @@ function Form() {
         name="conexion_internet"
         selectedValue={formData.conexion_internet}
         onChange={handleChange}
+        error={errors.conexion_internet}
       />,
       <RadioGroup
         label="¿Qué tanto consideras que la tecnología facilita las actividades de tu vida diaria?"
@@ -958,6 +983,7 @@ function Form() {
         name="tecnologia_vida_diaria"
         selectedValue={formData.tecnologia_vida_diaria}
         onChange={handleChange}
+        error={errors.tecnologia_vida_diaria}
       />,
       <RadioGroup
         label="¿Qué tan importantes son las habilidades digitales para tu desarrollo personal?"
@@ -965,6 +991,7 @@ function Form() {
         name="importancia_habilidades_digitales"
         selectedValue={formData.importancia_habilidades_digitales}
         onChange={handleChange}
+        error={errors.importancia_habilidades_digitales}
       />,
       <RadioGroup
         label="¿Crees que la tecnología es una herramienta importante para tu aprendizaje?"
@@ -972,6 +999,7 @@ function Form() {
         name="tecnologia_aprendizaje"
         selectedValue={formData.tecnologia_aprendizaje}
         onChange={handleChange}
+        error={errors.tecnologia_aprendizaje}
       />,
     ],
     [
@@ -981,6 +1009,7 @@ function Form() {
         name="confianza_ia_academico"
         selectedValue={formData.confianza_ia_academico}
         onChange={handleChange}
+        error={errors.confianza_ia_academico}
       />,
       <RadioGroup
         label="¿Cuánta confianza tienes en tus habilidades para utilizar inteligencia artificial o análisis de datos y resolver actividades en tu vida personal?"
@@ -988,6 +1017,7 @@ function Form() {
         name="confianza_ia_personal"
         selectedValue={formData.confianza_ia_personal}
         onChange={handleChange}
+        error={errors.confianza_ia_personal}
       />,
       <RadioGroup
         label="Cuánto es 8+8"
@@ -1002,6 +1032,7 @@ function Form() {
         name="trabajo_casa"
         selectedValue={formData.trabajo_casa}
         onChange={handleChange}
+        error={errors.trabajo_casa}
       />,
       <RadioGroup
         label="¿Tienes la responsabilidad de cuidar o supervisar a otras personas en tu casa? (Por ejemplo: ayudándolas con actividades como alimentación y vestimenta)"
@@ -1009,6 +1040,7 @@ function Form() {
         name="cuidado_personas_casa"
         selectedValue={formData.cuidado_personas_casa}
         onChange={handleChange}
+        error={errors.cuidado_personas_casa}
       />,
       <Select
         key="ocupacion_responsable_hogar"
@@ -1029,6 +1061,7 @@ function Form() {
         name="liderazgo_comunidad"
         selectedValue={formData.liderazgo_comunidad}
         onChange={handleChange}
+        error={errors.liderazgo_comunidad}
       />,
       <RadioGroup
         label="¿Qué tan motivado te sientes para desarrollar proyectos relacionados con la tecnología en tu comunidad, incluyendo a padres, madres, docentes, directivos y compañeros de otros grados?"
@@ -1036,6 +1069,7 @@ function Form() {
         name="motivacion_proyectos_tecnologicos"
         selectedValue={formData.motivacion_proyectos_tecnologicos}
         onChange={handleChange}
+        error={errors.motivacion_proyectos_tecnologicos}
       />,
       <InputField
         label="¿Para qué sirve la Inteligencia artificial? Explica todo lo que sabes"
@@ -1043,6 +1077,7 @@ function Form() {
         value={formData.funcion_ia}
         onChange={handleChange}
         placeholder="Ingrese una respuesta"
+        error={errors.funcion_ia}
       />,
       <CheckboxGroup
         label="Selecciona las opciones correctas relacionadas con el uso de la Inteligencia Artificial (IA)"
@@ -1110,6 +1145,7 @@ function Form() {
         name="frecuencia_uso_excel"
         selectedValue={formData.frecuencia_uso_excel}
         onChange={handleChange}
+        error={errors.frecuencia_uso_excel}
       />,
       <CheckboxGroup
         label="En Excel, ¿qué funciones has utilizado y qué tareas has realizado? Selecciona todas las opciones que apliquen:"
@@ -1138,6 +1174,7 @@ function Form() {
         name="buscar_programas_educativos"
         selectedValue={formData.buscar_programas_educativos}
         onChange={handleChange}
+        error={errors.buscar_programas_educativos}
       />,
       <RadioGroup
         label="Reconozco las entidades en las que podría realizar los estudios de mi interés."
@@ -1145,6 +1182,7 @@ function Form() {
         name="reconocimiento_entidades_educativas"
         selectedValue={formData.reconocimiento_entidades_educativas}
         onChange={handleChange}
+        error={errors.reconocimiento_entidades_educativas}
       />,
     ],
     [
@@ -1168,6 +1206,7 @@ function Form() {
         name="informacion_programas_superiores"
         selectedValue={formData.informacion_programas_superiores}
         onChange={handleChange}
+        error={errors.informacion_programas_superiores}
       />,
       <InputField
         label="Cuánto es 3X7"
@@ -1183,6 +1222,7 @@ function Form() {
         name="conocimiento_gustos_intereses"
         selectedValue={formData.conocimiento_gustos_intereses}
         onChange={handleChange}
+        error={errors.conocimiento_gustos_intereses}
       />,
       <RadioGroup
         label="Tengo claro cómo hacer una hoja de vida."
@@ -1190,6 +1230,7 @@ function Form() {
         name="como_hacer_hoja_de_vida"
         selectedValue={formData.como_hacer_hoja_de_vida}
         onChange={handleChange}
+        error={errors.como_hacer_hoja_de_vida}
       />,
       <RadioGroup
         label="Reconozco las empresas, organizaciones o entidades en las que podría trabajar según mi interés."
@@ -1197,6 +1238,7 @@ function Form() {
         name="reconocimiento_empresas_para_trabajar"
         selectedValue={formData.reconocimiento_empresas_para_trabajar}
         onChange={handleChange}
+        error={errors.reconocimiento_empresas_para_trabajar}
       />,
     ],
     [
@@ -1206,6 +1248,7 @@ function Form() {
         name="conocimiento_condiciones_laborales"
         selectedValue={formData.conocimiento_condiciones_laborales}
         onChange={handleChange}
+        error={errors.conocimiento_condiciones_laborales}
       />,
       <RadioGroup
         label="Conozco el salario promedio de las diferentes profesiones o trabajos de mi interés."
@@ -1213,6 +1256,7 @@ function Form() {
         name="conocimiento_salarios_promedio"
         selectedValue={formData.conocimiento_salarios_promedio}
         onChange={handleChange}
+        error={errors.conocimiento_salarios_promedio}
       />,
       <RadioGroup
         label="He identificado sitios existentes que me pueden ayudar en la búsqueda de trabajo (Bolsas de empleos, paginas para encontrar empleos, etc.)"
@@ -1220,6 +1264,7 @@ function Form() {
         name="sitios_busqueda_trabajo"
         selectedValue={formData.sitios_busqueda_trabajo}
         onChange={handleChange}
+        error={errors.sitios_busqueda_trabajo}
       />,
       <InputField
         label="Si conoces bolsas de trabajo o páginas para encontrar empleos, menciona cuáles aquí:"
@@ -1235,6 +1280,7 @@ function Form() {
         name="buscar_ofertas_laborales"
         selectedValue={formData.buscar_ofertas_laborales}
         onChange={handleChange}
+        error={errors.buscar_ofertas_laborales}
       />,
       <RadioGroup
         label="He recolectado información sobre las oportunidades laborales que pueden abrirse si continuo mis estudios."
@@ -1242,6 +1288,7 @@ function Form() {
         name="informacion_oportunidades_laborales"
         selectedValue={formData.informacion_oportunidades_laborales}
         onChange={handleChange}
+        error={errors.informacion_oportunidades_laborales}
       />,
     ],
     [
@@ -1251,6 +1298,7 @@ function Form() {
         name="habilidades_necesarias_trabajo"
         selectedValue={formData.habilidades_necesarias_trabajo}
         onChange={handleChange}
+        error={errors.habilidades_necesarias_trabajo}
       />,
       <RadioGroup
         label="De los siguientes grupos temáticos ¿en cuál clasificarías tus principales intereses para seguir estudiando y/o trabajando al graduarte?"
@@ -1258,6 +1306,7 @@ function Form() {
         name="temas_de_interes"
         selectedValue={formData.temas_de_interes}
         onChange={handleChange}
+        error={errors.temas_de_interes}
       />,
       <CheckboxGroup
         label="Selecciona tus 3 principales fuentes de información para conocer sobre programas educativos, trabajo y/o proyecto de vida:"
@@ -1289,6 +1338,7 @@ function Form() {
         name="analisis_de_opciones"
         selectedValue={formData.analisis_de_opciones}
         onChange={handleChange}
+        error={errors.analisis_de_opciones}
       />,
       <RadioGroup
         label="Pido apoyo ante decisiones que me son difíciles."
@@ -1296,6 +1346,7 @@ function Form() {
         name="solicitud_de_apoyo"
         selectedValue={formData.solicitud_de_apoyo}
         onChange={handleChange}
+        error={errors.solicitud_de_apoyo}
       />,
       <RadioGroup
         label="Cuando te enfrentas a un tema difícil de entender, ¿qué estrategia utilizas para aprenderlo?"
@@ -1303,6 +1354,7 @@ function Form() {
         name="estrategia_de_aprendizaje"
         selectedValue={formData.estrategia_de_aprendizaje}
         onChange={handleChange}
+        error={errors.estrategia_de_aprendizaje}
       />,
       <RadioGroup
         label="Cómo organizas usualmente tus tareas y proyectos escolares?"
@@ -1310,6 +1362,7 @@ function Form() {
         name="organizacion_de_tareas"
         selectedValue={formData.organizacion_de_tareas}
         onChange={handleChange}
+        error={errors.organizacion_de_tareas}
       />,
       <RadioGroup
         label="Tengo disposición por aprender nuevas habilidades y conocimientos que sean relevantes para mi futura carrera."
@@ -1317,6 +1370,7 @@ function Form() {
         name="disposicion_para_aprender"
         selectedValue={formData.disposicion_para_aprender}
         onChange={handleChange}
+        error={errors.disposicion_para_aprender}
       />,
       <RadioGroup
         label="Sé cómo manejar las emociones que me genera tomar decisiones nuevas."
@@ -1324,6 +1378,7 @@ function Form() {
         name="manejo_de_emociones"
         selectedValue={formData.manejo_de_emociones}
         onChange={handleChange}
+        error={errors.manejo_de_emociones}
       />,
     ],
     [
@@ -1333,6 +1388,7 @@ function Form() {
         name="asegurar_comprension_equipo"
         selectedValue={formData.asegurar_comprension_equipo}
         onChange={handleChange}
+        error={errors.asegurar_comprension_equipo}
       />,
       <RadioGroup
         label="Si un miembro del equipo no está cumpliendo con sus tareas, ¿cómo actúas?"
@@ -1340,6 +1396,7 @@ function Form() {
         name="manejo_de_incumplimiento"
         selectedValue={formData.manejo_de_incumplimiento}
         onChange={handleChange}
+        error={errors.manejo_de_incumplimiento}
       />,
       <RadioGroup
         label="Cuánto es 45+136"
@@ -1354,12 +1411,13 @@ function Form() {
         name="educacion_superior_vida_exitosa"
         selectedValue={formData.educacion_superior_vida_exitosa}
         onChange={handleChange}
+        error={errors.educacion_superior_vida_exitosa}
       />,
       <RatingSelector
         start={0}
         end={10}
         label="En una escala de 0 a 10, siendo 0 nada de interés y 10 demasiado interés, ¿Cuánto es tu interés para continuar estudiando inmediatamente después de graduarte del bachillerato?"
-        colorType="gradient"
+        colorType="default"
         selectedValue={String(formData.interes_estudios_post_bachillerato || 0)}
         onChange={handleChange}
         error={errors.interes_estudios_post_bachillerato}
@@ -1385,6 +1443,7 @@ function Form() {
         name="motivo_abandonar_estudios"
         selectedValue={formData.motivo_abandonar_estudios}
         onChange={handleChange}
+        error={errors.motivo_abandonar_estudios}
       />,
     ],
     [
@@ -1430,6 +1489,7 @@ function Form() {
         name="apoyo_familiar_continuar_estudios"
         selectedValue={formData.apoyo_familiar_continuar_estudios}
         onChange={handleChange}
+        error={errors.apoyo_familiar_continuar_estudios}
       />,
       <RadioGroup
         label="Mi familia me apoyaría económicamente para continuar estudiando al graduarme."
@@ -1437,6 +1497,7 @@ function Form() {
         name="apoyo_economico_familiar"
         selectedValue={formData.apoyo_economico_familiar}
         onChange={handleChange}
+        error={errors.apoyo_economico_familiar}
       />,
       <RadioGroup
         label="Mi familia me dice que programa educativo debo estudiar al graduarme."
@@ -1444,6 +1505,7 @@ function Form() {
         name="influencia_familiar_estudios"
         selectedValue={formData.influencia_familiar_estudios}
         onChange={handleChange}
+        error={errors.influencia_familiar_estudios}
       />,
       <RadioGroup
         label="Mis profesores me ayudan a reconocer para qué tengo habilidad."
@@ -1451,6 +1513,7 @@ function Form() {
         name="ayuda_profesores_reconocimiento_habilidades"
         selectedValue={formData.ayuda_profesores_reconocimiento_habilidades}
         onChange={handleChange}
+        error={errors.ayuda_profesores_reconocimiento_habilidades}
       />,
     ],
     [
@@ -1460,6 +1523,7 @@ function Form() {
         name="actividades_profesores_decisiones_futuras"
         selectedValue={formData.actividades_profesores_decisiones_futuras}
         onChange={handleChange}
+        error={errors.actividades_profesores_decisiones_futuras}
       />,
       <RatingSelector
         start={0}
@@ -1478,6 +1542,7 @@ function Form() {
         name="capacidad_afrontar_desafios_laborales"
         selectedValue={formData.capacidad_afrontar_desafios_laborales}
         onChange={handleChange}
+        error={errors.capacidad_afrontar_desafios_laborales}
       />,
       <CheckboxGroup
         label="Marca las actividades que hayas realizado en el último año:"
@@ -1524,6 +1589,7 @@ function Form() {
         name="apoyo_familiar_metas_profesionales"
         selectedValue={formData.apoyo_familiar_metas_profesionales}
         onChange={handleChange}
+        error={errors.apoyo_familiar_metas_profesionales}
       />,
       <RadioGroup
         label="Mi familia me ayuda a buscar información de trabajos que me gustaría realizar."
@@ -1531,6 +1597,7 @@ function Form() {
         name="ayuda_familiar_busqueda_trabajo"
         selectedValue={formData.ayuda_familiar_busqueda_trabajo}
         onChange={handleChange}
+        error={errors.ayuda_familiar_busqueda_trabajo}
       />,
       <RadioGroup
         label="Mi familia me motiva y ayuda a pensar en mi futuro y plantear metas de vida."
@@ -1538,6 +1605,7 @@ function Form() {
         name="motivacion_familiar_metas_vida"
         selectedValue={formData.motivacion_familiar_metas_vida}
         onChange={handleChange}
+        error={errors.motivacion_familiar_metas_vida}
       />,
       <RadioGroup
         label="Mi familia me motiva a conseguir trabajo al graduarme."
@@ -1545,6 +1613,7 @@ function Form() {
         name="motivacion_familiar_conseguir_trabajo"
         selectedValue={formData.motivacion_familiar_conseguir_trabajo}
         onChange={handleChange}
+        error={errors.motivacion_familiar_conseguir_trabajo}
       />,
       <RadioGroup
         label="Mi familia me motiva a emprender."
@@ -1552,6 +1621,7 @@ function Form() {
         name="motivacion_familiar_emprender"
         selectedValue={formData.motivacion_familiar_emprender}
         onChange={handleChange}
+        error={errors.motivacion_familiar_emprender}
       />,
       <RadioGroup
         label="Mi familia me dice cuál trabajo debo realizar."
@@ -1559,6 +1629,7 @@ function Form() {
         name="influencia_familiar_trabajo"
         selectedValue={formData.influencia_familiar_trabajo}
         onChange={handleChange}
+        error={errors.influencia_familiar_trabajo}
       />,
       <RadioGroup
         label="Mis profesores me motivan a pensar en mi futuro y plantear metas de vida."
@@ -1566,6 +1637,7 @@ function Form() {
         name="motivacion_profesores_metas_vida"
         selectedValue={formData.motivacion_profesores_metas_vida}
         onChange={handleChange}
+        error={errors.motivacion_profesores_metas_vida}
       />,
       <RadioGroup
         label="Mis profesores me motivan a emprender."
@@ -1573,6 +1645,7 @@ function Form() {
         name="motivacion_profesores_emprender"
         selectedValue={formData.motivacion_profesores_emprender}
         onChange={handleChange}
+        error={errors.motivacion_profesores_emprender}
       />,
       // <RatingSelector
       //   start={1}
