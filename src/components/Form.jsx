@@ -122,16 +122,12 @@ function Form() {
   };
 
   const optionalFields = [
-    "dificultades",
-    "herramientas_ia_usadas",
-    "nombre_completo",
-    "interes_estudios_post_bachillerato",
-    "probabilidad_abandonar_estudios",
-    "motivo_abandonar_estudios",
-    "educacion_superior_vida_exitosa",
-    "suma_45_136",
-    "manejo_de_incumplimiento",
-    "asegurar_comprension_equipo",
+    "propietario_numero",
+    "detalle_herramientas_ia",
+    "otras_funciones_excel",
+    "detalle_bolsas_trabajo",
+    "detalle_fuentes_informacion",
+    "detalle_planes_futuros",
   ];
 
   const handleSubmit = async (e) => {
@@ -145,7 +141,9 @@ function Form() {
 
     try {
       const response = await axios.post(
-        "/api/v1/db/data/v1/crack_sheets/estudiantes_ingreso_barranquilla",
+        //DESCOMENTAR SOLO EL PRIMERO PARA PRODUCCION
+        "api/v1/db/data/v1/crack_sheets/estudiantes_ingreso_barranquilla",
+        // "http://localhost:8010/proxy",
         formData,
         {
           headers: {
@@ -158,7 +156,7 @@ function Form() {
       );
       console.log(response.data);
       setSuccessMessage(
-        `Gracias ${formData.nombre_completo} por completar la encuesta de seguimiento quincenal.`
+        `Gracias ${formData.nombre_completo} por completar la encuesta de ingreso de estudiantes.`
       );
       setErrorMessage("");
     } catch (error) {
@@ -411,9 +409,9 @@ function Form() {
     { value: "Formatear celdas", label: "Formatear celdas" },
     {
       value:
-        "Utilizado funciones para análisis de datos (por ejemplo, SUMA, PROMEDIO, BUSCARV)",
+        "Utilizado funciones para análisis de datos (por ejemplo: SUMA. PROMEDIO. BUSCARV)",
       label:
-        "Utilizado funciones para análisis de datos (por ejemplo, SUMA, PROMEDIO, BUSCARV)",
+        "Utilizado funciones para análisis de datos (por ejemplo: SUMA. PROMEDIO. BUSCARV)",
     },
     { value: "Ninguna de las anteriores", label: "Ninguna de las anteriores" },
     { value: "Otras", label: "Otras" },
@@ -818,7 +816,6 @@ function Form() {
         value={formData.institucion_educativa}
         onChange={handleChange}
         placeholder="Ingrese el Nombre de su Institución Educativa"
-        isOptional={true}
         error={errors.institucion_educativa}
       />,
       <RadioGroup
@@ -850,6 +847,7 @@ function Form() {
         placeholder="Ingrese su Correo electrónico personal"
         isOptional={false}
         error={errors.correo_personal}
+        type="email"
       />,
       <InputField
         key="celular"
@@ -860,6 +858,7 @@ function Form() {
         placeholder="Ingrese un Número de celular"
         isOptional={false}
         error={errors.celular}
+        type="number"
       />,
       <RadioGroup
         key="propietario_numero"
@@ -869,6 +868,7 @@ function Form() {
         selectedValue={formData.propietario_numero}
         onChange={handleChange}
         error={errors.propietario_numero}
+        isOptional={true}
       />,
     ],
     [
@@ -889,6 +889,7 @@ function Form() {
         value={formData.numero_documento}
         onChange={handleChange}
         placeholder="Ingrese su Número de documento de identidad"
+        type="number"
       />,
       <DateInput
         key="fecha_nacimiento"
@@ -1048,7 +1049,7 @@ function Form() {
         name="uso_correcto_ia"
         options={uso_correcto_iaOptions}
         selectedValues={
-          formData.uso_correcto_ia ? formData.uso_correcto_ia.split(", ") : []
+          formData.uso_correcto_ia ? formData.uso_correcto_ia.split(",") : []
         }
         onChange={handleChange}
         maxSelections={5} // Puedes ajustar esto según el máximo número de selecciones permitidas
@@ -1061,7 +1062,7 @@ function Form() {
         options={herramientas_ia_usadasOptions}
         selectedValues={
           formData.herramientas_ia_usadas
-            ? formData.herramientas_ia_usadas.split(", ")
+            ? formData.herramientas_ia_usadas.split(",")
             : []
         }
         onChange={handleChange}
@@ -1075,6 +1076,7 @@ function Form() {
         value={formData.detalle_herramientas_ia}
         onChange={handleChange}
         placeholder="Ingrese una respuesta"
+        isOptional={true}
       />,
       <InputField
         label="Describe un proyecto o tarea donde hayas utilizado Inteligencia Artificial."
@@ -1096,9 +1098,7 @@ function Form() {
         label="¿Para qué se puede usar Excel? Selecciona las respuestas correctas."
         name="uso_excel"
         options={uso_excelOptions}
-        selectedValues={
-          formData.uso_excel ? formData.uso_excel.split(", ") : []
-        }
+        selectedValues={formData.uso_excel ? formData.uso_excel.split(",") : []}
         onChange={handleChange}
         maxSelections={5} // Puedes ajustar esto según el máximo número de selecciones permitidas
         error={errors.uso_excel}
@@ -1117,13 +1117,12 @@ function Form() {
         options={funciones_tareas_excelOptions}
         selectedValues={
           formData.funciones_tareas_excel
-            ? formData.funciones_tareas_excel.split(", ")
+            ? formData.funciones_tareas_excel.split(",")
             : []
         }
         onChange={handleChange}
-        maxSelections={10} // Puedes ajustar esto según el máximo número de selecciones permitidas
+        maxSelections={6} // Puedes ajustar esto según el máximo número de selecciones permitidas
         error={errors.funciones_tareas_excel}
-        isOptional={true} // O false si este campo no es opcional
       />,
       <InputField
         label="Si marcaste otras, por favor, especifíca:"
@@ -1131,6 +1130,7 @@ function Form() {
         value={formData.otras_funciones_excel}
         onChange={handleChange}
         placeholder="Ingrese una respuesta"
+        isOptional={true}
       />,
       <RadioGroup
         label="Me siento capaz de buscar información sobre programas educativos de mi interés."
@@ -1154,7 +1154,7 @@ function Form() {
         options={aspectos_para_elegir_programaOptions}
         selectedValues={
           formData.aspectos_para_elegir_programa
-            ? formData.aspectos_para_elegir_programa.split(", ")
+            ? formData.aspectos_para_elegir_programa.split(",")
             : []
         }
         onChange={handleChange}
@@ -1175,6 +1175,7 @@ function Form() {
         value={formData.multiplicacion_3x7}
         onChange={handleChange}
         placeholder="Ingrese una respuesta"
+        type="number"
       />,
       <RadioGroup
         label="Me conozco y tengo claro cuáles son mis gustos e intereses."
@@ -1226,6 +1227,7 @@ function Form() {
         value={formData.detalle_bolsas_trabajo}
         onChange={handleChange}
         placeholder="Ingrese una respuesta"
+        isOptional={true}
       />,
       <RadioGroup
         label="Me siento capaz de buscar información sobre ofertas laborales de mi interés."
@@ -1263,7 +1265,7 @@ function Form() {
         options={fuentes_informacion_educativa_laboralOptions}
         selectedValues={
           formData.fuentes_informacion_educativa_laboral
-            ? formData.fuentes_informacion_educativa_laboral.split(", ")
+            ? formData.fuentes_informacion_educativa_laboral.split(",")
             : []
         }
         onChange={handleChange}
@@ -1277,6 +1279,7 @@ function Form() {
         value={formData.detalle_fuentes_informacion}
         onChange={handleChange}
         placeholder="Ingrese una respuesta"
+        isOptional={true}
       />,
     ],
     [
@@ -1412,7 +1415,7 @@ function Form() {
         options={miembros_familia_que_apoyanOptions}
         selectedValues={
           formData.miembros_familia_que_apoyan
-            ? formData.miembros_familia_que_apoyan.split(", ")
+            ? formData.miembros_familia_que_apoyan.split(",")
             : []
         }
         onChange={handleChange}
@@ -1481,11 +1484,11 @@ function Form() {
         options={actividades_realizadas_ultimo_añoOptions}
         selectedValues={
           formData.actividades_realizadas_ultimo_año
-            ? formData.actividades_realizadas_ultimo_año.split(", ")
+            ? formData.actividades_realizadas_ultimo_año.split(",")
             : []
         }
         onChange={handleChange}
-        maxSelections={10} // Ajustar según sea necesario
+        maxSelections={7} // Ajustar según sea necesario
         error={errors.actividades_realizadas_ultimo_año}
         isOptional={true} // Ajustar según sea necesario
       />,
@@ -1495,13 +1498,12 @@ function Form() {
         options={planes_post_graduacionOptions}
         selectedValues={
           formData.planes_post_graduacion
-            ? formData.planes_post_graduacion.split(", ")
+            ? formData.planes_post_graduacion.split(",")
             : []
         }
         onChange={handleChange}
         maxSelections={3}
         error={errors.planes_post_graduacion}
-        isOptional={true} // Ajustar según sea necesario
       />,
       <InputField
         label="Si deseas, cuéntanos un poco más de tus planes futuros."
@@ -1509,6 +1511,7 @@ function Form() {
         value={formData.detalle_planes_futuros}
         onChange={handleChange}
         placeholder="Ingrese una respuesta"
+        isOptional={true}
       />,
     ],
     [
@@ -1648,7 +1651,7 @@ function Form() {
         <div className="text-white text-center flex flex-col gap-2">
           <Lottie animationData={check} loop={false} className="h-20" />
           {successMessage}
-          <p>Saludos, Crack The Code.</p>
+          <p className="font-semibold">Saludos, Crack The Code.</p>
         </div>
       ) : (
         <form

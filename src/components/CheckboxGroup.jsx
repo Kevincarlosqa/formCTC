@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import "./CheckboxGroup.css";
 
@@ -19,6 +19,15 @@ const CheckboxGroup = ({
     }, {})
   );
 
+  useEffect(() => {
+    setCheckedItems(
+      options.reduce((acc, option) => {
+        acc[option.value] = selectedValues.includes(option.value);
+        return acc;
+      }, {})
+    );
+  }, [selectedValues, options]);
+
   const handleCheckboxChange = (event) => {
     const { name: value, checked } = event.target;
     const selectedCount = Object.values(checkedItems).filter(Boolean).length;
@@ -36,7 +45,7 @@ const CheckboxGroup = ({
     const selectedValuesArray = Object.keys(newCheckedItems).filter(
       (key) => newCheckedItems[key]
     );
-    const selectedValuesString = selectedValuesArray.join(", ");
+    const selectedValuesString = selectedValuesArray.join(",");
     onChange(name, selectedValuesString);
   };
 
@@ -86,7 +95,10 @@ CheckboxGroup.propTypes = {
     })
   ).isRequired,
   name: PropTypes.string.isRequired,
-  selectedValues: PropTypes.arrayOf(PropTypes.string),
+  selectedValues: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.string),
+    PropTypes.string,
+  ]),
   onChange: PropTypes.func.isRequired,
   maxSelections: PropTypes.number.isRequired,
   error: PropTypes.string,

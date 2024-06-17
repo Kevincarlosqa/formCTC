@@ -1,22 +1,31 @@
 import PropTypes from "prop-types";
+import { useState } from "react";
 
 const InputField = ({
   label,
   name,
   value,
   onChange,
+  onBlur,
   placeholder,
   example,
   type,
   error,
   isOptional,
 }) => {
+  const [touched, setTouched] = useState(false);
+
   const handleChange = (event) => {
     const { value } = event.target;
     if (type === "number" && isNaN(value)) {
       return; // Si no es un número, no actualiza el estado
     }
     onChange(name, value);
+  };
+
+  const handleBlur = () => {
+    setTouched(true);
+    onBlur && onBlur(name);
   };
 
   return (
@@ -30,11 +39,12 @@ const InputField = ({
         name={name}
         value={value}
         onChange={handleChange}
+        onBlur={handleBlur}
         placeholder={placeholder}
         className="shadow-sm bg-black/40 border border-gray-600 text-sm rounded-lg block w-full p-2.5"
       />
       {example && <p className="text-[11px] px-2 pt-1">{example}</p>}
-      {!isOptional && !value && (
+      {!isOptional && touched && !value && (
         <p className="text-red-500 text-[11px] px-2 pt-1">
           Este campo es requerido
         </p>
@@ -49,6 +59,7 @@ InputField.propTypes = {
   name: PropTypes.string.isRequired,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   onChange: PropTypes.func.isRequired,
+  onBlur: PropTypes.func,
   placeholder: PropTypes.string,
   example: PropTypes.string,
   type: PropTypes.oneOf(["text", "number", "email"]).isRequired,

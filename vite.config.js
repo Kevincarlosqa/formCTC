@@ -4,6 +4,7 @@ import { createHtmlPlugin } from 'vite-plugin-html';
 
 
 export default defineConfig({
+  //DESCOMENTAR SOLO EL PRIMERO PARA PRODUCCION
   plugins: [react()
     , 
     createHtmlPlugin({
