@@ -75,7 +75,7 @@ const RatingSelector = ({
                 cursor: "pointer",
                 border:
                   val.toString() === value
-                    ? "3px solid blue"
+                    ? "3px solid white"
                     : "1px solid gray",
               }}
               className="rounded-lg w-12 h-12"

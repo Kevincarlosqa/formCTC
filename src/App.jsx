@@ -32,9 +32,9 @@ function App() {
             alt="Logo"
             className="mx-auto my-4 sm:my-6 md:my-10 z-50 w-[100px] sm:w-[120px] md:w-[150px]"
           />
-          <p className="text-white text-xs sm:text-sm md:text-base text-center italic">
+          {/* <p className="text-white text-xs sm:text-sm md:text-base text-center italic">
             Made with 🤍 by DATA Team
-          </p>
+          </p> */}
         </div>
       </div>
     </div>

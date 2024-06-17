@@ -1365,12 +1365,13 @@ function Form() {
         error={errors.interes_estudios_post_bachillerato}
         isOptional={true}
         name="interes_estudios_post_bachillerato"
+        type="default"
       />,
       <RatingSelector
         start={0}
         end={10}
         label="En una escala de 0 a 10, ¿qué tan probable es que consideres abandonar tus estudios antes de graduarte?"
-        colorType="gradient"
+        colorType="default"
         selectedValue={String(formData.probabilidad_abandonar_estudios || 0)} // Utiliza 0 como valor predeterminado si es null
         onChange={handleChange}
         error={errors.probabilidad_abandonar_estudios} // Puedes manejar los errores según tu lógica
@@ -1464,7 +1465,7 @@ function Form() {
         start={0}
         end={10}
         label="En una escala de 0 a 10, siendo 0 nada de interés y 10 demasiado interés, ¿Cuánto es tu interés para buscar oportunidades laborales inmediatamente después de graduarte del bachillerato?"
-        colorType="gradient"
+        colorType="default"
         selectedValue={String(formData.interes_oportunidades_laborales || 0)} // Utiliza 0 como valor predeterminado si es null
         onChange={handleChange}
         error={errors.interes_oportunidades_laborales}
