@@ -1,21 +1,36 @@
-// eslint-disable-next-line react/prop-types
-const Select = ({ label, options, placeholder }) => {
+import PropTypes from "prop-types";
+
+const Select = ({
+  label,
+  options,
+  name,
+  value,
+  onChange,
+  placeholder,
+  error,
+  isOptional,
+}) => {
+  const handleSelectChange = (event) => {
+    const { value } = event.target;
+    onChange(name, value);
+  };
+
   return (
-    <div>
-      <label
-        htmlFor="countries"
-        className="block text-sm font-medium text-gray-900 dark:text-white mb-2"
-      >
-        {label}
-      </label>
+    <div className="text-white">
+      {label && (
+        <label className="block mb-2 text-sm font-medium">
+          {label}
+          {isOptional && <span className="text-gray-500"> (Opcional)</span>}
+        </label>
+      )}
       <select
-        id="countries"
-        name="pais"
-        // value={formData.pais}
-        // onChange={handleChange}
+        id={name}
+        name={name}
+        value={value}
+        onChange={handleSelectChange}
         className="border border-white text-sm rounded-lg block w-full p-2.5 bg-[#1E2E3F] placeholder-blue-800 text-white"
       >
-        <option value="" selected disabled hidden>
+        <option value="" disabled hidden>
           {placeholder}
         </option>
         {options.map((option) => (
@@ -24,8 +39,25 @@ const Select = ({ label, options, placeholder }) => {
           </option>
         ))}
       </select>
+      {error && <p className="text-red-500 text-[11px] px-2 pt-1">{error}</p>}
     </div>
   );
+};
+
+Select.propTypes = {
+  label: PropTypes.string,
+  options: PropTypes.arrayOf(
+    PropTypes.shape({
+      label: PropTypes.string.isRequired,
+      value: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+  name: PropTypes.string.isRequired,
+  value: PropTypes.string,
+  onChange: PropTypes.func.isRequired,
+  placeholder: PropTypes.string,
+  error: PropTypes.string,
+  isOptional: PropTypes.bool,
 };
 
 export default Select;

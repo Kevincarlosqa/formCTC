@@ -1,13 +1,27 @@
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 
-const RatingSelector = ({ start, end, label, colorType }) => {
-  const [selectedRating, setSelectedRating] = useState(null);
+const RatingSelector = ({
+  start,
+  end,
+  label,
+  colorType,
+  onChange,
+  error,
+  isOptional,
+  selectedValue,
+  name,
+}) => {
+  const [value, setValue] = useState(selectedValue);
+
+  // Actualizar el valor interno cuando el valor seleccionado cambia externamente
+  useEffect(() => {
+    setValue(selectedValue);
+  }, [selectedValue]);
 
   const handleSelect = (rating) => {
-    setSelectedRating(rating);
-    // Aquí puedes hacer el POST a tu backend
-    console.log(`Selected rating: ${rating}`);
+    setValue(rating.toString()); // Actualizar el valor interno al hacer clic en un rating
+    onChange(name, rating.toString()); // Llamar a la función onChange para actualizar el valor externamente
   };
 
   const generateColors = (num, type) => {
@@ -48,11 +62,11 @@ const RatingSelector = ({ start, end, label, colorType }) => {
         <label className="block mb-2 text-sm font-medium">{label}</label>
       )}
       <div style={{ display: "flex", justifyContent: "space-around" }}>
-        {Array.from({ length: count }, (_, i) => start + i).map(
-          (value, index) => (
+        {Array.from({ length: end - start + 1 }, (_, i) => start + i).map(
+          (val, index) => (
             <div
               key={index}
-              onClick={() => handleSelect(value)}
+              onClick={() => handleSelect(val)}
               style={{
                 backgroundColor: colors[index],
                 display: "flex",
@@ -60,17 +74,24 @@ const RatingSelector = ({ start, end, label, colorType }) => {
                 justifyContent: "center",
                 cursor: "pointer",
                 border:
-                  selectedRating === value
+                  val.toString() === value
                     ? "3px solid blue"
                     : "1px solid gray",
               }}
               className="rounded-lg w-12 h-12"
             >
-              {value}
+              {val}
             </div>
           )
         )}
       </div>
+      <input
+        type="hidden"
+        name={name}
+        value={value}
+        onChange={() => {}} // onChange vacío ya que es un input oculto
+      />
+      {error && <p className="text-red-500 text-[11px] px-2 pt-1">{error}</p>}
     </div>
   );
 };
@@ -80,6 +101,11 @@ RatingSelector.propTypes = {
   end: PropTypes.number.isRequired,
   label: PropTypes.string,
   colorType: PropTypes.oneOf(["default", "gradient", "nps"]).isRequired,
+  onChange: PropTypes.func.isRequired,
+  error: PropTypes.string,
+  isOptional: PropTypes.bool,
+  selectedValue: PropTypes.string,
+  name: PropTypes.string.isRequired,
 };
 
 export default RatingSelector;

@@ -7,26 +7,9 @@ import Lottie from "lottie-react";
 import RadioGroup from "./RadioGroup";
 import { TfiArrowCircleLeft, TfiArrowCircleRight } from "react-icons/tfi";
 import check from "../images/check.json";
-import form from "../images/form.json";
+import DateInput from "./DateInput";
 import Select from "./Select";
-
-// eslint-disable-next-line react/prop-types
-const InputField = ({ label, name, value, onChange, placeholder, example }) => (
-  <div className="mb-1 text-white">
-    <label htmlFor={name} className="block mb-2 text-sm font-medium">
-      {label}
-    </label>
-    <input
-      type="text"
-      name={name}
-      value={value}
-      onChange={onChange}
-      placeholder={placeholder}
-      className="shadow-sm bg-black/40 border border-gray-600 text-sm rounded-lg block w-full p-2.5"
-    />
-    {example && <p className="text-[11px] px-2 pt-1">{example}</p>}
-  </div>
-);
+import InputField from "./InputField";
 
 function Form() {
   const [formData, setFormData] = useState({
@@ -65,6 +48,7 @@ function Form() {
     proyecto_con_ia: "",
     funcion_excel: "",
     uso_excel: "",
+    suma_45_136: "",
     frecuencia_uso_excel: "",
     funciones_tareas_excel: "",
     otras_funciones_excel: "",
@@ -97,7 +81,7 @@ function Form() {
     interes_estudios_post_bachillerato: "",
     probabilidad_abandonar_estudios: "",
     motivo_abandonar_estudios: "",
-    maximo_nivel_educativo_sonado: "",
+    maximo_nivel_educativo_soñado: "",
     maximo_nivel_educativo_esperado: "",
     miembros_familia_que_apoyan: "",
     apoyo_familiar_continuar_estudios: "",
@@ -122,27 +106,54 @@ function Form() {
   const [currentPage, setCurrentPage] = useState(0);
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [errors, setErrors] = useState({});
   const formRef = useRef(null);
-  console.log(formData);
+  // console.log(formData);
   const handleChange = (name, value) => {
     setFormData((prevFormData) => ({
       ...prevFormData,
       [name]: value,
     }));
+    // Elimina el error cuando el usuario comienza a llenar el campo
+    // setErrors((prevErrors) => ({
+    //   ...prevErrors,
+    //   [name]: "",
+    // }));
   };
+
+  const optionalFields = [
+    "dificultades",
+    "herramientas_ia_usadas",
+    "nombre_completo",
+    "interes_estudios_post_bachillerato",
+    "probabilidad_abandonar_estudios",
+    "motivo_abandonar_estudios",
+    "educacion_superior_vida_exitosa",
+    "suma_45_136",
+    "manejo_de_incumplimiento",
+    "asegurar_comprension_equipo",
+  ];
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const isPageValid = validatePage();
+
+    if (!isPageValid) {
+      return;
+    }
+
     try {
       const response = await axios.post(
-        "http://sheets.devcrackthecode.net/api/v1/db/data/v1/crack_sheets/EstudiantesIngresoBarranquilla",
+        "http://sheets.devcrackthecode.net/api/v1/db/data/v1/crack_sheets/estudiantes_ingreso_barranquilla",
         formData,
         {
           headers: {
-            "Access-Control-Allow-Origin": "*",
-            Accepts: "application/json",
+            "Content-Type": "application/json",
             "xc-token": import.meta.env.VITE_NOCODB_KEY,
           },
+          withCredentials: false,
+          crossdomain: true,
         }
       );
       console.log(response.data);
@@ -156,10 +167,6 @@ function Form() {
     }
   };
 
-  const checkboxOptions = [
-    { label: "Default state", value: "checkbox-1" },
-    { label: "Checked state", value: "checkbox-2", checked: true },
-  ];
   const propietarioNumeroOptions = [
     { label: "Madre", value: "Madre" },
     { label: "Padre", value: "Padre" },
@@ -173,6 +180,23 @@ function Form() {
     { label: "Femenino", value: "Femenino" },
     { label: "Otro", value: "Otro" },
     { label: "Prefiero no responder", value: "Prefiero no responder" },
+  ];
+  const seccionOptions = [
+    { label: "A", value: "A" },
+    { label: "B", value: "B" },
+    { label: "C", value: "C" },
+    { label: "D", value: "D" },
+    { label: "E", value: "E" },
+    { label: "F", value: "F" },
+    { label: "G", value: "G" },
+    { label: "H", value: "H" },
+    { label: "I", value: "I" },
+    { label: "01", value: "01" },
+    { label: "02", value: "02" },
+    { label: "03", value: "03" },
+    { label: "04", value: "04" },
+    { label: "05", value: "05" },
+    { label: "06", value: "06" },
   ];
   const gradeOptions = [
     { label: "9", value: "9" },
@@ -768,63 +792,96 @@ function Form() {
 
   const pages = [
     [
-      // <Lottie animationData={form} loop={true} className="h-[100px]" />,
       <InputField
+        key="nombre_completo"
         label="¿Cuál es tu nombre completo?"
         name="nombre_completo"
         value={formData.nombre_completo}
         onChange={handleChange}
         placeholder="Ejemplo. María Camila Pérez Luján"
+        isOptional={false}
+        error={errors.nombre_completo}
       />,
       <RadioGroup
+        key="genero"
         label="Indica tu género:"
         options={genderOptions}
         name="genero"
         selectedValue={formData.genero}
         onChange={handleChange}
+        error={errors.genero}
       />,
       <InputField
+        key="institucion_educativa"
         label="Nombre de tu Institución Educativa"
         name="institucion_educativa"
         value={formData.institucion_educativa}
         onChange={handleChange}
         placeholder="Ingrese el Nombre de su Institución Educativa"
+        isOptional={true}
+        error={errors.institucion_educativa}
       />,
       <RadioGroup
+        key="grade"
         label="¿Qué grado estás cursando en este momento?"
         options={gradeOptions}
-        name="grade"
-        selectedValue={formData.grade}
+        name="grado_actual"
+        selectedValue={formData.grado_actual}
         onChange={handleChange}
+        error={errors.grado_actual}
+      />,
+      <Select
+        key="seccion"
+        label="Sección a la que perteneces"
+        name="seccion"
+        options={seccionOptions}
+        value={formData.seccion}
+        onChange={handleChange}
+        placeholder="Escoge una opcion"
+        error={errors.seccion}
+        isOptional={false}
       />,
       <InputField
+        key="correo_personal"
         label="Correo electrónico personal"
         name="correo_personal"
         value={formData.correo_personal}
         onChange={handleChange}
         placeholder="Ingrese su Correo electrónico personal"
+        isOptional={false}
+        error={errors.correo_personal}
       />,
       <InputField
+        key="celular"
         label="Número de celular"
         name="celular"
         value={formData.celular}
         onChange={handleChange}
         placeholder="Ingrese un Número de celular"
+        isOptional={false}
+        error={errors.celular}
       />,
       <RadioGroup
+        key="propietario_numero"
         label="Si el número no es tuyo, indica a quién le pertenece"
         options={propietarioNumeroOptions}
         name="propietario_numero"
         selectedValue={formData.propietario_numero}
         onChange={handleChange}
+        error={errors.propietario_numero}
       />,
     ],
     [
       <Select
+        key="documento_identidad"
         label="Selecciona tu documento de identidad"
         name="documento_identidad"
         options={documentoIdentidadOptions}
+        value={formData.documento_identidad}
+        onChange={handleChange}
         placeholder="Escoge una opcion"
+        error={errors.documento_identidad}
+        isOptional={false}
       />,
       <InputField
         label="Número de documento de identidad"
@@ -832,6 +889,16 @@ function Form() {
         value={formData.numero_documento}
         onChange={handleChange}
         placeholder="Ingrese su Número de documento de identidad"
+      />,
+      <DateInput
+        key="fecha_nacimiento"
+        label="¿Cuál es tu fecha de nacimiento?"
+        name="fecha_nacimiento"
+        value={formData.fecha_nacimiento}
+        onChange={handleChange}
+        placeholder="Selecciona una fecha"
+        isOptional={false}
+        error={errors.fecha_nacimiento}
       />,
       <RadioGroup
         label="¿Cómo te reconoces de acuerdo con tu cultura, pueblo o rasgos físicos?"
@@ -943,10 +1010,15 @@ function Form() {
         onChange={handleChange}
       />,
       <Select
+        key="ocupacion_responsable_hogar"
         label="Durante el último mes, ¿a qué se dedicó principalmente la persona a cargo de tu hogar?"
         name="ocupacion_responsable_hogar"
         options={ocupacion_responsable_hogarOptions}
+        value={formData.ocupacion_responsable_hogar}
+        onChange={handleChange}
         placeholder="Escoge una opcion"
+        error={errors.ocupacion_responsable_hogar}
+        isOptional={false}
       />,
     ],
     [
@@ -975,13 +1047,27 @@ function Form() {
         label="Selecciona las opciones correctas relacionadas con el uso de la Inteligencia Artificial (IA)"
         name="uso_correcto_ia"
         options={uso_correcto_iaOptions}
+        selectedValues={
+          formData.uso_correcto_ia ? formData.uso_correcto_ia.split(", ") : []
+        }
         onChange={handleChange}
+        maxSelections={5} // Puedes ajustar esto según el máximo número de selecciones permitidas
+        error={errors.uso_correcto_ia}
+        isOptional={false} // O true si este campo es opcional
       />,
       <CheckboxGroup
         label="¿Qué herramientas de inteligencia artificial (IA) has utilizado? Selecciona todas las que apliquen:"
         name="herramientas_ia_usadas"
         options={herramientas_ia_usadasOptions}
+        selectedValues={
+          formData.herramientas_ia_usadas
+            ? formData.herramientas_ia_usadas.split(", ")
+            : []
+        }
         onChange={handleChange}
+        maxSelections={10} // Puedes ajustar esto según el máximo número de selecciones permitidas
+        error={errors.herramientas_ia_usadas}
+        isOptional={true} // O false si este campo no es opcional
       />,
       <InputField
         label="Si marcaste otras, detalla qué herramientas has utilizado:"
@@ -1010,7 +1096,13 @@ function Form() {
         label="¿Para qué se puede usar Excel? Selecciona las respuestas correctas."
         name="uso_excel"
         options={uso_excelOptions}
+        selectedValues={
+          formData.uso_excel ? formData.uso_excel.split(", ") : []
+        }
         onChange={handleChange}
+        maxSelections={5} // Puedes ajustar esto según el máximo número de selecciones permitidas
+        error={errors.uso_excel}
+        isOptional={false} // O true si este campo es opcional
       />,
       <RadioGroup
         label="¿Con qué frecuencia utilizas Microsoft Excel en tus actividades?"
@@ -1023,7 +1115,15 @@ function Form() {
         label="En Excel, ¿qué funciones has utilizado y qué tareas has realizado? Selecciona todas las opciones que apliquen:"
         name="funciones_tareas_excel"
         options={funciones_tareas_excelOptions}
+        selectedValues={
+          formData.funciones_tareas_excel
+            ? formData.funciones_tareas_excel.split(", ")
+            : []
+        }
         onChange={handleChange}
+        maxSelections={10} // Puedes ajustar esto según el máximo número de selecciones permitidas
+        error={errors.funciones_tareas_excel}
+        isOptional={true} // O false si este campo no es opcional
       />,
       <InputField
         label="Si marcaste otras, por favor, especifíca:"
@@ -1052,7 +1152,15 @@ function Form() {
         label="Selecciona 4 aspectos que tendrías en cuenta al escoger un programa educativo de tu interés."
         name="aspectos_para_elegir_programa"
         options={aspectos_para_elegir_programaOptions}
+        selectedValues={
+          formData.aspectos_para_elegir_programa
+            ? formData.aspectos_para_elegir_programa.split(", ")
+            : []
+        }
         onChange={handleChange}
+        maxSelections={4}
+        error={errors.aspectos_para_elegir_programa}
+        isOptional={false} // Ajustar según sea necesario
       />,
       <RadioGroup
         label="He recolectado información sobre distintos programas de educación superior y las instituciones que ofrecen estos programas."
@@ -1153,7 +1261,15 @@ function Form() {
         label="Selecciona tus 3 principales fuentes de información para conocer sobre programas educativos, trabajo y/o proyecto de vida:"
         name="fuentes_informacion_educativa_laboral"
         options={fuentes_informacion_educativa_laboralOptions}
+        selectedValues={
+          formData.fuentes_informacion_educativa_laboral
+            ? formData.fuentes_informacion_educativa_laboral.split(", ")
+            : []
+        }
         onChange={handleChange}
+        maxSelections={3}
+        error={errors.fuentes_informacion_educativa_laboral}
+        isOptional={false} // Ajustar según sea necesario
       />,
       <InputField
         label="Si marcaste otros, detalla cuál es tu fuente de información:"
@@ -1241,13 +1357,24 @@ function Form() {
         end={10}
         label="En una escala de 0 a 10, siendo 0 nada de interés y 10 demasiado interés, ¿Cuánto es tu interés para continuar estudiando inmediatamente después de graduarte del bachillerato?"
         colorType="gradient"
+        selectedValue={String(formData.interes_estudios_post_bachillerato || 0)}
+        onChange={handleChange}
+        error={errors.interes_estudios_post_bachillerato}
+        isOptional={true}
+        name="interes_estudios_post_bachillerato"
       />,
       <RatingSelector
         start={0}
         end={10}
-        label="En una escala de 0 a 10, donde 0 es nada probable y 10 totalmente probable, ¿qué tan probable es que consideres abandonar tus estudios antes de graduarte?"
+        label="En una escala de 0 a 10, ¿qué tan probable es que consideres abandonar tus estudios antes de graduarte?"
         colorType="gradient"
+        selectedValue={String(formData.probabilidad_abandonar_estudios || 0)} // Utiliza 0 como valor predeterminado si es null
+        onChange={handleChange}
+        error={errors.probabilidad_abandonar_estudios} // Puedes manejar los errores según tu lógica
+        isOptional={true}
+        name="probabilidad_abandonar_estudios"
       />,
+
       <RadioGroup
         label="¿Cuál sería el motivo que te llevaría a abandonar tus estudios?"
         options={motivo_abandonar_estudiosOptions}
@@ -1258,22 +1385,40 @@ function Form() {
     ],
     [
       <Select
+        key="maximo_nivel_educativo_soñado"
         label="Teniendo en cuenta tus objetivos y expectativas de vida ¿Cuál es el máximo nivel educativo que sueñas alcanzar en tu vida?"
         name="maximo_nivel_educativo_soñado"
         options={maximo_nivel_educativo_Options}
+        value={formData.maximo_nivel_educativo_soñado}
+        onChange={handleChange}
         placeholder="Escoge una opcion"
+        error={errors.maximo_nivel_educativo_soñado}
+        isOptional={false}
       />,
       <Select
+        key="maximo_nivel_educativo_esperado"
         label="Teniendo en cuenta tus habilidades e intereses ¿Cuál es el máximo nivel educativo que crees vas a alcanzar en tu vida?"
         name="maximo_nivel_educativo_esperado"
         options={maximo_nivel_educativo_Options}
+        value={formData.maximo_nivel_educativo_esperado}
+        onChange={handleChange}
         placeholder="Escoge una opcion"
+        error={errors.maximo_nivel_educativo_esperado}
+        isOptional={false}
       />,
       <CheckboxGroup
         label="Marca quiénes son los miembros de tu familia que más te apoyan y motivan en tu educación. Máximo 3 personas."
         name="miembros_familia_que_apoyan"
         options={miembros_familia_que_apoyanOptions}
+        selectedValues={
+          formData.miembros_familia_que_apoyan
+            ? formData.miembros_familia_que_apoyan.split(", ")
+            : []
+        }
         onChange={handleChange}
+        maxSelections={3}
+        error={errors.miembros_familia_que_apoyan}
+        isOptional={false} // Ajustar según sea necesario
       />,
       <RadioGroup
         label="Mi familia me apoya y motiva a seguir estudiando al graduarme."
@@ -1317,6 +1462,11 @@ function Form() {
         end={10}
         label="En una escala de 0 a 10, siendo 0 nada de interés y 10 demasiado interés, ¿Cuánto es tu interés para buscar oportunidades laborales inmediatamente después de graduarte del bachillerato?"
         colorType="gradient"
+        selectedValue={String(formData.interes_oportunidades_laborales || 0)} // Utiliza 0 como valor predeterminado si es null
+        onChange={handleChange}
+        error={errors.interes_oportunidades_laborales}
+        isOptional={false}
+        name="interes_oportunidades_laborales"
       />,
       <RadioGroup
         label="Me siento en capacidad para afrontar los retos y desafíos que enfrentaré al ingresar al mercado laboral."
@@ -1329,13 +1479,29 @@ function Form() {
         label="Marca las actividades que hayas realizado en el último año:"
         name="actividades_realizadas_ultimo_año"
         options={actividades_realizadas_ultimo_añoOptions}
+        selectedValues={
+          formData.actividades_realizadas_ultimo_año
+            ? formData.actividades_realizadas_ultimo_año.split(", ")
+            : []
+        }
         onChange={handleChange}
+        maxSelections={10} // Ajustar según sea necesario
+        error={errors.actividades_realizadas_ultimo_año}
+        isOptional={true} // Ajustar según sea necesario
       />,
       <CheckboxGroup
         label="¿Cuál de las siguientes opciones representa mejor lo que planeas hacer al graduarte? Selecciona máximo 3 respuestas"
         name="planes_post_graduacion"
         options={planes_post_graduacionOptions}
+        selectedValues={
+          formData.planes_post_graduacion
+            ? formData.planes_post_graduacion.split(", ")
+            : []
+        }
         onChange={handleChange}
+        maxSelections={3}
+        error={errors.planes_post_graduacion}
+        isOptional={true} // Ajustar según sea necesario
       />,
       <InputField
         label="Si deseas, cuéntanos un poco más de tus planes futuros."
@@ -1404,37 +1570,57 @@ function Form() {
         selectedValue={formData.motivacion_profesores_emprender}
         onChange={handleChange}
       />,
-      <RatingSelector
-        start={1}
-        end={10}
-        label="Calificación (default)"
-        colorType="default"
-      />,
-      <RatingSelector
-        start={1}
-        end={10}
-        label="Calificación (gradient)"
-        colorType="gradient"
-      />,
-      <RatingSelector
-        start={0}
-        end={10}
-        label="Calificación (nps)"
-        colorType="nps"
-      />,
+      // <RatingSelector
+      //   start={1}
+      //   end={10}
+      //   label="Calificación (default)"
+      //   colorType="default"
+      // />,
+      // <RatingSelector
+      //   start={1}
+      //   end={10}
+      //   label="Calificación (gradient)"
+      //   colorType="gradient"
+      // />,
+      // <RatingSelector
+      //   start={0}
+      //   end={10}
+      //   label="Calificación (nps)"
+      //   colorType="nps"
+      // />,
     ],
   ];
 
   const handleNextPage = () => {
-    if (currentPage < pages.length - 1) {
-      setCurrentPage(currentPage + 1);
+    if (validatePage()) {
+      if (currentPage < pages.length - 1) {
+        setCurrentPage(currentPage + 1);
+      }
     }
+    console.log(formData);
   };
 
   const handlePreviousPage = () => {
     if (currentPage > 0) {
       setCurrentPage(currentPage - 1);
     }
+  };
+  const validatePage = () => {
+    const newErrors = {};
+
+    // Obtener los nombres de los campos de la página actual
+    const currentPageFields = pages[currentPage].map(
+      (element) => element.props.name
+    );
+
+    currentPageFields.forEach((field) => {
+      if (!optionalFields.includes(field) && !formData[field]) {
+        newErrors[field] = "Este campo es requerido";
+      }
+    });
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
   const scrollToTop = () => {

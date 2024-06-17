@@ -16,14 +16,13 @@ export default defineConfig({
     },
   }),
 ],
-server: {
-  proxy: {
-    '/api': {
-      target: 'http://sheets.devcrackthecode.net', // URL base de tu servidor NocoDB
-      changeOrigin: true,
-      rewrite: (path) => path.replace(/^\/api/, '/api/v1/db/data/v1') // Ajusta según la estructura de tu API
-    }
-  },
-  port: 3000
-}
+// server: {
+//   proxy: {
+//     '/api': {
+//       target: 'http://sheets.devcrackthecode.net', // URL base de tu servidor NocoDB
+//       changeOrigin: true,
+//       rewrite: (path) => path.replace(/^\/api/, '') // Ajusta según la estructura de tu API
+//     }
+//   }
+// }
 })

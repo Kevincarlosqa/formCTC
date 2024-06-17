@@ -1,27 +1,52 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import "./CheckboxGroup.css";
 
-const CheckboxGroup = ({ label, options }) => {
+const CheckboxGroup = ({
+  label,
+  options,
+  name,
+  selectedValues,
+  onChange,
+  maxSelections,
+  error,
+  isOptional,
+}) => {
   const [checkedItems, setCheckedItems] = useState(
     options.reduce((acc, option) => {
-      acc[option.value] = option.checked || false;
+      acc[option.value] = selectedValues.includes(option.value);
       return acc;
     }, {})
   );
 
   const handleCheckboxChange = (event) => {
-    const { name, checked } = event.target;
-    setCheckedItems((prevState) => ({
-      ...prevState,
-      [name]: checked,
-    }));
+    const { name: value, checked } = event.target;
+    const selectedCount = Object.values(checkedItems).filter(Boolean).length;
+
+    if (checked && selectedCount >= maxSelections) {
+      return; // No permite seleccionar más de maxSelections
+    }
+
+    const newCheckedItems = {
+      ...checkedItems,
+      [value]: checked,
+    };
+    setCheckedItems(newCheckedItems);
+
+    const selectedValuesArray = Object.keys(newCheckedItems).filter(
+      (key) => newCheckedItems[key]
+    );
+    const selectedValuesString = selectedValuesArray.join(", ");
+    onChange(name, selectedValuesString);
   };
 
   return (
     <div className="text-white">
       {label && (
-        <label className="block mb-2 text-sm font-medium">{label}</label>
+        <label className="block mb-2 text-sm font-medium">
+          {label}
+          {isOptional && <span className="text-gray-500"> (Opcional)</span>}
+        </label>
       )}
       {options.map((option) => (
         <div
@@ -46,6 +71,7 @@ const CheckboxGroup = ({ label, options }) => {
           </label>
         </div>
       ))}
+      {error && <p className="text-red-500 text-[11px] px-2 pt-1">{error}</p>}
     </div>
   );
 };
@@ -59,6 +85,12 @@ CheckboxGroup.propTypes = {
       checked: PropTypes.bool,
     })
   ).isRequired,
+  name: PropTypes.string.isRequired,
+  selectedValues: PropTypes.arrayOf(PropTypes.string),
+  onChange: PropTypes.func.isRequired,
+  maxSelections: PropTypes.number.isRequired,
+  error: PropTypes.string,
+  isOptional: PropTypes.bool,
 };
 
 export default CheckboxGroup;

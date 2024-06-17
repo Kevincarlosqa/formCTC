@@ -1,7 +1,15 @@
 import PropTypes from "prop-types";
 import "./RadioGroup.css";
 
-const RadioGroup = ({ label, options, name, selectedValue, onChange }) => {
+const RadioGroup = ({
+  label,
+  options,
+  name,
+  selectedValue,
+  onChange,
+  error,
+  isOptional,
+}) => {
   const handleRadioChange = (event) => {
     const { value } = event.target;
     onChange(name, value); // Utiliza el nombre completo para identificar el grupo
@@ -10,7 +18,10 @@ const RadioGroup = ({ label, options, name, selectedValue, onChange }) => {
   return (
     <div className="text-white">
       {label && (
-        <label className="block mb-2 text-sm font-medium">{label}</label>
+        <label className="block mb-2 text-sm font-medium">
+          {label}
+          {isOptional && <span className="text-gray-500"> (Opcional)</span>}
+        </label>
       )}
       {options.map((option) => (
         <div
@@ -36,6 +47,7 @@ const RadioGroup = ({ label, options, name, selectedValue, onChange }) => {
           </label>
         </div>
       ))}
+      {error && <p className="text-red-500 text-[11px] px-2 pt-1">{error}</p>}
     </div>
   );
 };
@@ -51,6 +63,8 @@ RadioGroup.propTypes = {
   name: PropTypes.string.isRequired,
   selectedValue: PropTypes.string,
   onChange: PropTypes.func.isRequired,
+  error: PropTypes.string,
+  isOptional: PropTypes.bool,
 };
 
 export default RadioGroup;
