@@ -27,3 +27,6 @@ export default defineConfig({
 //   }
 // }
 })
+
+
+// EN LOCAL CORRER LA PROXY CON LA URL DEL API  lcp --proxyUrl http://sheets.devcrackthecode.net/api/v1/db/data/v1/crack_sheets/SeguimientoQuincenal  
