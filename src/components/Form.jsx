@@ -102,7 +102,7 @@ function Form() {
     influencia_familiar_trabajo: "",
     motivacion_profesores_metas_vida: "",
     motivacion_profesores_emprender: "",
-    projectId: 15,
+    projectId: 19,
   });
   const [currentPage, setCurrentPage] = useState(0);
   const [successMessage, setSuccessMessage] = useState("");
@@ -736,72 +736,72 @@ function Form() {
   const actividades_realizadas_ultimo_añoOptions = [
     {
       value:
-        "Hablar o escuchar a personas que estudian o estudiaron el programa educativo de mi interés.",
+        "Hablar o escuchar a personas que estudian o estudiaron el programa educativo de mi interés",
       label:
-        "1. Hablar o escuchar a personas que estudian o estudiaron el programa educativo de mi interés.",
+        "1. Hablar o escuchar a personas que estudian o estudiaron el programa educativo de mi interés",
     },
     {
       value:
-        "Hablar o escuchar a personas que realizaron o realizan el trabajo de mi interés.",
+        "Hablar o escuchar a personas que realizaron o realizan el trabajo de mi interés",
       label:
-        "2. Hablar o escuchar a personas que realizaron o realizan el trabajo de mi interés.",
+        "2. Hablar o escuchar a personas que realizaron o realizan el trabajo de mi interés",
     },
     {
       value:
-        "Responder una prueba de intereses (profesionales y vocacionales u ocupacionales).",
+        "Responder una prueba de intereses (profesionales o vocacionales u ocupacionales)",
       label:
-        "3. Responder una prueba de intereses (profesionales, vocacionales u ocupacionales).",
+        "3. Responder una prueba de intereses (profesionales, vocacionales u ocupacionales)",
     },
     {
       value:
-        "Hacer cursos o actividades que aportan a mi proyecto de vida al graduarme.",
+        "Hacer cursos o actividades que aportan a mi proyecto de vida al graduarme",
       label:
-        "4. Hacer cursos o actividades que aportan a mi proyecto de vida al graduarme.",
+        "4. Hacer cursos o actividades que aportan a mi proyecto de vida al graduarme",
     },
     {
       value:
-        "Buscar información sobre programas educativos y/o trabajos de mi interés.",
+        "Buscar información sobre programas educativos y/o trabajos de mi interés",
       label:
-        "5. Buscar información sobre programas educativos y/o trabajos de mi interés.",
+        "5. Buscar información sobre programas educativos y/o trabajos de mi interés",
     },
     {
       value:
-        "Otra actividad que me permitió identificar mis intereses a futuro y no está listada.",
+        "Otra actividad que me permitió identificar mis intereses a futuro y no está listada",
       label:
-        "6. Otra actividad que me permitió identificar mis intereses a futuro y no está listada.",
+        "6. Otra actividad que me permitió identificar mis intereses a futuro y no está listada",
     },
     {
-      value: "No realicé ninguna actividad con este enfoque.",
-      label: "7. No realicé ninguna actividad con este enfoque.",
+      value: "No realicé ninguna actividad con este enfoque",
+      label: "7. No realicé ninguna actividad con este enfoque",
     },
   ];
   const planes_post_graduacionOptions = [
     {
-      value: "Planeo empezar a trabajar.",
-      label: "Planeo empezar a trabajar.",
+      value: "Planeo empezar a trabajar",
+      label: "Planeo empezar a trabajar",
     },
     {
-      value: "Planeo empezar a estudiar.",
-      label: "Planeo empezar a estudiar.",
+      value: "Planeo empezar a estudiar",
+      label: "Planeo empezar a estudiar",
     },
     {
-      value: "Planeo empezar a trabajar y estudiar al mismo tiempo.",
-      label: "Planeo empezar a trabajar y estudiar al mismo tiempo.",
+      value: "Planeo empezar a trabajar y estudiar al mismo tiempo",
+      label: "Planeo empezar a trabajar y estudiar al mismo tiempo",
     },
-    { value: "Planeo emprender.", label: "Planeo emprender." },
+    { value: "Planeo emprender", label: "Planeo emprender" },
     {
-      value: "Planeo estudiar y/o trabajar fuera del país.",
-      label: "Planeo estudiar y/o trabajar fuera del país.",
-    },
-    {
-      value: "Planeo tomar un año de no trabajar ni estudiar.",
-      label: "Planeo tomar un año de no trabajar, ni estudiar.",
+      value: "Planeo estudiar y/o trabajar fuera del país",
+      label: "Planeo estudiar y/o trabajar fuera del país",
     },
     {
-      value: "Puede que deje los estudios antes de graduarme.",
-      label: "Puede que deje los estudios antes de graduarme.",
+      value: "Planeo tomar un año de no trabajar ni estudiar",
+      label: "Planeo tomar un año de no trabajar, ni estudiar",
     },
-    { value: "No lo sé todavía.", label: "No lo sé todavía." },
+    {
+      value: "Puede que deje los estudios antes de graduarme",
+      label: "Puede que deje los estudios antes de graduarme",
+    },
+    { value: "No lo sé todavía", label: "No lo sé todavía" },
   ];
 
   const pages = [
@@ -1087,9 +1087,9 @@ function Form() {
           formData.uso_correcto_ia ? formData.uso_correcto_ia.split(",") : []
         }
         onChange={handleChange}
-        maxSelections={5} // Puedes ajustar esto según el máximo número de selecciones permitidas
+        maxSelections={5}
         error={errors.uso_correcto_ia}
-        isOptional={false} // O true si este campo es opcional
+        isOptional={false}
       />,
       <CheckboxGroup
         label="¿Qué herramientas de inteligencia artificial (IA) has utilizado? Selecciona todas las que apliquen:"
@@ -1101,9 +1101,8 @@ function Form() {
             : []
         }
         onChange={handleChange}
-        maxSelections={10} // Puedes ajustar esto según el máximo número de selecciones permitidas
+        maxSelections={10}
         error={errors.herramientas_ia_usadas}
-        isOptional={true} // O false si este campo no es opcional
       />,
       <InputField
         label="Si marcaste otras, detalla qué herramientas has utilizado:"
@@ -1554,9 +1553,8 @@ function Form() {
             : []
         }
         onChange={handleChange}
-        maxSelections={7} // Ajustar según sea necesario
+        maxSelections={7}
         error={errors.actividades_realizadas_ultimo_año}
-        isOptional={true} // Ajustar según sea necesario
       />,
       <CheckboxGroup
         label="¿Cuál de las siguientes opciones representa mejor lo que planeas hacer al graduarte? Selecciona máximo 3 respuestas"

@@ -17,9 +17,14 @@ const InputField = ({
 
   const handleChange = (event) => {
     const { value } = event.target;
-    if (type === "number" && isNaN(value)) {
-      return; // Si no es un número, no actualiza el estado
+
+    if (type === "number") {
+      const isValidNumber = /^(\+|\d)*$/.test(value);
+      if (!isValidNumber) {
+        return; // Si no es un número válido o +, no actualiza el estado
+      }
     }
+
     onChange(name, value);
   };
 
@@ -35,12 +40,13 @@ const InputField = ({
         {isOptional && <span className="text-gray-500"> (Opcional)</span>}
       </label>
       <input
-        type={type}
+        type={type === "number" ? "text" : type}
         name={name}
         value={value}
         onChange={handleChange}
         onBlur={handleBlur}
         placeholder={placeholder}
+        pattern={type === "number" ? "^[0-9+]*$" : undefined}
         className="shadow-sm bg-black/40 border border-gray-600 text-sm rounded-lg block w-full p-2.5"
       />
       {example && <p className="text-[11px] px-2 pt-1">{example}</p>}

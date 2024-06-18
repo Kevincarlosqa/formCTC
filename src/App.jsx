@@ -23,7 +23,7 @@ function App() {
           <p className="text-white text-xl sm:text-2xl md:text-3xl font-bold text-center mb-4 sm:mb-6 md:mb-10">
             Ingreso de Estudiantes Barranquilla 📝
           </p>
-          <p className="text-white text-lg sm:text-xl md:text-sm text-center mb-4 sm:mb-6 md:mb-10 w-[600px] mx-auto">
+          <p className="text-white text-lg sm:text-xl md:text-sm text-center mb-4 sm:mb-6 md:mb-10 max-w-full sm:max-w-lg md:max-w-2xl mx-auto px-4 sm:px-6 md:px-8">
             ¡Hola! Este cuestionario nos permitirá obtener información para
             conocerte un poco más, entender mejor tus intereses, preparación y
             metas para el futuro, ya sea continuar con tu educación o ingresar
