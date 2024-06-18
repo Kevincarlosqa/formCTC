@@ -125,7 +125,7 @@ function Form() {
         options={nombreColegioOptions}
         value={formData.nombre_colegio}
         onChange={handleChange}
-        placeholder="Ejemplo: I.E. Normal Superior De La Presentación"
+        placeholder="Seleccione un Colegio"
         isOptional={false}
         error={errors.nombre_colegio}
       />,
