@@ -32,7 +32,7 @@ const RatingSelector = ({
       const colorStops = [
         "rgba(255, 99, 71, 0.9)", // Red
         "rgba(255, 255, 20, 0.75)", // Yellow
-        "rgba(144, 255, 144, 0.8)", // Green
+        "rgba(144, 255, 100, 0.8)", // Green
       ];
       const segments = colorStops.length - 1;
       for (let i = 0; i < num; i++) {
@@ -74,10 +74,10 @@ const RatingSelector = ({
         colors.push("rgba(255, 99, 71, 0.9)");
       }
       for (let i = 0; i < yellowCount; i++) {
-        colors.push("rgba(255, 255, 20, 0.75)");
+        colors.push("rgba(221, 182, 51, 1)");
       }
       for (let i = 0; i < redCount; i++) {
-        colors.push("rgba(144, 255, 144, 0.8)");
+        colors.push("rgba(144, 255, 100, 0.8)");
       }
     }
     return colors;
