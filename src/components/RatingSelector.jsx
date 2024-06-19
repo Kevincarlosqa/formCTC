@@ -29,12 +29,44 @@ const RatingSelector = ({
         colors.push("rgba(255, 255, 255, 0.4)");
       }
     } else if (type === "gradient") {
+      const colorStops = [
+        "rgba(255, 99, 71, 0.9)", // Red
+        "rgba(255, 255, 20, 0.75)", // Yellow
+        "rgba(144, 255, 144, 0.8)", // Green
+      ];
+      const segments = colorStops.length - 1;
       for (let i = 0; i < num; i++) {
-        const red = Math.round((255 * (num - i - 1)) / (num - 1));
-        const green = Math.round((255 * i) / (num - 1));
-        colors.push(`rgba(${red}, ${green}, 0, 0.6)`);
+        const segment = Math.floor((i / num) * segments);
+        const startColor = colorStops[segment];
+        const endColor = colorStops[segment + 1];
+        const ratio = (i / num) * segments - segment;
+
+        const startRGBA = startColor
+          .match(/rgba\((\d+), (\d+), (\d+), (\d+.\d+)\)/)
+          .slice(1)
+          .map(Number);
+        const endRGBA = endColor
+          .match(/rgba\((\d+), (\d+), (\d+), (\d+.\d+)\)/)
+          .slice(1)
+          .map(Number);
+
+        const red = Math.round(
+          startRGBA[0] + ratio * (endRGBA[0] - startRGBA[0])
+        );
+        const green = Math.round(
+          startRGBA[1] + ratio * (endRGBA[1] - startRGBA[1])
+        );
+        const blue = Math.round(
+          startRGBA[2] + ratio * (endRGBA[2] - startRGBA[2])
+        );
+        const alpha = (
+          startRGBA[3] +
+          ratio * (endRGBA[3] - startRGBA[3])
+        ).toFixed(2);
+
+        colors.push(`rgba(${red}, ${green}, ${blue}, ${alpha})`);
       }
-    } else if (type === "nps") {
+    } else if (type === "nps" || type === "gradient") {
       const greenCount = Math.round(num * 0.6);
       const yellowCount = Math.round(num * 0.2);
       const redCount = num - greenCount - yellowCount;
@@ -42,10 +74,10 @@ const RatingSelector = ({
         colors.push("rgba(255, 99, 71, 0.9)");
       }
       for (let i = 0; i < yellowCount; i++) {
-        colors.push("rgba(255, 255, 102, 0.9)");
+        colors.push("rgba(255, 255, 20, 0.75)");
       }
       for (let i = 0; i < redCount; i++) {
-        colors.push("rgba(144, 238, 144, 0.9)");
+        colors.push("rgba(144, 255, 144, 0.8)");
       }
     }
     return colors;

@@ -28,7 +28,7 @@ const Select = ({
         name={name}
         value={value}
         onChange={handleSelectChange}
-        className="border border-white text-sm rounded-lg block w-full p-2.5 bg-[#1E2E3F] placeholder-blue-800 text-white"
+        className="  text-sm rounded-lg block w-full p-2.5 bg-[#1E2E3F] placeholder-blue-800 text-white"
       >
         <option value="" disabled hidden>
           {placeholder}

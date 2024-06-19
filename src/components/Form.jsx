@@ -11,7 +11,8 @@ import DateInput from "./DateInput";
 import Select from "./Select";
 import InputField from "./InputField";
 
-function Form() {
+// eslint-disable-next-line react/prop-types
+function Form({ handleFormSubmit }) {
   const [formData, setFormData] = useState({
     nombre_completo: "",
     genero: "",
@@ -157,6 +158,7 @@ function Form() {
         }
       );
       console.log(response.data);
+      handleFormSubmit();
       setSuccessMessage(
         `¡Gracias ${formData.nombre_completo} por tus respuestas, nos ayudarán a entender cómo podemos ser de mejor ayuda en este proceso de aprendizaje!`
       );
@@ -313,6 +315,7 @@ function Form() {
   const linea_celularOptions = [
     { value: "Prepago", label: "Prepago" },
     { value: "Postpago", label: "Postpago" },
+    { value: "Ninguna", label: "Ninguna" },
   ];
   const computador_hogarOptions = [
     { value: "Computador de Escritorio", label: "Computador de Escritorio" },
@@ -828,12 +831,12 @@ function Form() {
       />,
       <Select
         key="institucion_educativa"
-        label="Nombre de tu Institución Educativa"
+        label="Seleccione el Nombre de su Institución Educativa"
         name="institucion_educativa"
         options={institucionOptions}
         value={formData.institucion_educativa}
         onChange={handleChange}
-        placeholder="Ingrese el Nombre de su Institución Educativa"
+        placeholder="Seleccione el Nombre de su Institución Educativa"
         error={errors.institucion_educativa}
         isOptional={false}
       />,
@@ -1700,11 +1703,11 @@ function Form() {
   };
 
   const scrollToTop = () => {
-    // Verifica que formRef.current no sea nulo antes de llamar a scrollIntoView
     if (formRef.current) {
+      formRef.current.classList.add("scroll-adjust"); // Añadir clase para ajuste de scroll
       formRef.current.scrollIntoView({
-        behavior: "smooth", // Opcional: hace el scroll de manera suave
-        block: "start", // Hace scroll hasta la parte superior del formulario
+        behavior: "smooth",
+        block: "start",
       });
     }
   };
