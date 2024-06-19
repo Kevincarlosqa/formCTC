@@ -8,46 +8,44 @@ const RatingSelector = ({
   colorType,
   onChange,
   error,
-  isOptional,
   selectedValue,
   name,
 }) => {
   const [value, setValue] = useState(selectedValue);
 
-  // Actualizar el valor interno cuando el valor seleccionado cambia externamente
   useEffect(() => {
     setValue(selectedValue);
   }, [selectedValue]);
 
   const handleSelect = (rating) => {
-    setValue(rating.toString()); // Actualizar el valor interno al hacer clic en un rating
-    onChange(name, rating.toString()); // Llamar a la función onChange para actualizar el valor externamente
+    setValue(rating.toString());
+    onChange(name, rating.toString());
   };
 
   const generateColors = (num, type) => {
     const colors = [];
     if (type === "default") {
       for (let i = 0; i < num; i++) {
-        colors.push("rgba(255, 255, 255, 0.4)"); // Color blanco pastel
+        colors.push("rgba(255, 255, 255, 0.4)");
       }
     } else if (type === "gradient") {
       for (let i = 0; i < num; i++) {
         const red = Math.round((255 * (num - i - 1)) / (num - 1));
         const green = Math.round((255 * i) / (num - 1));
-        colors.push(`rgba(${red}, ${green}, 0, 0.6)`); // Color pastel
+        colors.push(`rgba(${red}, ${green}, 0, 0.6)`);
       }
     } else if (type === "nps") {
       const greenCount = Math.round(num * 0.6);
       const yellowCount = Math.round(num * 0.2);
       const redCount = num - greenCount - yellowCount;
       for (let i = 0; i < greenCount; i++) {
-        colors.push("rgba(255, 99, 71, 0.9)"); // rojo pastel más vivo
+        colors.push("rgba(255, 99, 71, 0.9)");
       }
       for (let i = 0; i < yellowCount; i++) {
-        colors.push("rgba(255, 255, 102, 0.9)"); // amarillo pastel más vivo
+        colors.push("rgba(255, 255, 102, 0.9)");
       }
       for (let i = 0; i < redCount; i++) {
-        colors.push("rgba(144, 238, 144, 0.9)"); // verde pastel más vivo
+        colors.push("rgba(144, 238, 144, 0.9)");
       }
     }
     return colors;
@@ -85,12 +83,7 @@ const RatingSelector = ({
           )
         )}
       </div>
-      <input
-        type="hidden"
-        name={name}
-        value={value}
-        onChange={() => {}} // onChange vacío ya que es un input oculto
-      />
+      <input type="hidden" name={name} value={value} onChange={() => {}} />
       {error && <p className="text-red-500 text-[11px] px-2 pt-1">{error}</p>}
     </div>
   );

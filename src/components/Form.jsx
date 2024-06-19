@@ -102,6 +102,7 @@ function Form() {
     influencia_familiar_trabajo: "",
     motivacion_profesores_metas_vida: "",
     motivacion_profesores_emprender: "",
+    tipo_grupo: "Grupo CTC",
     projectId: 19,
   });
   const [currentPage, setCurrentPage] = useState(0);
@@ -143,7 +144,7 @@ function Form() {
     try {
       const response = await axios.post(
         //DESCOMENTAR SOLO EL PRIMERO PARA PRODUCCION
-        "api/v1/db/data/v1/crack_sheets/estudiantes_ingreso_barranquilla",
+        "api/v1/db/data/v1/crack_sheets/test_ingreso",
         // "http://localhost:8010/proxy",
         formData,
         {
