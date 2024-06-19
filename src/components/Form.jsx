@@ -13,6 +13,7 @@ import InputField from "./InputField";
 
 function Form() {
   const [formData, setFormData] = useState({
+    nombre_apellido: "",
     nombre_colegio: "",
     grado_seccion: "",
     profesor: "",
@@ -26,6 +27,8 @@ function Form() {
     gusto_de_clases: "",
     mejoras_clases: "",
     satisfaccion_ia: "",
+    nps: "",
+    csat: "",
     projectId: 19,
   });
   const [currentPage, setCurrentPage] = useState(0);
@@ -60,7 +63,7 @@ function Form() {
     try {
       const response = await axios.post(
         //DESCOMENTAR SOLO EL PRIMERO PARA PRODUCCION
-        "api/v1/db/data/v1/crack_sheets/SeguimientoQuincenal",
+        "api/v1/db/data/v1/crack_sheets/seguimiento_quincenal",
         // "http://localhost:8010/proxy",
         formData,
         {
@@ -118,6 +121,15 @@ function Form() {
 
   const pages = [
     [
+      <InputField
+        key="nombre_apellido"
+        label="Ingrese su nombre y apellido"
+        name="nombre_apellido"
+        value={formData.nombre_apellido}
+        onChange={handleChange}
+        placeholder="Ingrese su Nombre Completo"
+        error={errors.nombre_apellido}
+      />,
       <Select
         key="nombre_colegio"
         label="Nombre del Colegio"
@@ -125,7 +137,7 @@ function Form() {
         options={nombreColegioOptions}
         value={formData.nombre_colegio}
         onChange={handleChange}
-        placeholder="Seleccione un Colegio"
+        placeholder="Seleccione su Institución Educativa"
         isOptional={false}
         error={errors.nombre_colegio}
       />,
@@ -239,6 +251,26 @@ function Form() {
         value={formData.mejoras_clases}
         onChange={handleChange}
         error={errors.mejoras_clases}
+      />,
+      <RatingSelector
+        start={0}
+        end={10}
+        label="En una escala del 0 al 10, que tanto recomendaria a otro(a) profesor(a) trabajar con CTC?"
+        colorType="nps"
+        selectedValue={String(formData.nps || 0)}
+        onChange={handleChange}
+        error={errors.nps}
+        name="nps"
+      />,
+      <RatingSelector
+        start={0}
+        end={10}
+        label="En una escala del 0 al 10, que tan satisfecho(a) se encuentra trabajando con CTC?"
+        colorType="gradient"
+        selectedValue={String(formData.csat || 0)}
+        onChange={handleChange}
+        error={errors.csat}
+        name="csat"
       />,
     ],
   ];
