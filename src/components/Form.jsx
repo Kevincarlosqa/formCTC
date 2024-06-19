@@ -104,6 +104,7 @@ function Form({ handleFormSubmit }) {
     motivacion_profesores_metas_vida: "",
     motivacion_profesores_emprender: "",
     tipo_grupo: "Grupo Control",
+
     projectId: 19,
   });
   const [currentPage, setCurrentPage] = useState(0);
