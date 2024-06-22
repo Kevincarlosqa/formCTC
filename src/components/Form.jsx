@@ -146,8 +146,8 @@ function Form({ handleFormSubmit }) {
     try {
       const response = await axios.post(
         //DESCOMENTAR SOLO EL PRIMERO PARA PRODUCCION
-        // "api/v1/db/data/v1/crack_sheets/test_ingreso",
-        "http://localhost:8010/proxy",
+        "api/v1/db/data/v1/crack_sheets/test_ingreso",
+        // "http://localhost:8010/proxy",
         formData,
         {
           headers: {
