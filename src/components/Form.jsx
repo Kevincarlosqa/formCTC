@@ -244,40 +244,40 @@ function Form({ handleFormSubmit }) {
   ];
   const dificultadesOptions = [
     {
-      value: "Para ver, incluso cuando uso gafas.",
-      label: "Para ver, incluso cuando uso gafas.",
+      value: "Para ver incluso cuando uso gafas",
+      label: "Para ver, incluso cuando uso gafas",
     },
     {
-      value: "Para oír, incluso cuando uso prótesis auditiva.",
-      label: "Para oír, incluso cuando uso prótesis auditiva.",
+      value: "Para oír incluso cuando uso prótesis auditiva",
+      label: "Para oír, incluso cuando uso prótesis auditiva",
     },
     {
-      value: "Para caminar o subir escaleras.",
-      label: "Para caminar o subir escaleras.",
+      value: "Para caminar o subir escaleras",
+      label: "Para caminar o subir escaleras",
     },
     {
-      value: "Para recordar o concentrarme.",
-      label: "Para recordar o concentrarme.",
+      value: "Para recordar o concentrarme",
+      label: "Para recordar o concentrarme",
     },
     {
-      value: "Para valerme por sí mismo, como lavarme el cuerpo o vestirme.",
-      label: "Para valerme por sí mismo, como lavarme el cuerpo o vestirme.",
-    },
-    {
-      value:
-        "Para comunicarme, por ejemplo para entender a los demás o para que ellos me entiendan.",
-      label:
-        "Para comunicarme, por ejemplo para entender a los demás o para que ellos me entiendan.",
-    },
-    {
-      value: "No presento ninguna dificultad.",
-      label: "No presento ninguna dificultad.",
+      value: "Para valerme por sí mismo como lavarme el cuerpo o vestirme",
+      label: "Para valerme por sí mismo, como lavarme el cuerpo o vestirme",
     },
     {
       value:
-        "Presento otras dificultades físicas, cognitivas no mencionadas aquí.",
+        "Para comunicarme por ejemplo para entender a los demás o para que ellos me entiendan",
       label:
-        "Presento otras dificultades físicas, cognitivas no mencionadas aquí.",
+        "Para comunicarme, por ejemplo para entender a los demás o para que ellos me entiendan",
+    },
+    {
+      value: "No presento ninguna dificultad",
+      label: "No presento ninguna dificultad",
+    },
+    {
+      value:
+        "Presento otras dificultades físicas cognitivas no mencionadas aquí",
+      label:
+        "Presento otras dificultades físicas, cognitivas no mencionadas aquí",
     },
   ];
   const nivelEducativoOptions = [
@@ -931,14 +931,20 @@ function Form({ handleFormSubmit }) {
         onChange={handleChange}
         error={errors.identidad_cultural}
       />,
-      <RadioGroup
+      <CheckboxGroup
         label="Indica si presentas alguna de las siguientes dificultades:"
         options={dificultadesOptions}
         name="dificultades"
+        selectedValues={
+          formData.dificultades ? formData.dificultades.split(",") : []
+        }
         selectedValue={formData.dificultades}
         onChange={handleChange}
         error={errors.dificultades}
+        isOptional={false}
+        maxSelections={8}
       />,
+
       <RadioGroup
         label="¿Sabes cuál es el nivel educativo más alto entre las personas que viven contigo?"
         options={nivelEducativoOptions}
