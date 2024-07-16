@@ -161,7 +161,7 @@ function Form({ handleFormSubmit }) {
       console.log(response.data);
       handleFormSubmit();
       setSuccessMessage(
-        `¡Gracias ${formData.nombre_completo} por tus respuestas, nos ayudarán a entender cómo podemos ser de mejor ayuda en este proceso de aprendizaje!`
+        `¡Gracias ${formData.nombre_completo} por tus respuestas!`
       );
       setErrorMessage("");
     } catch (error) {
