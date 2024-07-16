@@ -40,13 +40,13 @@ const InputField = ({
         {isOptional && <span className="text-gray-500"> (Opcional)</span>}
       </label>
       <input
-        type={type === "number" ? "text" : type}
+        type={type == "number" ? "text" : type}
         name={name}
         value={value}
         onChange={handleChange}
         onBlur={handleBlur}
         placeholder={placeholder}
-        pattern={type === "number" ? "^[0-9+]*$" : undefined}
+        pattern={type == "number" ? "^[0-9+]*$" : undefined}
         className="shadow-sm bg-black/40 border border-gray-600 text-sm rounded-lg block w-full p-2.5"
       />
       {example && <p className="text-[11px] px-2 pt-1">{example}</p>}

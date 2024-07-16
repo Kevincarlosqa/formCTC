@@ -112,6 +112,7 @@ function Form({ handleFormSubmit }) {
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [errors, setErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const formRef = useRef(null);
   const handleChange = (name, value) => {
     setFormData((prevFormData) => ({
@@ -142,7 +143,7 @@ function Form({ handleFormSubmit }) {
     if (!isPageValid) {
       return;
     }
-
+    setIsSubmitting(true);
     try {
       const response = await axios.post(
         //DESCOMENTAR SOLO EL PRIMERO PARA PRODUCCION
@@ -167,6 +168,8 @@ function Form({ handleFormSubmit }) {
     } catch (error) {
       console.error("Error al enviar los datos:", error);
       setErrorMessage("Error al enviar los datos. Inténtelo de nuevo.");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -903,7 +906,7 @@ function Form({ handleFormSubmit }) {
         name="correo_personal"
         value={formData.correo_personal}
         onChange={handleChange}
-        placeholder="Ingrese su Correo electrónico personal"
+        placeholder="ejemplo@gmail.com"
         isOptional={false}
         error={errors.correo_personal}
         type="email"
@@ -1795,8 +1798,9 @@ function Form({ handleFormSubmit }) {
             <button
               type="submit"
               className="rounded-lg border-2 w-full sm:w-[100px] mx-auto mt-5 text-xl text-white p-2 hover:bg-black/40 transition duration-300 ease-in-out"
+              disabled={isSubmitting}
             >
-              Enviar
+              {isSubmitting ? "Enviando..." : "Enviar"}
             </button>
           )}
           {errorMessage && (
