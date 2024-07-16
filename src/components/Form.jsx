@@ -113,7 +113,6 @@ function Form({ handleFormSubmit }) {
   const [errorMessage, setErrorMessage] = useState("");
   const [errors, setErrors] = useState({});
   const formRef = useRef(null);
-  // console.log(formData);
   const handleChange = (name, value) => {
     setFormData((prevFormData) => ({
       ...prevFormData,
@@ -147,8 +146,8 @@ function Form({ handleFormSubmit }) {
     try {
       const response = await axios.post(
         //DESCOMENTAR SOLO EL PRIMERO PARA PRODUCCION
-        // "api/v1/db/data/v1/crack_sheets/test_ingreso",
-        "http://localhost:8010/proxy",
+        "api/v1/db/data/v1/crack_sheets/test_ingreso",
+        // "http://localhost:8010/proxy",
         formData,
         {
           headers: {
