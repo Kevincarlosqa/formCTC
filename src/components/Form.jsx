@@ -88,6 +88,7 @@ function Form({ handleFormSubmit }) {
     apoyo_familiar_continuar_estudios: "",
     apoyo_economico_familiar: "",
     influencia_familiar_estudios: "",
+    apoyo_financiero_becas: "",
     ayuda_profesores_reconocimiento_habilidades: "",
     actividades_profesores_decisiones_futuras: "",
     interes_oportunidades_laborales: "",
@@ -104,6 +105,7 @@ function Form({ handleFormSubmit }) {
     motivacion_profesores_metas_vida: "",
     motivacion_profesores_emprender: "",
     tipo_grupo: "Grupo CTC",
+
     projectId: 19,
   });
   const [currentPage, setCurrentPage] = useState(0);
@@ -111,7 +113,6 @@ function Form({ handleFormSubmit }) {
   const [errorMessage, setErrorMessage] = useState("");
   const [errors, setErrors] = useState({});
   const formRef = useRef(null);
-  // console.log(formData);
   const handleChange = (name, value) => {
     setFormData((prevFormData) => ({
       ...prevFormData,
@@ -231,81 +232,87 @@ function Form({ handleFormSubmit }) {
   ];
 
   const identidadCulturalOptions = [
-    { value: "Indigena", label: "Indigena" },
+    { value: "1. Indigena", label: "1. Indigena" },
     {
-      value: "Negro, mulato, afrodecendiente, afrocolombiano, palenquero",
-      label: "Negro, mulato, afrodecendiente, afrocolombiano, palenquero",
+      value: "2. Negro, mulato, afrodecendiente, afrocolombiano, palenquero",
+      label: "2. Negro, mulato, afrodecendiente, afrocolombiano, palenquero",
     },
-    { value: "Gitano o ROM", label: "Gitano o ROM" },
-    { value: "Mestizo", label: "Mestizo" },
-    { value: "Raizal", label: "Raizal" },
-    { value: "Blanco", label: "Blanco" },
-    { value: "Otro", label: "Otro" },
+    { value: "3. Gitano o ROM", label: "3. Gitano o ROM" },
+    { value: "4. Mestizo", label: "4. Mestizo" },
+    { value: "5. Raizal", label: "5. Raizal" },
+    { value: "6. Blanco", label: "6. Blanco" },
+    { value: "7. Otro", label: "7. Otro" },
   ];
   const dificultadesOptions = [
     {
-      value: "Para ver incluso cuando uso gafas",
-      label: "Para ver, incluso cuando uso gafas",
+      value: "1. Para ver incluso cuando uso gafas",
+      label: "1. Para ver, incluso cuando uso gafas",
     },
     {
-      value: "Para oír incluso cuando uso prótesis auditiva",
-      label: "Para oír, incluso cuando uso prótesis auditiva",
+      value: "2. Para oír incluso cuando uso prótesis auditiva",
+      label: "2. Para oír, incluso cuando uso prótesis auditiva",
     },
     {
-      value: "Para caminar o subir escaleras",
-      label: "Para caminar o subir escaleras",
+      value: "3. Para caminar o subir escaleras",
+      label: "3. Para caminar o subir escaleras",
     },
     {
-      value: "Para recordar o concentrarme",
-      label: "Para recordar o concentrarme",
+      value: "4. Para recordar o concentrarme",
+      label: "4. Para recordar o concentrarme",
     },
     {
-      value: "Para valerme por sí mismo como lavarme el cuerpo o vestirme",
-      label: "Para valerme por sí mismo, como lavarme el cuerpo o vestirme",
-    },
-    {
-      value:
-        "Para comunicarme por ejemplo para entender a los demás o para que ellos me entiendan",
-      label:
-        "Para comunicarme, por ejemplo para entender a los demás o para que ellos me entiendan",
-    },
-    {
-      value: "No presento ninguna dificultad",
-      label: "No presento ninguna dificultad",
+      value: "5. Para valerme por sí mismo como lavarme el cuerpo o vestirme",
+      label: "5. Para valerme por sí mismo, como lavarme el cuerpo o vestirme",
     },
     {
       value:
-        "Presento otras dificultades físicas cognitivas no mencionadas aquí",
+        "6. Para comunicarme por ejemplo para entender a los demás o para que ellos me entiendan",
       label:
-        "Presento otras dificultades físicas, cognitivas no mencionadas aquí",
+        "6. Para comunicarme, por ejemplo para entender a los demás o para que ellos me entiendan",
+    },
+    {
+      value: "7. No presento ninguna dificultad",
+      label: "7. No presento ninguna dificultad",
+    },
+    {
+      value:
+        "8. Presento otras dificultades físicas cognitivas no mencionadas aquí",
+      label:
+        "8. Presento otras dificultades físicas, cognitivas no mencionadas aquí",
     },
   ];
   const nivelEducativoOptions = [
-    { value: "No fueron a la escuela", label: "No fueron a la escuela" },
-    { value: "Preescolar (3 a 5 años)", label: "Preescolar (3 a 5 años)" },
+    { value: "1. No fueron a la escuela", label: "1. No fueron a la escuela" },
     {
-      value: "Primaria básica (1°, 2°, 3°, 4°, 5°)",
-      label: "Primaria básica (1°, 2°, 3°, 4°, 5°)",
+      value: "2. Preescolar (3 a 5 años)",
+      label: "2. Preescolar (3 a 5 años)",
     },
     {
-      value: "Secundaria (6°, 7°, 8°, 9°)",
-      label: "Secundaria (6°, 7°, 8°, 9°)",
+      value: "3. Primaria básica (1°, 2°, 3°, 4°, 5°)",
+      label: "3. Primaria básica (1°, 2°, 3°, 4°, 5°)",
     },
-    { value: "Media (10°, 11°)", label: "Media (10°, 11°)" },
     {
-      value: "Técnico laboral / profesional o tecnológico",
-      label: "Técnico laboral / profesional o tecnológico",
+      value: "4. Secundaria (6°, 7°, 8°, 9°)",
+      label: "4. Secundaria (6°, 7°, 8°, 9°)",
     },
-    { value: "Universitario", label: "Universitario" },
-    { value: "Posgrado", label: "Posgrado" },
-    { value: "No sé", label: "No sé" },
+    { value: "5. Media (10°, 11°)", label: "5. Media (10°, 11°)" },
+    {
+      value: "6. Técnico laboral / profesional o tecnológico",
+      label: "6. Técnico laboral / profesional o tecnológico",
+    },
+    { value: "7. Universitario", label: "7. Universitario" },
+    { value: "8. Posgrado", label: "8. Posgrado" },
+    { value: "9. No sé", label: "9. No sé" },
   ];
 
   const motivacion_profesores_emprenderOptions = [
-    { value: "Totalmente en desacuerdo", label: "1. Totalmente en desacuerdo" },
-    { value: "En desacuerdo", label: "2. En desacuerdo" },
-    { value: "De acuerdo", label: "3. De acuerdo" },
-    { value: "Totalmente de acuerdo", label: "4. Totalmente de acuerdo" },
+    {
+      value: "1. Totalmente en desacuerdo",
+      label: "1. Totalmente en desacuerdo",
+    },
+    { value: "2. En desacuerdo", label: "2. En desacuerdo" },
+    { value: "3. De acuerdo", label: "3. De acuerdo" },
+    { value: "4. Totalmente de acuerdo", label: "4. Totalmente de acuerdo" },
   ];
 
   const celular_inteligenteOptions = [
@@ -318,33 +325,36 @@ function Form({ handleFormSubmit }) {
     { value: "Ninguna", label: "Ninguna" },
   ];
   const computador_hogarOptions = [
-    { value: "Computador de Escritorio", label: "Computador de Escritorio" },
-    { value: "Laptop", label: "Laptop" },
-    { value: "No hay", label: "No hay" },
+    {
+      value: "1. Computador de Escritorio",
+      label: "1. Computador de Escritorio",
+    },
+    { value: "2. Laptop", label: "2. Laptop" },
+    { value: "3. No hay", label: "3. No hay" },
   ];
   const conexion_internetOptions = [
-    { value: "Wifi", label: "Wifi" },
-    { value: "Cable de red", label: "Cable de red" },
-    { value: "Datos Móviles", label: "Datos Móviles" },
-    { value: "No tengo Internet", label: "No tengo Internet" },
+    { value: "1. Wifi", label: "1. Wifi" },
+    { value: "2. Cable de red", label: "2. Cable de red" },
+    { value: "3. Datos Móviles", label: "3. Datos Móviles" },
+    { value: "4. No tengo Internet", label: "4. No tengo Internet" },
   ];
   const tecnologia_vida_diariaOptions = [
-    { value: "Nada", label: "1. Nada" },
-    { value: "Algo", label: "2. Algo" },
-    { value: "Mucho", label: "3. Mucho" },
-    { value: "Demasiado", label: "4. Demasiado" },
+    { value: "1. Nada", label: "1. Nada" },
+    { value: "2. Algo", label: "2. Algo" },
+    { value: "3. Mucho", label: "3. Mucho" },
+    { value: "4. Demasiado", label: "4. Demasiado" },
   ];
   const importancia_habilidades_digitalesOptions = [
-    { value: "Nada importantes", label: "1. Nada importantes" },
-    { value: "Poco importantes", label: "2. Poco importantes" },
-    { value: "Muy importantes", label: "3. Muy importantes" },
-    { value: "Totalmente importantes", label: "4. Totalmente importantes" },
+    { value: "1. Nada importantes", label: "1. Nada importantes" },
+    { value: "2. Poco importantes", label: "2. Poco importantes" },
+    { value: "3. Muy importantes", label: "3. Muy importantes" },
+    { value: "4. Totalmente importantes", label: "4. Totalmente importantes" },
   ];
   const confianzaOptions = [
-    { value: "Nada de confianza", label: "1. Nada de confianza" },
-    { value: "Poca confianza", label: "2. Poca confianza" },
-    { value: "Algo de confianza", label: "3. Algo de confianza" },
-    { value: "Demasiada confianza", label: "4. Demasiada confianza" },
+    { value: "1. Nada de confianza", label: "1. Nada de confianza" },
+    { value: "2. Poca confianza", label: "2. Poca confianza" },
+    { value: "3. Algo de confianza", label: "3. Algo de confianza" },
+    { value: "4. Demasiada confianza", label: "4. Demasiada confianza" },
   ];
   const suma_8_8Options = [
     { value: "9", label: "9" },
@@ -354,148 +364,157 @@ function Form({ handleFormSubmit }) {
     { value: "20", label: "20" },
   ];
   const responsabilidadOptions = [
-    { value: "Si", label: "Si" },
-    { value: "No", label: "No" },
-    { value: "Algunas veces", label: "Algunas veces" },
-    { value: "Prefiero no responder", label: "Prefiero no responder" },
+    { value: "1. Si", label: "1. Si" },
+    { value: "2. No", label: "2. No" },
+    { value: "3. Algunas veces", label: "3. Algunas veces" },
+    { value: "4. Prefiero no responder", label: "4. Prefiero no responder" },
   ];
   const ocupacion_responsable_hogarOptions = [
-    { value: "Trabajar", label: "Trabajar" },
-    { value: "Buscar trabajo", label: "Buscar trabajo" },
-    { value: "Estudiar", label: "Estudiar" },
-    { value: "Oficios del Hogar", label: "Oficios del Hogar" },
-    { value: "Sin actividad", label: "Sin actividad" },
-    { value: "No sé", label: "No sé" },
+    { value: "1. Trabajar", label: "1. Trabajar" },
+    { value: "2. Buscar trabajo", label: "2. Buscar trabajo" },
+    { value: "3. Estudiar", label: "3. Estudiar" },
+    { value: "4. Oficios del Hogar", label: "4. Oficios del Hogar" },
+    { value: "5. Sin actividad", label: "5. Sin actividad" },
+    { value: "6. No sé", label: "6. No sé" },
   ];
   const uso_correcto_iaOptions = [
     {
-      value: "Para traducir un texto de otro idioma",
-      label: "Para traducir un texto de otro idioma",
+      value: "1. Para traducir un texto de otro idioma",
+      label: "1. Para traducir un texto de otro idioma",
     },
     {
       value:
-        "Pedirle que me diga exactamente qué me tomará un profesor en un examen",
+        "2. Pedirle que me diga exactamente qué me tomará un profesor en un examen",
       label:
-        "Pedirle que me diga exactamente qué me tomará un profesor en un examen",
+        "2. Pedirle que me diga exactamente qué me tomará un profesor en un examen",
     },
     {
       value:
-        "Pedirle que me dé recomendaciones sobre cómo mejorar una tarea o proyecto",
+        "3. Pedirle que me dé recomendaciones sobre cómo mejorar una tarea o proyecto",
       label:
-        "Pedirle que me dé recomendaciones sobre cómo mejorar una tarea o proyecto",
+        "3. Pedirle que me dé recomendaciones sobre cómo mejorar una tarea o proyecto",
     },
     {
-      value: "Pedirle que cree una nueva teoría científica",
-      label: "Pedirle que cree una nueva teoría científica",
+      value: "4. Pedirle que cree una nueva teoría científica",
+      label: "4. Pedirle que cree una nueva teoría científica",
     },
     {
-      value: "Pedirle que me ayude a planificar mis tareas o gastos en casa",
-      label: "Pedirle que me ayude a planificar mis tareas o gastos en casa",
+      value: "5. Pedirle que me ayude a planificar mis tareas o gastos en casa",
+      label: "5. Pedirle que me ayude a planificar mis tareas o gastos en casa",
     },
   ];
   const herramientas_ia_usadasOptions = [
-    { value: "ChatGPT", label: "ChatGPT" },
-    { value: "DALL-E", label: "DALL-E" },
-    { value: "Bing Creator", label: "Bing Creator" },
-    { value: "No uso herramientas de IA", label: "No uso herramientas de IA" },
-    { value: "Otras", label: "Otras" },
+    { value: "1. ChatGPT", label: "1. ChatGPT" },
+    { value: "2. DALL-E", label: "2. DALL-E" },
+    { value: "3. Bing Creator", label: "3. Bing Creator" },
+    {
+      value: "4. No uso herramientas de IA",
+      label: "4. No uso herramientas de IA",
+    },
+    { value: "5. Otras", label: "5. Otras" },
   ];
   const uso_excelOptions = [
-    { value: "Análisis financiero", label: "Análisis financiero" },
+    { value: "1. Análisis financiero", label: "1. Análisis financiero" },
     {
-      value: "Diseño gráfico profesional",
-      label: "Diseño gráfico profesional",
-    },
-    { value: "Gestión de bases de datos", label: "Gestión de bases de datos" },
-    {
-      value: "Desarrollo de aplicaciones web",
-      label: "Desarrollo de aplicaciones web",
+      value: "2. Diseño gráfico profesional",
+      label: "2. Diseño gráfico profesional",
     },
     {
-      value: "Creación de informes y visualización de datos",
-      label: "Creación de informes y visualización de datos",
+      value: "3. Gestión de bases de datos",
+      label: "3. Gestión de bases de datos",
+    },
+    {
+      value: "4. Desarrollo de aplicaciones web",
+      label: "4. Desarrollo de aplicaciones web",
+    },
+    {
+      value: "5. Creación de informes y visualización de datos",
+      label: "5. Creación de informes y visualización de datos",
     },
   ];
   const frecuencia_uso_excelOptions = [
-    { value: "Nunca", label: "Nunca" },
-    { value: "Raramente", label: "Raramente" },
-    { value: "Ocasionalmente", label: "Ocasionalmente" },
-    { value: "Frecuentemente", label: "Frecuentemente" },
-    { value: "Todo el tiempo", label: "Todo el tiempo" },
+    { value: "1. Nunca", label: "1. Nunca" },
+    { value: "2. Raramente", label: "2. Raramente" },
+    { value: "3. Ocasionalmente", label: "3. Ocasionalmente" },
+    { value: "4. Frecuentemente", label: "4. Frecuentemente" },
+    { value: "5. Todo el tiempo", label: "5. Todo el tiempo" },
   ];
   const funciones_tareas_excelOptions = [
-    { value: "Crear gráficos", label: "Crear gráficos" },
-    { value: "Usar tablas dinámicas", label: "Usar tablas dinámicas" },
-    { value: "Formatear celdas", label: "Formatear celdas" },
+    { value: "1. Crear gráficos", label: "1. Crear gráficos" },
+    { value: "2. Usar tablas dinámicas", label: "2. Usar tablas dinámicas" },
+    { value: "3. Formatear celdas", label: "3. Formatear celdas" },
     {
       value:
-        "Utilizado funciones para análisis de datos (por ejemplo: SUMA. PROMEDIO. BUSCARV)",
+        "4. Utilizado funciones para análisis de datos (por ejemplo: SUMA. PROMEDIO. BUSCARV)",
       label:
-        "Utilizado funciones para análisis de datos (por ejemplo: SUMA. PROMEDIO. BUSCARV)",
+        "4. Utilizado funciones para análisis de datos (por ejemplo: SUMA. PROMEDIO. BUSCARV)",
     },
-    { value: "Ninguna de las anteriores", label: "Ninguna de las anteriores" },
-    { value: "Otras", label: "Otras" },
+    {
+      value: "5. Ninguna de las anteriores",
+      label: "5. Ninguna de las anteriores",
+    },
+    { value: "6. Otras", label: "6. Otras" },
   ];
   const aspectos_para_elegir_programaOptions = [
     {
-      value: "Que esté disponible en una institución privada",
-      label: "Que esté disponible en una institución privada",
+      value: "1. Que esté disponible en una institución privada",
+      label: "1. Que esté disponible en una institución privada",
     },
     {
-      value: "Que esté disponible en una institución pública",
-      label: "Que esté disponible en una institución pública",
+      value: "2. Que esté disponible en una institución pública",
+      label: "2. Que esté disponible en una institución pública",
     },
     {
-      value: "Que se ajuste a mi plan de pago o financiación",
-      label: "Que se ajuste a mi plan de pago o financiación",
+      value: "3. Que se ajuste a mi plan de pago o financiación",
+      label: "3. Que se ajuste a mi plan de pago o financiación",
     },
     {
-      value: "Que me permita trabajar y estudiar",
-      label: "Que me permita trabajar y estudiar",
+      value: "4. Que me permita trabajar y estudiar",
+      label: "4. Que me permita trabajar y estudiar",
     },
     {
-      value: "Que tenga los costos de matricula más económicos",
-      label: "Que tenga los costos de matricula más económicos",
+      value: "5. Que tenga los costos de matricula más económicos",
+      label: "5. Que tenga los costos de matricula más económicos",
     },
     {
-      value: "Que sea reconocido por su calidad",
-      label: "Que sea reconocido por su calidad",
+      value: "6. Que sea reconocido por su calidad",
+      label: "6. Que sea reconocido por su calidad",
     },
     {
-      value: "Que tenga altas opciones de conseguir trabajo al terminarlo",
-      label: "Que tenga altas opciones de conseguir trabajo al terminarlo",
+      value: "7. Que tenga altas opciones de conseguir trabajo al terminarlo",
+      label: "7. Que tenga altas opciones de conseguir trabajo al terminarlo",
     },
     {
-      value: "Que tenga opciones de salarios altos",
-      label: "Que tenga opciones de salarios altos",
+      value: "8. Que tenga opciones de salarios altos",
+      label: "8. Que tenga opciones de salarios altos",
     },
     {
-      value: "Que aporte a mi idea de emprendimiento",
-      label: "Que aporte a mi idea de emprendimiento",
+      value: "9. Que aporte a mi idea de emprendimiento",
+      label: "9. Que aporte a mi idea de emprendimiento",
     },
   ];
   const informacion_programas_superioresOptions = [
     {
       value:
-        "No he buscado ni recolectado información sobre programas de educación superior ni las instituciones que los ofrecen",
+        "1. No he buscado ni recolectado información sobre programas de educación superior ni las instituciones que los ofrecen",
       label:
         "1. No he buscado ni recolectado información sobre programas de educación superior ni las instituciones que los ofrecen.",
     },
     {
       value:
-        "He buscado algo de información, pero aún me falta mucho por recolectar sobre los programas y las instituciones",
+        "2. He buscado algo de información, pero aún me falta mucho por recolectar sobre los programas y las instituciones",
       label:
         "2. He buscado algo de información, pero aún me falta mucho por recolectar sobre los programas y las instituciones.",
     },
     {
       value:
-        "He recolectado una cantidad considerable de información sobre varios programas y las instituciones que los ofrecen, pero aún me falta recolectar algunos detalles específicos",
+        "3. He recolectado una cantidad considerable de información sobre varios programas y las instituciones que los ofrecen, pero aún me falta recolectar algunos detalles específicos",
       label:
         "3. He recolectado una cantidad considerable de información sobre varios programas y las instituciones que los ofrecen, pero aún me falta recolectar algunos detalles específicos.",
     },
     {
       value:
-        "He recolectado una gran cantidad de información detallada sobre una amplia variedad de programas de educación superior y las instituciones que los ofrecen",
+        "4. He recolectado una gran cantidad de información detallada sobre una amplia variedad de programas de educación superior y las instituciones que los ofrecen",
       label:
         "4. He recolectado una gran cantidad de información detallada sobre una amplia variedad de programas de educación superior y las instituciones que los ofrecen.",
     },
@@ -503,25 +522,25 @@ function Form({ handleFormSubmit }) {
   const sitios_busqueda_trabajoOptions = [
     {
       value:
-        "No tengo conocimiento de sitios que puedan ayudarme en la búsqueda de trabajo.",
+        "1. No tengo conocimiento de sitios que puedan ayudarme en la búsqueda de trabajo.",
       label:
         "1. No tengo conocimiento de sitios que puedan ayudarme en la búsqueda de trabajo.",
     },
     {
       value:
-        "He oído hablar de algunos sitios que pueden ayudar en la búsqueda de trabajo, pero no los he explorado.",
+        "2. He oído hablar de algunos sitios que pueden ayudar en la búsqueda de trabajo, pero no los he explorado.",
       label:
         "2. He oído hablar de algunos sitios que pueden ayudar en la búsqueda de trabajo, pero no los he explorado.",
     },
     {
       value:
-        "He identificado varios sitios que pueden ayudarme en la búsqueda de trabajo y he explorado algunos de ellos.",
+        "3. He identificado varios sitios que pueden ayudarme en la búsqueda de trabajo y he explorado algunos de ellos.",
       label:
         "3. He identificado varios sitios que pueden ayudarme en la búsqueda de trabajo y he explorado algunos de ellos.",
     },
     {
       value:
-        "He identificado una variedad de sitios que pueden ayudarme en la búsqueda de trabajo y estoy familiarizado/a con ellos.",
+        "4. He identificado una variedad de sitios que pueden ayudarme en la búsqueda de trabajo y estoy familiarizado/a con ellos.",
       label:
         "4. He identificado una variedad de sitios que pueden ayudarme en la búsqueda de trabajo y estoy familiarizado/a con ellos.",
     },
@@ -529,170 +548,179 @@ function Form({ handleFormSubmit }) {
   const informacion_oportunidades_laboralesOptions = [
     {
       value:
-        "No he buscado ni recolectado información sobre las oportunidades laborales relacionadas con diferentes programas de educación superior.",
+        "1. No he buscado ni recolectado información sobre las oportunidades laborales relacionadas con diferentes programas de educación superior.",
       label:
         "1. No he buscado ni recolectado información sobre las oportunidades laborales relacionadas con diferentes programas de educación superior.",
     },
     {
       value:
-        "He buscado algo de información, pero aún me falta mucho por recolectar sobre las oportunidades laborales asociadas a los programas de educación superior.",
+        "2. He buscado algo de información, pero aún me falta mucho por recolectar sobre las oportunidades laborales asociadas a los programas de educación superior.",
       label:
         "2. He buscado algo de información, pero aún me falta mucho por recolectar sobre las oportunidades laborales asociadas a los programas de educación superior.",
     },
     {
       value:
-        "He recolectado una cantidad considerable de información sobre varias oportunidades laborales que podrían surgir al estudiar diferentes programas de educación superior, pero aún me falta recolectar algunos detalles específicos.",
+        "3. He recolectado una cantidad considerable de información sobre varias oportunidades laborales que podrían surgir al estudiar diferentes programas de educación superior, pero aún me falta recolectar algunos detalles específicos.",
       label:
         "3. He recolectado una cantidad considerable de información sobre varias oportunidades laborales que podrían surgir al estudiar diferentes programas de educación superior, pero aún me falta recolectar algunos detalles específicos.",
     },
     {
       value:
-        "He recolectado una gran cantidad de información detallada sobre una amplia variedad de oportunidades laborales asociadas con diversos programas de educación superior.",
+        "4. He recolectado una gran cantidad de información detallada sobre una amplia variedad de oportunidades laborales asociadas con diversos programas de educación superior.",
       label:
         "4. He recolectado una gran cantidad de información detallada sobre una amplia variedad de oportunidades laborales asociadas con diversos programas de educación superior.",
     },
   ];
   const temas_de_interesOptions = [
     {
-      value: "Ciencias Naturales (biología, química, física)",
-      label: "Ciencias Naturales (biología, química, física)",
+      value: "1. Ciencias Naturales (biología, química, física)",
+      label: "1. Ciencias Naturales (biología, química, física)",
     },
     {
       value:
-        "Tecnología (ingeniería, informática, programación, análisis de datos)",
+        "2. Tecnología (ingeniería, informática, programación, análisis de datos)",
       label:
-        "Tecnología (ingeniería, informática, programación, análisis de datos)",
+        "2. Tecnología (ingeniería, informática, programación, análisis de datos)",
     },
     {
-      value: "Humanidades (historia, literatura, filosofía)",
-      label: "Humanidades (historia, literatura, filosofía)",
+      value: "3. Humanidades (historia, literatura, filosofía)",
+      label: "3. Humanidades (historia, literatura, filosofía)",
     },
     {
-      value: "Artes (música, arte visual, artes plásticas, teatro)",
-      label: "Artes (música, arte visual, artes plásticas, teatro)",
+      value: "4. Artes (música, arte visual, artes plásticas, teatro)",
+      label: "4. Artes (música, arte visual, artes plásticas, teatro)",
     },
     {
-      value: "Ciencias Sociales (derecho, sociología, psicología)",
-      label: "Ciencias Sociales (derecho, sociología, psicología)",
+      value: "5. Ciencias Sociales (derecho, sociología, psicología)",
+      label: "5. Ciencias Sociales (derecho, sociología, psicología)",
     },
     {
       value:
-        "Salud (medicina, enfermería, odontología, nutrición y dietética, terapias)",
+        "6. Salud (medicina, enfermería, odontología, nutrición y dietética, terapias)",
       label:
-        "Salud (medicina, enfermería, odontología, nutrición y dietética, terapias)",
+        "6. Salud (medicina, enfermería, odontología, nutrición y dietética, terapias)",
     },
     {
-      value: "Negocios (administración, contabilidad, marketing)",
-      label: "Negocios (administración, contabilidad, marketing)",
+      value: "7. Negocios (administración, contabilidad, marketing)",
+      label: "7. Negocios (administración, contabilidad, marketing)",
     },
     {
-      value: "Educación (docencia, pedagogía, educación especial)",
-      label: "Educación (docencia, pedagogía, educación especial)",
+      value: "8. Educación (docencia, pedagogía, educación especial)",
+      label: "8. Educación (docencia, pedagogía, educación especial)",
     },
     {
-      value: "Arquitectura y urbanismo (otras ingenierías)",
-      label: "Arquitectura y urbanismo (otras ingenierías)",
+      value: "9. Arquitectura y urbanismo (otras ingenierías)",
+      label: "9. Arquitectura y urbanismo (otras ingenierías)",
     },
     {
       value:
-        "Ciencias de la comunicación (audiovisuales, publicidad, fotografía)",
+        "10. Ciencias de la comunicación (audiovisuales, publicidad, fotografía)",
       label:
-        "Ciencias de la comunicación (audiovisuales, publicidad, fotografía)",
+        "10. Ciencias de la comunicación (audiovisuales, publicidad, fotografía)",
     },
     {
-      value: "Agricultura y Medio Ambiente (agronomía, veterinaria)",
-      label: "Agricultura y Medio Ambiente (agronomía, veterinaria)",
+      value: "11. Agricultura y Medio Ambiente (agronomía, veterinaria)",
+      label: "11. Agricultura y Medio Ambiente (agronomía, veterinaria)",
     },
-    { value: "Otros no listados", label: "Otros no listados" },
+    { value: "12. Otros no listados", label: "12. Otros no listados" },
+    { value: "13. Aún no lo sé", label: "13. Aún no lo sé" },
   ];
   const fuentes_informacion_educativa_laboralOptions = [
-    { value: "Profesores y/o docentes", label: "Profesores y/o docentes" },
     {
-      value: "Orientadores u trabajadores sociales y/o psicólogos",
-      label: "Orientadores, trabajadores sociales y/o psicólogos",
+      value: "1. Profesores y/o docentes",
+      label: "1. Profesores y/o docentes",
     },
-    { value: "Internet", label: "Internet" },
-    { value: "Redes sociales", label: "Redes sociales" },
-    { value: "Amistades", label: "Amistades" },
-    { value: "Familiares", label: "Familiares" },
-    { value: "Televisión", label: "Televisión" },
-    { value: "Radio", label: "Radio" },
     {
-      value: "Periódicos o revistas impresas",
-      label: "Periódicos o revistas impresas",
+      value: "2. Orientadores u trabajadores sociales y/o psicólogos",
+      label: "2. Orientadores, trabajadores sociales y/o psicólogos",
     },
-    { value: "Otros", label: "Otros" },
+    { value: "3. Internet", label: "3. Internet" },
+    { value: "4. Redes sociales", label: "4. Redes sociales" },
+    { value: "5. Amistades", label: "5. Amistades" },
+    { value: "6. Familiares", label: "6. Familiares" },
+    { value: "7. Televisión", label: "7. Televisión" },
+    { value: "8. Radio", label: "8. Radio" },
+    {
+      value: "9. Periódicos o revistas impresas",
+      label: "9. Periódicos o revistas impresas",
+    },
+    { value: "10. Otros", label: "10. Otros" },
   ];
   const estrategia_de_aprendizajeOptions = [
     {
-      value: "Busco videos o recursos en línea para una mejor explicación.",
-      label: "Busco videos o recursos en línea para una mejor explicación.",
+      value: "1. Busco videos o recursos en línea para una mejor explicación.",
+      label: "1. Busco videos o recursos en línea para una mejor explicación.",
     },
-    { value: "Pido ayuda a amigo.", label: "Pido ayuda a amigo." },
+    { value: "2. Pido ayuda a amigo.", label: "2. Pido ayuda a amigo." },
     {
-      value: "Continúo leyendo el texto hasta que lo entiendo.",
-      label: "Continúo leyendo el texto hasta que lo entiendo.",
-    },
-    {
-      value: "Espero que mi profesor lo explique en otra clase.",
-      label: "Espero que mi profesor lo explique en otra clase.",
+      value: "3. Continúo leyendo el texto hasta que lo entiendo.",
+      label: "3. Continúo leyendo el texto hasta que lo entiendo.",
     },
     {
-      value: "Dejo el tema y paso a otra tarea.",
-      label: "Dejo el tema y paso a otra tarea.",
+      value: "4. Espero que mi profesor lo explique en otra clase.",
+      label: "4. Espero que mi profesor lo explique en otra clase.",
+    },
+    {
+      value: "5. Dejo el tema y paso a otra tarea.",
+      label: "5. Dejo el tema y paso a otra tarea.",
     },
   ];
   const organizacion_de_tareasOptions = [
-    { value: "Hago una lista de tareas", label: "Hago una lista de tareas" },
     {
-      value: "Priorizo tareas basándome en la fecha de entrega.",
-      label: "Priorizo tareas basándome en la fecha de entrega.",
+      value: "1. Hago una lista de tareas",
+      label: "1. Hago una lista de tareas",
     },
     {
-      value: "Trabajo en las tareas cuando tengo tiempo libre.",
-      label: "Trabajo en las tareas cuando tengo tiempo libre.",
+      value: "2. Priorizo tareas basándome en la fecha de entrega.",
+      label: "2. Priorizo tareas basándome en la fecha de entrega.",
     },
     {
-      value: "No tengo un método específico para organizar mis tareas.",
-      label: "No tengo un método específico para organizar mis tareas.",
+      value: "3. Trabajo en las tareas cuando tengo tiempo libre.",
+      label: "3. Trabajo en las tareas cuando tengo tiempo libre.",
+    },
+    {
+      value: "4. No tengo un método específico para organizar mis tareas.",
+      label: "4. No tengo un método específico para organizar mis tareas.",
     },
   ];
   const asegurar_comprension_equipoOptions = [
     {
-      value: "Hablo fuerte y uso muchas palabras.",
-      label: "Hablo fuerte y uso muchas palabras.",
+      value: "1. Hablo fuerte y uso muchas palabras.",
+      label: "1. Hablo fuerte y uso muchas palabras.",
     },
     {
-      value: "Uso ejemplos y repito mis puntos importantes.",
-      label: "Uso ejemplos y repito mis puntos importantes.",
+      value: "2. Uso ejemplos y repito mis puntos importantes.",
+      label: "2. Uso ejemplos y repito mis puntos importantes.",
     },
     {
-      value: "Escribo mis ideas y las comparto con mi equipo.",
-      label: "Escribo mis ideas y las comparto con mi equipo.",
+      value: "3. Escribo mis ideas y las comparto con mi equipo.",
+      label: "3. Escribo mis ideas y las comparto con mi equipo.",
     },
     {
-      value: "Solo espero que me entiendan sin necesidad de explicar mucho.",
-      label: "Solo espero que me entiendan sin necesidad de explicar mucho.",
+      value: "4. Solo espero que me entiendan sin necesidad de explicar mucho.",
+      label: "4. Solo espero que me entiendan sin necesidad de explicar mucho.",
     },
   ];
   const manejo_de_incumplimientoOptions = [
     {
       value:
-        "Converso sobre el problema con el equipo para encontrar una solución.",
+        "1. Converso sobre el problema con el equipo para encontrar una solución.",
       label:
-        "Converso sobre el problema con el equipo para encontrar una solución.",
+        "1. Converso sobre el problema con el equipo para encontrar una solución.",
     },
     {
-      value: "Informo al profesor sobre la situación.",
-      label: "Informo al profesor sobre la situación.",
+      value: "2. Informo al profesor sobre la situación.",
+      label: "2. Informo al profesor sobre la situación.",
     },
     {
-      value: "Trato de hacer las tareas de ese miembro para evitar retrasos.",
-      label: "Trato de hacer las tareas de ese miembro para evitar retrasos.",
+      value:
+        "3. Trato de hacer las tareas de ese miembro para evitar retrasos.",
+      label:
+        "3. Trato de hacer las tareas de ese miembro para evitar retrasos.",
     },
     {
-      value: "Hablo con la persona directamente para ofrecer ayuda.",
-      label: "Hablo con la persona directamente para ofrecer ayuda.",
+      value: "4. Hablo con la persona directamente para ofrecer ayuda.",
+      label: "4. Hablo con la persona directamente para ofrecer ayuda.",
     },
   ];
   const suma_45_136Options = [
@@ -702,30 +730,39 @@ function Form({ handleFormSubmit }) {
     { value: "232", label: "232" },
   ];
   const motivo_abandonar_estudiosOptions = [
-    { value: "Salud", label: "Salud" },
-    { value: "Interés", label: "Interés" },
-    { value: "Temas económicos", label: "Temas económicos" },
-    { value: "Deseo trabajar ya", label: "Deseo trabajar ya" },
-    { value: "Debo cuidar a un familiar", label: "Debo cuidar a un familiar" },
-    { value: "Mi familia me insiste", label: "Mi familia me insiste" },
-    { value: "Otra razón", label: "Otra razón" },
+    { value: "1. Salud", label: "1. Salud" },
+    { value: "2. Desinterés", label: "2. Desinterés" },
+    { value: "3. Problemas económicos", label: "3. Problemas económicos" },
     {
-      value: "Ninguno, no los considero abandonar",
-      label: "Ninguno, no los considero abandonar",
+      value: "4. Deseo trabajar lo antes posible",
+      label: "4. Deseo trabajar lo antes posible",
+    },
+    {
+      value: "5. Debo cuidar a un familiar",
+      label: "5. Debo cuidar a un familiar",
+    },
+    {
+      value: "6. Mi familia me insiste que haga otra cosa",
+      label: "6. Mi familia me insiste que haga otra cosa",
+    },
+    { value: "7. Otra razón", label: "7. Otra razón" },
+    {
+      value: "8. Ninguno, no los considero abandonar",
+      label: "8. Ninguno, no los considero abandonar",
     },
   ];
   const maximo_nivel_educativo_Options = [
-    { value: "Secundaria (9°)", label: "Secundaria (9°)" },
-    { value: "Media (10-11°)", label: "Media (10-11°)" },
+    { value: "1. Secundaria (9°)", label: "1. Secundaria (9°)" },
+    { value: "2. Media (10-11°)", label: "2. Media (10-11°)" },
     {
-      value: "Técnico laboral (Educación para el Trabajo)",
-      label: "Técnico laboral (Educación para el Trabajo)",
+      value: "3. Técnico laboral (Educación para el Trabajo)",
+      label: "3. Técnico laboral (Educación para el Trabajo)",
     },
-    { value: "Técnico profesional", label: "Técnico profesional" },
-    { value: "Tecnológico", label: "Tecnológico" },
-    { value: "Universitario", label: "Universitario" },
-    { value: "Posgrado", label: "Posgrado" },
-    { value: "No sé", label: "No sé" },
+    { value: "4. Técnico profesional", label: "4. Técnico profesional" },
+    { value: "5. Tecnológico", label: "5. Tecnológico" },
+    { value: "6. Universitario", label: "6. Universitario" },
+    { value: "7. Posgrado", label: "7. Posgrado" },
+    { value: "8. No sé", label: "8. No sé" },
   ];
   const miembros_familia_que_apoyanOptions = [
     { value: "Madre", label: "Madre" },
@@ -740,72 +777,72 @@ function Form({ handleFormSubmit }) {
   const actividades_realizadas_ultimo_añoOptions = [
     {
       value:
-        "Hablar o escuchar a personas que estudian o estudiaron el programa educativo de mi interés",
+        "1. Hablar o escuchar a personas que estudian o estudiaron el programa educativo de mi interés",
       label:
         "1. Hablar o escuchar a personas que estudian o estudiaron el programa educativo de mi interés",
     },
     {
       value:
-        "Hablar o escuchar a personas que realizaron o realizan el trabajo de mi interés",
+        "2. Hablar o escuchar a personas que realizaron o realizan el trabajo de mi interés",
       label:
         "2. Hablar o escuchar a personas que realizaron o realizan el trabajo de mi interés",
     },
     {
       value:
-        "Responder una prueba de intereses (profesionales o vocacionales u ocupacionales)",
+        "3. Responder una prueba de intereses (profesionales o vocacionales u ocupacionales)",
       label:
         "3. Responder una prueba de intereses (profesionales, vocacionales u ocupacionales)",
     },
     {
       value:
-        "Hacer cursos o actividades que aportan a mi proyecto de vida al graduarme",
+        "4. Hacer cursos o actividades que aportan a mi proyecto de vida al graduarme",
       label:
         "4. Hacer cursos o actividades que aportan a mi proyecto de vida al graduarme",
     },
     {
       value:
-        "Buscar información sobre programas educativos y/o trabajos de mi interés",
+        "5. Buscar información sobre programas educativos y/o trabajos de mi interés",
       label:
         "5. Buscar información sobre programas educativos y/o trabajos de mi interés",
     },
     {
       value:
-        "Otra actividad que me permitió identificar mis intereses a futuro y no está listada",
+        "6. Otra actividad que me permitió identificar mis intereses a futuro y no está listada",
       label:
         "6. Otra actividad que me permitió identificar mis intereses a futuro y no está listada",
     },
     {
-      value: "No realicé ninguna actividad con este enfoque",
+      value: "7. No realicé ninguna actividad con este enfoque",
       label: "7. No realicé ninguna actividad con este enfoque",
     },
   ];
   const planes_post_graduacionOptions = [
     {
-      value: "Planeo empezar a trabajar",
-      label: "Planeo empezar a trabajar",
+      value: "1. Planeo empezar a trabajar",
+      label: "1. Planeo empezar a trabajar",
     },
     {
-      value: "Planeo empezar a estudiar",
-      label: "Planeo empezar a estudiar",
+      value: "2. Planeo empezar a estudiar",
+      label: "2. Planeo empezar a estudiar",
     },
     {
-      value: "Planeo empezar a trabajar y estudiar al mismo tiempo",
-      label: "Planeo empezar a trabajar y estudiar al mismo tiempo",
+      value: "3. Planeo empezar a trabajar y estudiar al mismo tiempo",
+      label: "3. Planeo empezar a trabajar y estudiar al mismo tiempo",
     },
-    { value: "Planeo emprender", label: "Planeo emprender" },
+    { value: "4. Planeo emprender", label: "4. Planeo emprender" },
     {
-      value: "Planeo estudiar y/o trabajar fuera del país",
-      label: "Planeo estudiar y/o trabajar fuera del país",
-    },
-    {
-      value: "Planeo tomar un año de no trabajar ni estudiar",
-      label: "Planeo tomar un año de no trabajar, ni estudiar",
+      value: "5. Planeo estudiar y/o trabajar fuera del país",
+      label: "5. Planeo estudiar y/o trabajar fuera del país",
     },
     {
-      value: "Puede que deje los estudios antes de graduarme",
-      label: "Puede que deje los estudios antes de graduarme",
+      value: "6. Planeo tomar un año de no trabajar ni estudiar",
+      label: "6. Planeo tomar un año de no trabajar, ni estudiar",
     },
-    { value: "No lo sé todavía", label: "No lo sé todavía" },
+    {
+      value: "7. Puede que deje los estudios antes de graduarme",
+      label: "7. Puede que deje los estudios antes de graduarme",
+    },
+    { value: "8. No lo sé todavía", label: "8. No lo sé todavía" },
   ];
 
   const pages = [
@@ -944,7 +981,6 @@ function Form({ handleFormSubmit }) {
         isOptional={false}
         maxSelections={8}
       />,
-
       <RadioGroup
         label="¿Sabes cuál es el nivel educativo más alto entre las personas que viven contigo?"
         options={nivelEducativoOptions}
@@ -1004,7 +1040,7 @@ function Form({ handleFormSubmit }) {
         error={errors.importancia_habilidades_digitales}
       />,
       <RadioGroup
-        label="¿Crees que la tecnología es una herramienta importante para tu aprendizaje?"
+        label="¿Consideras la tecnología como una herramienta importante para tu aprendizaje?"
         options={tecnologia_vida_diariaOptions}
         name="tecnologia_aprendizaje"
         selectedValue={formData.tecnologia_aprendizaje}
@@ -1014,7 +1050,7 @@ function Form({ handleFormSubmit }) {
     ],
     [
       <RadioGroup
-        label="¿Cuánta confianza tienes en tus habilidades para utilizar inteligencia artificial o análisis de datos y resolver actividades en tu vida académica?"
+        label="¿Cuánta confianza tienes en tus habilidades para utilizar inteligencia artificial o análisis de datos para resolver retos o tareas en tu vida académica?"
         options={confianzaOptions}
         name="confianza_ia_academico"
         selectedValue={formData.confianza_ia_academico}
@@ -1022,7 +1058,7 @@ function Form({ handleFormSubmit }) {
         error={errors.confianza_ia_academico}
       />,
       <RadioGroup
-        label="¿Cuánta confianza tienes en tus habilidades para utilizar inteligencia artificial o análisis de datos y resolver actividades en tu vida personal?"
+        label="¿Cuánta confianza tienes en tus habilidades para utilizar inteligencia artificial o análisis de datos para resolver retos o tareas en tu vida personal?"
         options={confianzaOptions}
         name="confianza_ia_personal"
         selectedValue={formData.confianza_ia_personal}
@@ -1066,7 +1102,7 @@ function Form({ handleFormSubmit }) {
     ],
     [
       <RadioGroup
-        label="¿Te interesaría tomar la iniciativa para guiar a las personas en tu comunidad en diferentes actividades y proyectos?"
+        label="¿Te interesaría tomar la iniciativa para guiar y apoyar a las personas en tu barrio o escuela en diferentes actividades y proyectos?"
         options={tecnologia_vida_diariaOptions}
         name="liderazgo_comunidad"
         selectedValue={formData.liderazgo_comunidad}
@@ -1074,7 +1110,7 @@ function Form({ handleFormSubmit }) {
         error={errors.liderazgo_comunidad}
       />,
       <RadioGroup
-        label="¿Qué tan motivado te sientes para desarrollar proyectos relacionados con la tecnología en tu comunidad, incluyendo a padres, madres, docentes, directivos y compañeros de otros grados?"
+        label="¿Cuánta motivación sientes para convencer y organizar a tu comunidad educativa (padres, madres, docentes, directivos y compañeros de otros grados) para crear proyectos relacionados con la tecnología?"
         options={tecnologia_vida_diariaOptions}
         name="motivacion_proyectos_tecnologicos"
         selectedValue={formData.motivacion_proyectos_tecnologicos}
@@ -1090,7 +1126,7 @@ function Form({ handleFormSubmit }) {
         error={errors.funcion_ia}
       />,
       <CheckboxGroup
-        label="Selecciona las opciones correctas relacionadas con el uso de la Inteligencia Artificial (IA)"
+        label="Selecciona las opciones correctas relacionadas con el uso de la IA:"
         name="uso_correcto_ia"
         options={uso_correcto_iaOptions}
         selectedValues={
@@ -1115,7 +1151,7 @@ function Form({ handleFormSubmit }) {
         error={errors.herramientas_ia_usadas}
       />,
       <InputField
-        label="Si marcaste otras, detalla qué herramientas has utilizado:"
+        label="Si marcaste 'OTRAS', detalla qué herramientas has utilizado:"
         name="detalle_herramientas_ia"
         value={formData.detalle_herramientas_ia}
         onChange={handleChange}
@@ -1144,9 +1180,9 @@ function Form({ handleFormSubmit }) {
         options={uso_excelOptions}
         selectedValues={formData.uso_excel ? formData.uso_excel.split(",") : []}
         onChange={handleChange}
-        maxSelections={5} // Puedes ajustar esto según el máximo número de selecciones permitidas
+        maxSelections={5}
         error={errors.uso_excel}
-        isOptional={false} // O true si este campo es opcional
+        isOptional={false}
       />,
       <RadioGroup
         label="¿Con qué frecuencia utilizas Microsoft Excel en tus actividades?"
@@ -1166,11 +1202,11 @@ function Form({ handleFormSubmit }) {
             : []
         }
         onChange={handleChange}
-        maxSelections={6} // Puedes ajustar esto según el máximo número de selecciones permitidas
+        maxSelections={6}
         error={errors.funciones_tareas_excel}
       />,
       <InputField
-        label="Si marcaste otras, por favor, especifíca:"
+        label="Si marcaste 'OTRAS', por favor, especifíca:"
         name="otras_funciones_excel"
         value={formData.otras_funciones_excel}
         onChange={handleChange}
@@ -1185,14 +1221,14 @@ function Form({ handleFormSubmit }) {
         onChange={handleChange}
         error={errors.buscar_programas_educativos}
       />,
-      <RadioGroup
-        label="Reconozco las entidades en las que podría realizar los estudios de mi interés."
-        options={motivacion_profesores_emprenderOptions}
-        name="reconocimiento_entidades_educativas"
-        selectedValue={formData.reconocimiento_entidades_educativas}
-        onChange={handleChange}
-        error={errors.reconocimiento_entidades_educativas}
-      />,
+      // <RadioGroup
+      //   label="Reconozco las entidades en las que podría realizar los estudios de mi interés."
+      //   options={motivacion_profesores_emprenderOptions}
+      //   name="reconocimiento_entidades_educativas"
+      //   selectedValue={formData.reconocimiento_entidades_educativas}
+      //   onChange={handleChange}
+      //   error={errors.reconocimiento_entidades_educativas}
+      // />,
     ],
     [
       <CheckboxGroup
@@ -1216,6 +1252,14 @@ function Form({ handleFormSubmit }) {
         selectedValue={formData.informacion_programas_superiores}
         onChange={handleChange}
         error={errors.informacion_programas_superiores}
+      />,
+      <RadioGroup
+        label="Me siento capaz de buscar información sobre apoyo ﬁnanciero o becas para seguir estudiando después de graduarme."
+        options={motivacion_profesores_emprenderOptions}
+        name="apoyo_financiero_becas"
+        selectedValue={formData.apoyo_financiero_becas}
+        onChange={handleChange}
+        error={errors.apoyo_financiero_becas}
       />,
       <InputField
         label="Cuánto es 3X7"
@@ -1242,7 +1286,7 @@ function Form({ handleFormSubmit }) {
         error={errors.como_hacer_hoja_de_vida}
       />,
       <RadioGroup
-        label="Reconozco las empresas, organizaciones o entidades en las que podría trabajar según mi interés."
+        label="Reconozco las empresas, organizaciones o entidades en las que podría trabajar o realizar los estudios de mi interés."
         options={motivacion_profesores_emprenderOptions}
         name="reconocimiento_empresas_para_trabajar"
         selectedValue={formData.reconocimiento_empresas_para_trabajar}
@@ -1276,7 +1320,7 @@ function Form({ handleFormSubmit }) {
         error={errors.sitios_busqueda_trabajo}
       />,
       <InputField
-        label="Si conoces bolsas de trabajo o páginas para encontrar empleos, menciona cuáles aquí:"
+        label="Cuéntanos de qué sitios o plataformas has oido hablar o estás explorando para obtener información."
         name="detalle_bolsas_trabajo"
         value={formData.detalle_bolsas_trabajo}
         onChange={handleChange}
@@ -1292,7 +1336,7 @@ function Form({ handleFormSubmit }) {
         error={errors.buscar_ofertas_laborales}
       />,
       <RadioGroup
-        label="He recolectado información sobre las oportunidades laborales que pueden abrirse si continuo mis estudios."
+        label="He recolectado información sobre las oportunidades laborales que pueden abrirse si estudio diferentes programas de educación superior."
         options={informacion_oportunidades_laboralesOptions}
         name="informacion_oportunidades_laborales"
         selectedValue={formData.informacion_oportunidades_laborales}
@@ -1425,7 +1469,7 @@ function Form({ handleFormSubmit }) {
       <RatingSelector
         start={0}
         end={10}
-        label="En una escala de 0 a 10, siendo 0 nada de interés y 10 demasiado interés, ¿Cuánto es tu interés para continuar estudiando inmediatamente después de graduarte del bachillerato?"
+        label="En una escala de 0 a 10, siendo 0 nada de interés y 10 demasiado interés, ¿Cuánto es tu interés para buscar oportunidades laborales inmediatamente después de graduarte del bachillerato?"
         colorType="default"
         selectedValue={String(formData.interes_estudios_post_bachillerato || 0)}
         onChange={handleChange}
@@ -1437,11 +1481,11 @@ function Form({ handleFormSubmit }) {
       <RatingSelector
         start={0}
         end={10}
-        label="En una escala de 0 a 10, ¿qué tan probable es que consideres abandonar tus estudios antes de graduarte?"
+        label="En una escala de 0 a 10, donde 0 es nada probable y 10 totalmente probable, ¿qué tan probable es que consideres abandonar tus estudios antes de graduarte?"
         colorType="default"
-        selectedValue={String(formData.probabilidad_abandonar_estudios || 0)} // Utiliza 0 como valor predeterminado si es null
+        selectedValue={String(formData.probabilidad_abandonar_estudios || 0)}
         onChange={handleChange}
-        error={errors.probabilidad_abandonar_estudios} // Puedes manejar los errores según tu lógica
+        error={errors.probabilidad_abandonar_estudios}
         isOptional={true}
         name="probabilidad_abandonar_estudios"
       />,
@@ -1458,7 +1502,7 @@ function Form({ handleFormSubmit }) {
     [
       <Select
         key="maximo_nivel_educativo_soñado"
-        label="Teniendo en cuenta tus objetivos y expectativas de vida ¿Cuál es el máximo nivel educativo que sueñas alcanzar en tu vida?"
+        label="Teniendo en cuenta tus metas y expectativas de vida ¿Cuál es el máximo nivel educativo que sueñas alcanzar en tu vida?"
         name="maximo_nivel_educativo_soñado"
         options={maximo_nivel_educativo_Options}
         value={formData.maximo_nivel_educativo_soñado}
@@ -1478,6 +1522,14 @@ function Form({ handleFormSubmit }) {
         error={errors.maximo_nivel_educativo_esperado}
         isOptional={false}
       />,
+      <RadioGroup
+        label="Mi familia me motiva a seguir estudiando al graduarme."
+        options={motivacion_profesores_emprenderOptions}
+        name="apoyo_familiar_continuar_estudios"
+        selectedValue={formData.apoyo_familiar_continuar_estudios}
+        onChange={handleChange}
+        error={errors.apoyo_familiar_continuar_estudios}
+      />,
       <CheckboxGroup
         label="Marca quiénes son los miembros de tu familia que más te apoyan y motivan en tu educación. Máximo 3 personas."
         name="miembros_familia_que_apoyan"
@@ -1490,16 +1542,9 @@ function Form({ handleFormSubmit }) {
         onChange={handleChange}
         maxSelections={3}
         error={errors.miembros_familia_que_apoyan}
-        isOptional={false} // Ajustar según sea necesario
+        isOptional={false}
       />,
-      <RadioGroup
-        label="Mi familia me apoya y motiva a seguir estudiando al graduarme."
-        options={motivacion_profesores_emprenderOptions}
-        name="apoyo_familiar_continuar_estudios"
-        selectedValue={formData.apoyo_familiar_continuar_estudios}
-        onChange={handleChange}
-        error={errors.apoyo_familiar_continuar_estudios}
-      />,
+
       <RadioGroup
         label="Mi familia me apoyaría económicamente para continuar estudiando al graduarme."
         options={motivacion_profesores_emprenderOptions}
@@ -1589,10 +1634,8 @@ function Form({ handleFormSubmit }) {
       />,
     ],
     [
-      // <RatingSelector count={10} label="Una pregunta Random" />,
-      // <CheckboxGroup label="Select your options:" options={checkboxOptions} />,
       <RadioGroup
-        label="Considero que mi familia me brinda el apoyo necesario para alcanzar mis metas profesionales."
+        label="Considero que mi familia y/o comunidad me brindan el apoyo necesario para alcanzar mis metas profesionales."
         options={motivacion_profesores_emprenderOptions}
         name="apoyo_familiar_metas_profesionales"
         selectedValue={formData.apoyo_familiar_metas_profesionales}
@@ -1655,24 +1698,6 @@ function Form({ handleFormSubmit }) {
         onChange={handleChange}
         error={errors.motivacion_profesores_emprender}
       />,
-      // <RatingSelector
-      //   start={1}
-      //   end={10}
-      //   label="Calificación (default)"
-      //   colorType="default"
-      // />,
-      // <RatingSelector
-      //   start={1}
-      //   end={10}
-      //   label="Calificación (gradient)"
-      //   colorType="gradient"
-      // />,
-      // <RatingSelector
-      //   start={0}
-      //   end={10}
-      //   label="Calificación (nps)"
-      //   colorType="nps"
-      // />,
     ],
   ];
 
