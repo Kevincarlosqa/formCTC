@@ -112,6 +112,7 @@ function Form({ handleFormSubmit }) {
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [errors, setErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const formRef = useRef(null);
   const handleChange = (name, value) => {
     setFormData((prevFormData) => ({
@@ -142,7 +143,7 @@ function Form({ handleFormSubmit }) {
     if (!isPageValid) {
       return;
     }
-
+    setIsSubmitting(true);
     try {
       const response = await axios.post(
         //DESCOMENTAR SOLO EL PRIMERO PARA PRODUCCION
@@ -167,6 +168,8 @@ function Form({ handleFormSubmit }) {
     } catch (error) {
       console.error("Error al enviar los datos:", error);
       setErrorMessage("Error al enviar los datos. Inténtelo de nuevo.");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -179,19 +182,22 @@ function Form({ handleFormSubmit }) {
     { label: "Prefiero no Responder", value: "Prefiero no Responder" },
   ];
   const institucionOptions = [
-    { label: "Villas de San Pablo", value: "Villas de San Pablo" },
     {
-      label: "Escuela Normal Superior del Distrito",
-      value: "Escuela Normal Superior del Distrito",
+      label: "IED De Experiencias Pedagógicas",
+      value: "IED De Experiencias Pedagógicas",
     },
-    { label: "Juan José Rondón", value: "Juan José Rondón" },
     {
-      label: "Escuela Normal Superior La Hacienda",
-      value: "Escuela Normal Superior La Hacienda",
+      label: "IED Maria Auxiliadora",
+      value: "IED Maria Auxiliadora",
     },
-    { label: "Marie Poussepin", value: "Marie Poussepin" },
-    { label: "Fundación Pies Descalzos", value: "Fundación Pies Descalzos" },
-    { label: "Comunitaria Metropolitana", value: "Comunitaria Metropolitana" },
+    {
+      label: "IED Miguel Angel Builes",
+      value: "IED Miguel Angel Builes",
+    },
+    {
+      label: "IED Rodolfo Llinas Riascos",
+      value: "IED Rodolfo Llinas Riascos",
+    },
   ];
   const genderOptions = [
     { label: "Masculino", value: "Masculino" },
@@ -903,7 +909,7 @@ function Form({ handleFormSubmit }) {
         name="correo_personal"
         value={formData.correo_personal}
         onChange={handleChange}
-        placeholder="Ingrese su Correo electrónico personal"
+        placeholder="ejemplo@gmail.com"
         isOptional={false}
         error={errors.correo_personal}
         type="email"
@@ -1268,6 +1274,7 @@ function Form({ handleFormSubmit }) {
         onChange={handleChange}
         placeholder="Ingrese una respuesta"
         type="number"
+        isOptional={true}
       />,
       <RadioGroup
         label="Me conozco y tengo claro cuáles son mis gustos e intereses."
@@ -1795,8 +1802,9 @@ function Form({ handleFormSubmit }) {
             <button
               type="submit"
               className="rounded-lg border-2 w-full sm:w-[100px] mx-auto mt-5 text-xl text-white p-2 hover:bg-black/40 transition duration-300 ease-in-out"
+              disabled={isSubmitting}
             >
-              Enviar
+              {isSubmitting ? "Enviando..." : "Enviar"}
             </button>
           )}
           {errorMessage && (
