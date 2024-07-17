@@ -1271,6 +1271,7 @@ function Form({ handleFormSubmit }) {
         onChange={handleChange}
         placeholder="Ingrese una respuesta"
         type="number"
+        isOptional={true}
       />,
       <RadioGroup
         label="Me conozco y tengo claro cuáles son mis gustos e intereses."
