@@ -187,8 +187,8 @@ function Form({ handleFormSubmit }) {
       value: "IED De Experiencias Pedagógicas",
     },
     {
-      label: "IED Maria Auxiliadora",
-      value: "IED Maria Auxiliadora",
+      label: "IED María Auxiliadora",
+      value: "IED María Auxiliadora",
     },
     {
       label: "IED Miguel Angel Builes",
