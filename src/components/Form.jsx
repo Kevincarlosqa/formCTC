@@ -82,7 +82,7 @@ function Form({ handleFormSubmit }) {
     interes_estudios_post_bachillerato: "",
     probabilidad_abandonar_estudios: "",
     motivo_abandonar_estudios: "",
-    maximo_nivel_educativo_soñado: "",
+    maximo_nivel_educativo_sonado: "",
     maximo_nivel_educativo_esperado: "",
     miembros_familia_que_apoyan: "",
     apoyo_familiar_continuar_estudios: "",
@@ -93,7 +93,7 @@ function Form({ handleFormSubmit }) {
     actividades_profesores_decisiones_futuras: "",
     interes_oportunidades_laborales: "",
     capacidad_afrontar_desafios_laborales: "",
-    actividades_realizadas_ultimo_año: "",
+    actividades_realizadas_ultimo_ano: "",
     planes_post_graduacion: "",
     detalle_planes_futuros: "",
     apoyo_familiar_metas_profesionales: "",
@@ -777,7 +777,7 @@ function Form({ handleFormSubmit }) {
     { value: "Otro(s) familiar(es)", label: "Otro(s) familiar(es)" },
     { value: "Prefiero no responder", label: "Prefiero no responder" },
   ];
-  const actividades_realizadas_ultimo_añoOptions = [
+  const actividades_realizadas_ultimo_anoOptions = [
     {
       value:
         "1. Hablar o escuchar a personas que estudian o estudiaron el programa educativo de mi interés",
@@ -1035,7 +1035,7 @@ function Form({ handleFormSubmit }) {
         error={errors.tecnologia_vida_diaria}
       />,
       <RadioGroup
-        label="¿Qué tan importantes son las habilidades digitales para tu desarrollo personal?"
+        label="¿Qué tan importante es aprender habilidades digitales para tu desarrollo personal?"
         options={importancia_habilidades_digitalesOptions}
         name="importancia_habilidades_digitales"
         selectedValue={formData.importancia_habilidades_digitales}
@@ -1043,7 +1043,7 @@ function Form({ handleFormSubmit }) {
         error={errors.importancia_habilidades_digitales}
       />,
       <RadioGroup
-        label="¿Consideras la tecnología como una herramienta importante para tu aprendizaje?"
+        label=" ¿Crees que la tecnología es una herramienta importante para tu aprendizaje?"
         options={tecnologia_vida_diariaOptions}
         name="tecnologia_aprendizaje"
         selectedValue={formData.tecnologia_aprendizaje}
@@ -1053,7 +1053,7 @@ function Form({ handleFormSubmit }) {
     ],
     [
       <RadioGroup
-        label="¿Cuánta confianza tienes en tus habilidades para utilizar inteligencia artificial o análisis de datos para resolver retos o tareas en tu vida académica?"
+        label="¿Cuánta confianza tienes en tus habilidades para utilizar inteligencia artificial o análisis de datos y resolver actividades en tu vida académica?"
         options={confianzaOptions}
         name="confianza_ia_academico"
         selectedValue={formData.confianza_ia_academico}
@@ -1061,7 +1061,7 @@ function Form({ handleFormSubmit }) {
         error={errors.confianza_ia_academico}
       />,
       <RadioGroup
-        label="¿Cuánta confianza tienes en tus habilidades para utilizar inteligencia artificial o análisis de datos para resolver retos o tareas en tu vida personal?"
+        label="¿Cuánta confianza tienes en tus habilidades para utilizar inteligencia artificial o análisis de datos y resolver actividades en tu vida personal?"
         options={confianzaOptions}
         name="confianza_ia_personal"
         selectedValue={formData.confianza_ia_personal}
@@ -1105,7 +1105,7 @@ function Form({ handleFormSubmit }) {
     ],
     [
       <RadioGroup
-        label="¿Te interesaría tomar la iniciativa para guiar y apoyar a las personas en tu barrio o escuela en diferentes actividades y proyectos?"
+        label="¿Te interesaría tomar la iniciativa para guiar a las personas en tu comunidad (familiares, amistades, docentes, directivos, entorno cercano fuera de la escuela, otros) en diferentes actividades y proyectos?"
         options={tecnologia_vida_diariaOptions}
         name="liderazgo_comunidad"
         selectedValue={formData.liderazgo_comunidad}
@@ -1113,7 +1113,7 @@ function Form({ handleFormSubmit }) {
         error={errors.liderazgo_comunidad}
       />,
       <RadioGroup
-        label="¿Cuánta motivación sientes para convencer y organizar a tu comunidad educativa (padres, madres, docentes, directivos y compañeros de otros grados) para crear proyectos relacionados con la tecnología?"
+        label="¿Qué tan motivado te sientes para desarrollar proyectos relacionados con la tecnología con miembros de tu comunidad? (padres, madres, familiares, docentes, directivos, compañeros de otros grados, personas fuera de la escuela, otros)."
         options={tecnologia_vida_diariaOptions}
         name="motivacion_proyectos_tecnologicos"
         selectedValue={formData.motivacion_proyectos_tecnologicos}
@@ -1129,7 +1129,7 @@ function Form({ handleFormSubmit }) {
         error={errors.funcion_ia}
       />,
       <CheckboxGroup
-        label="Selecciona las opciones correctas relacionadas con el uso de la IA:"
+        label="Selecciona las opciones correctas relacionadas con el uso de la Inteligencia Artificial (IA):"
         name="uso_correcto_ia"
         options={uso_correcto_iaOptions}
         selectedValues={
@@ -1154,7 +1154,7 @@ function Form({ handleFormSubmit }) {
         error={errors.herramientas_ia_usadas}
       />,
       <InputField
-        label="Si marcaste 'OTRAS', detalla qué herramientas has utilizado:"
+        label="Si marcaste otras, detalla qué herramientas has utilizado:"
         name="detalle_herramientas_ia"
         value={formData.detalle_herramientas_ia}
         onChange={handleChange}
@@ -1209,7 +1209,7 @@ function Form({ handleFormSubmit }) {
         error={errors.funciones_tareas_excel}
       />,
       <InputField
-        label="Si marcaste 'OTRAS', por favor, especifíca:"
+        label="Si marcaste otras, por favor, especifíca:"
         name="otras_funciones_excel"
         value={formData.otras_funciones_excel}
         onChange={handleChange}
@@ -1257,7 +1257,7 @@ function Form({ handleFormSubmit }) {
         error={errors.informacion_programas_superiores}
       />,
       <RadioGroup
-        label="Me siento capaz de buscar información sobre apoyo ﬁnanciero o becas para seguir estudiando después de graduarme."
+        label="Tengo interés en buscar información sobre apoyo ﬁnanciero (becas) para seguir estudiando después de graduarme."
         options={motivacion_profesores_emprenderOptions}
         name="apoyo_financiero_becas"
         selectedValue={formData.apoyo_financiero_becas}
@@ -1290,7 +1290,7 @@ function Form({ handleFormSubmit }) {
         error={errors.como_hacer_hoja_de_vida}
       />,
       <RadioGroup
-        label="Reconozco las empresas, organizaciones o entidades en las que podría trabajar o realizar los estudios de mi interés."
+        label="Reconozco las empresas, organizaciones o entidades en las que podría trabajar según mi interés."
         options={motivacion_profesores_emprenderOptions}
         name="reconocimiento_empresas_para_trabajar"
         selectedValue={formData.reconocimiento_empresas_para_trabajar}
@@ -1324,7 +1324,7 @@ function Form({ handleFormSubmit }) {
         error={errors.sitios_busqueda_trabajo}
       />,
       <InputField
-        label="Cuéntanos de qué sitios o plataformas has oido hablar o estás explorando para obtener información."
+        label="Si conoces bolsas de trabajo o páginas para encontrar empleos, menciona cuáles:"
         name="detalle_bolsas_trabajo"
         value={formData.detalle_bolsas_trabajo}
         onChange={handleChange}
@@ -1340,7 +1340,7 @@ function Form({ handleFormSubmit }) {
         error={errors.buscar_ofertas_laborales}
       />,
       <RadioGroup
-        label="He recolectado información sobre las oportunidades laborales que pueden abrirse si estudio diferentes programas de educación superior."
+        label="He recolectado información sobre las oportunidades laborales que pueden darse si continuo mis estudios."
         options={informacion_oportunidades_laboralesOptions}
         name="informacion_oportunidades_laborales"
         selectedValue={formData.informacion_oportunidades_laborales}
@@ -1358,7 +1358,7 @@ function Form({ handleFormSubmit }) {
         error={errors.habilidades_necesarias_trabajo}
       />,
       <RadioGroup
-        label="De los siguientes grupos temáticos ¿en cuál clasificarías tus principales intereses para seguir estudiando y/o trabajando al graduarte?"
+        label="De los siguientes grupos temáticos, ¿en cuál clasiﬁcarías tus principales intereses para seguir estudiando y/o trabajando al graduarte?"
         options={temas_de_interesOptions}
         name="temas_de_interes"
         selectedValue={formData.temas_de_interes}
@@ -1473,7 +1473,7 @@ function Form({ handleFormSubmit }) {
       <RatingSelector
         start={0}
         end={10}
-        label="En una escala de 0 a 10, siendo 0 nada de interés y 10 demasiado interés, ¿Cuánto es tu interés para buscar oportunidades laborales inmediatamente después de graduarte del bachillerato?"
+        label="Del 0 a 10, siendo 0 nada de interés y 10 demasiado interés, ¿cuánto interés tienes para continuar estudiando inmediatamente después de graduarte del bachillerato?"
         colorType="default"
         selectedValue={String(formData.interes_estudios_post_bachillerato || 0)}
         onChange={handleChange}
@@ -1485,7 +1485,7 @@ function Form({ handleFormSubmit }) {
       <RatingSelector
         start={0}
         end={10}
-        label="En una escala de 0 a 10, donde 0 es nada probable y 10 totalmente probable, ¿qué tan probable es que consideres abandonar tus estudios antes de graduarte?"
+        label="Del 0 a 10, donde 0 es nada probable y 10 totalmente probable, ¿qué tan probable es que consideres abandonar tus estudios antes de graduarte?"
         colorType="default"
         selectedValue={String(formData.probabilidad_abandonar_estudios || 0)}
         onChange={handleChange}
@@ -1505,19 +1505,19 @@ function Form({ handleFormSubmit }) {
     ],
     [
       <Select
-        key="maximo_nivel_educativo_soñado"
-        label="Teniendo en cuenta tus metas y expectativas de vida ¿Cuál es el máximo nivel educativo que sueñas alcanzar en tu vida?"
-        name="maximo_nivel_educativo_soñado"
+        key="maximo_nivel_educativo_sonado"
+        label="Teniendo en cuenta tus objetivos y expectativas de vida, ¿cuál es el máximo nivel educativo que sueñas alcanzar en tu vida?"
+        name="maximo_nivel_educativo_sonado"
         options={maximo_nivel_educativo_Options}
-        value={formData.maximo_nivel_educativo_soñado}
+        value={formData.maximo_nivel_educativo_sonado}
         onChange={handleChange}
         placeholder="Escoge una opcion"
-        error={errors.maximo_nivel_educativo_soñado}
+        error={errors.maximo_nivel_educativo_sonado}
         isOptional={false}
       />,
       <Select
         key="maximo_nivel_educativo_esperado"
-        label="Teniendo en cuenta tus habilidades e intereses ¿Cuál es el máximo nivel educativo que crees vas a alcanzar en tu vida?"
+        label="Teniendo en cuenta tus habilidades e intereses, ¿cuál es el máximo nivel educativo que crees poder alcanzar en tu vida?"
         name="maximo_nivel_educativo_esperado"
         options={maximo_nivel_educativo_Options}
         value={formData.maximo_nivel_educativo_esperado}
@@ -1586,16 +1586,16 @@ function Form({ handleFormSubmit }) {
       <RatingSelector
         start={0}
         end={10}
-        label="En una escala de 0 a 10, siendo 0 nada de interés y 10 demasiado interés, ¿Cuánto es tu interés para buscar oportunidades laborales inmediatamente después de graduarte del bachillerato?"
+        label="Del 0 a 10, siendo 0 nada de interés y 10 demasiado interés, ¿cuánto interés tienes para buscar oportunidades laborales inmediatamente después de graduarte del bachillerato?"
         colorType="default"
-        selectedValue={String(formData.interes_oportunidades_laborales || 0)} // Utiliza 0 como valor predeterminado si es null
+        selectedValue={String(formData.interes_oportunidades_laborales || 0)}
         onChange={handleChange}
         error={errors.interes_oportunidades_laborales}
         isOptional={false}
         name="interes_oportunidades_laborales"
       />,
       <RadioGroup
-        label="Me siento en capacidad para afrontar los retos y desafíos que enfrentaré al ingresar al mercado laboral."
+        label="Me siento en capacidad para responder a los retos y desafíos que enfrentaré al ingresar al mercado laboral."
         options={motivacion_profesores_emprenderOptions}
         name="capacidad_afrontar_desafios_laborales"
         selectedValue={formData.capacidad_afrontar_desafios_laborales}
@@ -1604,16 +1604,16 @@ function Form({ handleFormSubmit }) {
       />,
       <CheckboxGroup
         label="Marca las actividades que hayas realizado en el último año:"
-        name="actividades_realizadas_ultimo_año"
-        options={actividades_realizadas_ultimo_añoOptions}
+        name="actividades_realizadas_ultimo_ano"
+        options={actividades_realizadas_ultimo_anoOptions}
         selectedValues={
-          formData.actividades_realizadas_ultimo_año
-            ? formData.actividades_realizadas_ultimo_año.split(",")
+          formData.actividades_realizadas_ultimo_ano
+            ? formData.actividades_realizadas_ultimo_ano.split(",")
             : []
         }
         onChange={handleChange}
         maxSelections={7}
-        error={errors.actividades_realizadas_ultimo_año}
+        error={errors.actividades_realizadas_ultimo_ano}
       />,
       <CheckboxGroup
         label="¿Cuál de las siguientes opciones representa mejor lo que planeas hacer al graduarte? Selecciona máximo 3 respuestas"
@@ -1639,7 +1639,7 @@ function Form({ handleFormSubmit }) {
     ],
     [
       <RadioGroup
-        label="Considero que mi familia y/o comunidad me brindan el apoyo necesario para alcanzar mis metas profesionales."
+        label="Considero que mi familia me brinda el apoyo necesario para alcanzar mis metas profesionales."
         options={motivacion_profesores_emprenderOptions}
         name="apoyo_familiar_metas_profesionales"
         selectedValue={formData.apoyo_familiar_metas_profesionales}
