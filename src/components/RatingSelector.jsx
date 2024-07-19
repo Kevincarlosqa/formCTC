@@ -87,7 +87,7 @@ const RatingSelector = ({
   const colors = generateColors(count, colorType);
 
   return (
-    <div className="mb-2 text-white">
+    <div className="mb-2 text-white" key={name}>
       {label && (
         <label className="block mb-2 text-sm font-medium">{label}</label>
       )}

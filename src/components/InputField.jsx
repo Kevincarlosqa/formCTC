@@ -14,7 +14,7 @@ const InputField = ({
   isOptional,
 }) => {
   const [touched, setTouched] = useState(false);
-
+  const [localError, setLocalError] = useState("");
   const handleChange = (event) => {
     const { value } = event.target;
 
@@ -30,23 +30,31 @@ const InputField = ({
 
   const handleBlur = () => {
     setTouched(true);
+    if (type === "email") {
+      const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+      if (!isValidEmail) {
+        setLocalError("Formato de correo electrónico no válido");
+      } else {
+        setLocalError("");
+      }
+    }
     onBlur && onBlur(name);
   };
 
   return (
-    <div className="mb-1 text-white">
+    <div className="mb-1 text-white" key={name}>
       <label htmlFor={name} className="block mb-2 text-sm font-medium">
         {label}
         {isOptional && <span className="text-gray-500"> (Opcional)</span>}
       </label>
       <input
-        type={type === "number" ? "text" : type}
+        type={type == "number" ? "text" : type}
         name={name}
         value={value}
         onChange={handleChange}
         onBlur={handleBlur}
         placeholder={placeholder}
-        pattern={type === "number" ? "^[0-9+]*$" : undefined}
+        pattern={type == "number" ? "^[0-9+]*$" : undefined}
         className="shadow-sm bg-black/40 border border-gray-600 text-sm rounded-lg block w-full p-2.5"
       />
       {example && <p className="text-[11px] px-2 pt-1">{example}</p>}
@@ -55,7 +63,11 @@ const InputField = ({
           Este campo es requerido
         </p>
       )}
-      {error && <p className="text-red-500 text-[11px] px-2 pt-1">{error}</p>}
+      {(localError || error) && (
+        <p className="text-red-500 text-[11px] px-2 pt-1">
+          {localError || error}
+        </p>
+      )}
     </div>
   );
 };

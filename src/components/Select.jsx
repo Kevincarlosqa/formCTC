@@ -16,7 +16,7 @@ const Select = ({
   };
 
   return (
-    <div className="text-white">
+    <div className="text-white" key={name}>
       {label && (
         <label className="block mb-2 text-sm font-medium">
           {label}
