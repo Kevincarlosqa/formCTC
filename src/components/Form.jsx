@@ -182,19 +182,22 @@ function Form({ handleFormSubmit }) {
     { label: "Prefiero no Responder", value: "Prefiero no Responder" },
   ];
   const institucionOptions = [
-    { label: "Villas de San Pablo", value: "Villas de San Pablo" },
     {
-      label: "Escuela Normal Superior del Distrito",
-      value: "Escuela Normal Superior del Distrito",
+      label: "IED De Experiencias Pedagógicas",
+      value: "IED De Experiencias Pedagógicas",
     },
-    { label: "Juan José Rondón", value: "Juan José Rondón" },
     {
-      label: "Escuela Normal Superior La Hacienda",
-      value: "Escuela Normal Superior La Hacienda",
+      label: "IED María Auxiliadora",
+      value: "IED María Auxiliadora",
     },
-    { label: "Marie Poussepin", value: "Marie Poussepin" },
-    { label: "Fundación Pies Descalzos", value: "Fundación Pies Descalzos" },
-    { label: "Comunitaria Metropolitana", value: "Comunitaria Metropolitana" },
+    {
+      label: "IED Miguel Angel Builes",
+      value: "IED Miguel Angel Builes",
+    },
+    {
+      label: "IED Rodolfo Llinas Riascos",
+      value: "IED Rodolfo Llinas Riascos",
+    },
   ];
   const genderOptions = [
     { label: "Masculino", value: "Masculino" },
