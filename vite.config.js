@@ -6,16 +6,16 @@ import { createHtmlPlugin } from 'vite-plugin-html';
 export default defineConfig({
   //DESCOMENTAR SOLO EL PRIMERO PARA PRODUCCION
   plugins: [react()
-  //   , 
-  //   createHtmlPlugin({
-  //   inject: {
-  //     injectData: {
-  //       head: `
-  //         <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
-  //       `,
-  //     },
-  //   },
-  // }),
+    , 
+    createHtmlPlugin({
+    inject: {
+      injectData: {
+        head: `
+          <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+        `,
+      },
+    },
+  }),
 ],
 // server: {
 //   proxy: {
@@ -27,3 +27,4 @@ export default defineConfig({
 //   }
 // }
 })
+//lcp --proxyUrl http://sheets.devcrackthecode.net/api/v1/db/data/v1/crack_sheets/test_ingreso
