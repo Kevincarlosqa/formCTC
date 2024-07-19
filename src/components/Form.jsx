@@ -147,8 +147,8 @@ function Form({ handleFormSubmit }) {
     try {
       const response = await axios.post(
         //DESCOMENTAR SOLO EL PRIMERO PARA PRODUCCION
-        "api/v1/db/data/v1/crack_sheets/test_ingreso",
-        // "http://localhost:8010/proxy",
+        // "api/v1/db/data/v1/crack_sheets/test_ingreso",
+        "http://localhost:8010/proxy",
         formData,
         {
           headers: {
@@ -1730,6 +1730,12 @@ function Form({ handleFormSubmit }) {
     currentPageFields.forEach((field) => {
       if (!optionalFields.includes(field) && !formData[field]) {
         newErrors[field] = "Este campo es requerido";
+      }
+      if (field === "correo_personal" && formData[field]) {
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(formData[field])) {
+          newErrors[field] = "Ingrese un correo electrónico válido";
+        }
       }
     });
 

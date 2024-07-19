@@ -32,7 +32,6 @@ const DateInput = ({
   name,
   value,
   onChange,
-  placeholder,
   example,
   error,
   isOptional,
@@ -54,7 +53,7 @@ const DateInput = ({
   }, [day, month, year]);
 
   return (
-    <div className="mb-1 text-white">
+    <div className="mb-1 text-white" key={name}>
       <label htmlFor={name} className="block mb-2 text-sm font-medium">
         {label}
         {isOptional && <span className="text-gray-500"> (Opcional)</span>}
