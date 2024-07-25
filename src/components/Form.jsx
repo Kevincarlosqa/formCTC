@@ -128,6 +128,9 @@ function Form({ handleFormSubmit }) {
     "detalle_bolsas_trabajo",
     "detalle_fuentes_informacion",
     "detalle_planes_futuros",
+    "multiplicacion_3x7",
+    "suma_45_136",
+    "suma_8_8",
   ];
 
   const handleSubmit = async (e) => {
