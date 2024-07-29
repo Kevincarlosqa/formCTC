@@ -969,13 +969,11 @@ function Form({ handleFormSubmit }) {
         onChange={handleChange}
         error={errors.identidad_cultural}
       />,
-      <CheckboxGroup
+      <RadioGroup
         label="Indica si presentas alguna de las siguientes dificultades:"
         options={dificultadesOptions}
         name="dificultades"
-        selectedValues={
-          formData.dificultades ? formData.dificultades.split(",") : []
-        }
+        selectedValues={formData.dificultades}
         selectedValue={formData.dificultades}
         onChange={handleChange}
         error={errors.dificultades}
