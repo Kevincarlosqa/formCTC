@@ -13,100 +13,106 @@ import InputField from "./InputField";
 
 // eslint-disable-next-line react/prop-types
 function Form({ handleFormSubmit }) {
-  const [formData, setFormData] = useState({
-    nombre_completo: "",
-    genero: "",
-    institucion_educativa: "",
-    grado_actual: "",
-    seccion: "",
-    correo_personal: "",
-    celular: "",
-    propietario_numero: "",
-    documento_identidad: "",
-    numero_documento: "",
-    fecha_nacimiento: "",
-    identidad_cultural: "",
-    dificultades: "",
-    nivel_educativo_hogar: "",
-    celular_inteligente: "",
-    linea_celular: "",
-    computador_hogar: "",
-    conexion_internet: "",
-    tecnologia_vida_diaria: "",
-    importancia_habilidades_digitales: "",
-    tecnologia_aprendizaje: "",
-    confianza_ia_academico: "",
-    confianza_ia_personal: "",
-    trabajo_casa: "",
-    cuidado_personas_casa: "",
-    ocupacion_responsable_hogar: "",
-    liderazgo_comunidad: "",
-    motivacion_proyectos_tecnologicos: "",
-    funcion_ia: "",
-    uso_correcto_ia: "",
-    herramientas_ia_usadas: "",
-    detalle_herramientas_ia: "",
-    proyecto_con_ia: "",
-    funcion_excel: "",
-    uso_excel: "",
-    suma_45_136: "",
-    frecuencia_uso_excel: "",
-    funciones_tareas_excel: "",
-    otras_funciones_excel: "",
-    buscar_programas_educativos: "",
-    reconocimiento_entidades_educativas: "",
-    aspectos_para_elegir_programa: "",
-    informacion_programas_superiores: "",
-    conocimiento_gustos_intereses: "",
-    como_hacer_hoja_de_vida: "",
-    reconocimiento_empresas_para_trabajar: "",
-    conocimiento_condiciones_laborales: "",
-    conocimiento_salarios_promedio: "",
-    sitios_busqueda_trabajo: "",
-    detalle_bolsas_trabajo: "",
-    buscar_ofertas_laborales: "",
-    informacion_oportunidades_laborales: "",
-    habilidades_necesarias_trabajo: "",
-    temas_de_interes: "",
-    fuentes_informacion_educativa_laboral: "",
-    detalle_fuentes_informacion: "",
-    analisis_de_opciones: "",
-    solicitud_de_apoyo: "",
-    estrategia_de_aprendizaje: "",
-    organizacion_de_tareas: "",
-    disposicion_para_aprender: "",
-    manejo_de_emociones: "",
-    asegurar_comprension_equipo: "",
-    manejo_de_incumplimiento: "",
-    educacion_superior_vida_exitosa: "",
-    interes_estudios_post_bachillerato: "",
-    probabilidad_abandonar_estudios: "",
-    motivo_abandonar_estudios: "",
-    maximo_nivel_educativo_sonado: "",
-    maximo_nivel_educativo_esperado: "",
-    miembros_familia_que_apoyan: "",
-    apoyo_familiar_continuar_estudios: "",
-    apoyo_economico_familiar: "",
-    influencia_familiar_estudios: "",
-    apoyo_financiero_becas: "",
-    ayuda_profesores_reconocimiento_habilidades: "",
-    actividades_profesores_decisiones_futuras: "",
-    interes_oportunidades_laborales: "",
-    capacidad_afrontar_desafios_laborales: "",
-    actividades_realizadas_ultimo_ano: "",
-    planes_post_graduacion: "",
-    detalle_planes_futuros: "",
-    apoyo_familiar_metas_profesionales: "",
-    ayuda_familiar_busqueda_trabajo: "",
-    motivacion_familiar_metas_vida: "",
-    motivacion_familiar_conseguir_trabajo: "",
-    motivacion_familiar_emprender: "",
-    influencia_familiar_trabajo: "",
-    motivacion_profesores_metas_vida: "",
-    motivacion_profesores_emprender: "",
-    tipo_grupo: "Grupo Control",
+  const [formData, setFormData] = useState(() => {
+    const savedFormData = localStorage.getItem("formData");
+    if (savedFormData) {
+      return JSON.parse(savedFormData);
+    }
+    return {
+      nombre_completo: "",
+      genero: "",
+      institucion_educativa: "",
+      grado_actual: "",
+      seccion: "",
+      correo_personal: "",
+      celular: "",
+      propietario_numero: "",
+      documento_identidad: "",
+      numero_documento: "",
+      fecha_nacimiento: "",
+      identidad_cultural: "",
+      dificultades: "",
+      nivel_educativo_hogar: "",
+      celular_inteligente: "",
+      linea_celular: "",
+      computador_hogar: "",
+      conexion_internet: "",
+      tecnologia_vida_diaria: "",
+      importancia_habilidades_digitales: "",
+      tecnologia_aprendizaje: "",
+      confianza_ia_academico: "",
+      confianza_ia_personal: "",
+      trabajo_casa: "",
+      cuidado_personas_casa: "",
+      ocupacion_responsable_hogar: "",
+      liderazgo_comunidad: "",
+      motivacion_proyectos_tecnologicos: "",
+      funcion_ia: "",
+      uso_correcto_ia: "",
+      herramientas_ia_usadas: "",
+      detalle_herramientas_ia: "",
+      proyecto_con_ia: "",
+      funcion_excel: "",
+      uso_excel: "",
+      suma_45_136: "",
+      frecuencia_uso_excel: "",
+      funciones_tareas_excel: "",
+      otras_funciones_excel: "",
+      buscar_programas_educativos: "",
+      reconocimiento_entidades_educativas: "",
+      aspectos_para_elegir_programa: "",
+      informacion_programas_superiores: "",
+      conocimiento_gustos_intereses: "",
+      como_hacer_hoja_de_vida: "",
+      reconocimiento_empresas_para_trabajar: "",
+      conocimiento_condiciones_laborales: "",
+      conocimiento_salarios_promedio: "",
+      sitios_busqueda_trabajo: "",
+      detalle_bolsas_trabajo: "",
+      buscar_ofertas_laborales: "",
+      informacion_oportunidades_laborales: "",
+      habilidades_necesarias_trabajo: "",
+      temas_de_interes: "",
+      fuentes_informacion_educativa_laboral: "",
+      detalle_fuentes_informacion: "",
+      analisis_de_opciones: "",
+      solicitud_de_apoyo: "",
+      estrategia_de_aprendizaje: "",
+      organizacion_de_tareas: "",
+      disposicion_para_aprender: "",
+      manejo_de_emociones: "",
+      asegurar_comprension_equipo: "",
+      manejo_de_incumplimiento: "",
+      educacion_superior_vida_exitosa: "",
+      interes_estudios_post_bachillerato: "",
+      probabilidad_abandonar_estudios: "",
+      motivo_abandonar_estudios: "",
+      maximo_nivel_educativo_sonado: "",
+      maximo_nivel_educativo_esperado: "",
+      miembros_familia_que_apoyan: "",
+      apoyo_familiar_continuar_estudios: "",
+      apoyo_economico_familiar: "",
+      influencia_familiar_estudios: "",
+      apoyo_financiero_becas: "",
+      ayuda_profesores_reconocimiento_habilidades: "",
+      actividades_profesores_decisiones_futuras: "",
+      interes_oportunidades_laborales: "",
+      capacidad_afrontar_desafios_laborales: "",
+      actividades_realizadas_ultimo_ano: "",
+      planes_post_graduacion: "",
+      detalle_planes_futuros: "",
+      apoyo_familiar_metas_profesionales: "",
+      ayuda_familiar_busqueda_trabajo: "",
+      motivacion_familiar_metas_vida: "",
+      motivacion_familiar_conseguir_trabajo: "",
+      motivacion_familiar_emprender: "",
+      influencia_familiar_trabajo: "",
+      motivacion_profesores_metas_vida: "",
+      motivacion_profesores_emprender: "",
+      tipo_grupo: "Grupo Control",
 
-    projectId: 19,
+      projectId: 19,
+    };
   });
   const [currentPage, setCurrentPage] = useState(0);
   const [successMessage, setSuccessMessage] = useState("");
@@ -132,6 +138,33 @@ function Form({ handleFormSubmit }) {
     "suma_45_136",
     "suma_8_8",
   ];
+
+  useEffect(() => {
+    console.log("Cargando datos del localStorage...");
+    try {
+      const savedFormData = localStorage.getItem("formData");
+      if (savedFormData) {
+        const parsedData = JSON.parse(savedFormData);
+        if (parsedData && typeof parsedData === "object") {
+          setFormData(parsedData);
+        }
+      }
+    } catch (error) {
+      console.error("Error al cargar datos del localStorage:", error);
+    }
+  }, []);
+
+  useEffect(() => {
+    console.log("Guardando datos en localStorage:", formData);
+    try {
+      // Solo guarda en localStorage si formData tiene algún valor significativo
+      if (Object.values(formData).some((value) => value !== "")) {
+        localStorage.setItem("formData", JSON.stringify(formData));
+      }
+    } catch (error) {
+      console.error("Error al guardar datos en localStorage:", error);
+    }
+  }, [formData]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -163,6 +196,7 @@ function Form({ handleFormSubmit }) {
         `¡Gracias ${formData.nombre_completo} por tus respuestas!`
       );
       setErrorMessage("");
+      localStorage.removeItem("formData");
     } catch (error) {
       console.error("Error al enviar los datos:", error);
       setErrorMessage("Error al enviar los datos. Inténtelo de nuevo.");
