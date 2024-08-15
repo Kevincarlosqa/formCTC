@@ -923,7 +923,7 @@ function Form({ handleFormSubmit }) {
       />,
       <Select
         key="seccion"
-        label="Sección a la que perteneces"
+        label="Grupo al que perteneces"
         name="seccion"
         options={seccionOptions}
         value={formData.seccion}
